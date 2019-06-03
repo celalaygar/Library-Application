@@ -8,33 +8,27 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
-@Entity
-@Table(name="author")
+@Data
 public class AuthorDto {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@NotNull
 	private Long id;
 	
 	@NotNull
-	@Column(name="name",length=100,unique=true)
 	private String name;
 	
 	@NotNull
-	@Column(name="surname",length=100)
 	private String surname;
 	
-	@Column(name="about",length=300)
 	private String about;
 	
-	@Column(name="email",length=100)
 	private String email;
 	
-	@Column(name="phone",length=100)
 	private String phone;
 
 

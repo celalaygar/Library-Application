@@ -7,31 +7,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
-@Table(name="users" , indexes = {@Index(name = "idx_username", columnList = "uname")})
+@Data
 public class UserDto {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@NotNull
 	private Long id;
 	
-	@Column(name="uname",length=100,unique=true)
 	private String username;
 	
-	@Column(name="pwd",length=300)
 	private String password;	
 	
-	@Column(name="surname",length=100)
 	private String surname;
-	
-	@Column(name="email",length=100)
+
+	@NotNull
 	private String email;
 
 
