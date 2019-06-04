@@ -38,14 +38,21 @@ public class BookServiceImp {
 		this.bookRepository=bookRepository;
 	}
 	
-	public boolean save(BookDto bookDto) {
+	public BookDto save(BookDto bookDto) {
 		Book bookChecked=bookRepository.findByName(bookDto.getName());
+		Author author=authorRepository.getOne(bookDto.getAuthorid());
 		if(bookChecked !=null) {
-			throw new IllegalArgumentException("User email already exist");
+			throw new IllegalArgumentException("book already exist");
+		}
+		if(author == null) {
+			throw new IllegalArgumentException("author doesn't exist");
 		}
 		Book book=modelMapper.map(bookDto, Book.class);
+		book.setAuthor(author);
 		bookRepository.save(book);
-		return true;
+		bookDto.setId(book.getId());
+		bookDto.setAuthor(modelMapper.map(author, AuthorDto.class));
+		return bookDto;
 	}
 	
 	public List<BookDto> getAll() throws NotFoundException {

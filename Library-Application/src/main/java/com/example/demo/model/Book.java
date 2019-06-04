@@ -26,7 +26,7 @@ public class Book {
 	private Long id;
 	@Column(name="name",length=300)
 	private String name;
-	@Column(name="content",length=300)
+	@Column(name="content",length=3000)
 	private String content;
 	@Column(name="barcode",length=300)
 	private String barcode;

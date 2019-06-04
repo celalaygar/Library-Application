@@ -1,4 +1,4 @@
-## Library-Application (This project is beeing building by me)
+## Library-Application (This project is beeing built by me)
 This project is about Library Application
 #### Using Tools & Technologies
 ``` 
@@ -40,8 +40,7 @@ CREATE TABLE public.author
     about character varying(300) COLLATE pg_catalog."default",
     name character varying(100) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT author_pkey PRIMARY KEY (id),
-    CONSTRAINT uk_go0gdk91kpgq94qg6ckgejdi4 UNIQUE (fname)
-,
+    CONSTRAINT uk_go0gdk91kpgq94qg6ckgejdi4 UNIQUE (fname),
     CONSTRAINT uk_or6k6jmywerxbme223c988bmg UNIQUE (name)
 
 )

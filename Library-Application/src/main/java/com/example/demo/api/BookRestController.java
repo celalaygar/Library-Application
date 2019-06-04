@@ -11,32 +11,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.AuthorDto;
+import com.example.demo.dto.BookDto;
 import com.example.demo.service.imp.AuthorServiceImp;
+import com.example.demo.service.imp.BookServiceImp;
 import com.example.demo.util.ApiPaths;
 
 import javassist.NotFoundException;
 
 @RestController
-@RequestMapping(ApiPaths.AuthorCtrl.CTRL)
-public class AuthorRestController {
+@RequestMapping(ApiPaths.BookCtrl.CTRL)
+public class BookRestController {
 	
 	private final AuthorServiceImp authorServiceImp;
+	private final BookServiceImp bookServiceImp;
 	
-	public AuthorRestController(AuthorServiceImp authorServiceImp) {
+	public BookRestController(AuthorServiceImp authorServiceImp,
+								BookServiceImp bookServiceImp) {
 		super();
 		this.authorServiceImp = authorServiceImp;
+		this.bookServiceImp = bookServiceImp;
 	}
 	
 	
     @GetMapping()
-    public ResponseEntity<List<AuthorDto>> getAll() throws NotFoundException {
-        List<AuthorDto> authorDtos = authorServiceImp.getAll();
-        return ResponseEntity.ok(authorDtos);
+    public ResponseEntity<List<BookDto>> getAll() throws NotFoundException {
+        List<BookDto> bookDtos = bookServiceImp.getAll();
+        return ResponseEntity.ok(bookDtos);
     }
     
 
 	@PostMapping()
-	public ResponseEntity<AuthorDto> createProject(@Valid @RequestBody AuthorDto authorDto){
-		return ResponseEntity.ok(authorServiceImp.save(authorDto));
+	public ResponseEntity<BookDto> createProject(@Valid @RequestBody BookDto bookDto){
+		return ResponseEntity.ok(bookServiceImp.save(bookDto));
 	}
 }

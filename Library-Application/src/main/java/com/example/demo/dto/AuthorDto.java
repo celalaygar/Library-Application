@@ -16,7 +16,6 @@ import lombok.Setter;
 @Data
 public class AuthorDto {
 
-	@NotNull
 	private Long id;
 	
 	@NotNull

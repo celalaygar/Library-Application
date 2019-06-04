@@ -31,6 +31,4 @@ public class UserDto {
 	@NotNull
 	private String email;
 
-
-
 }

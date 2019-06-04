@@ -38,6 +38,7 @@ public class AuthorServiceImp {
 		}
 		Author author=modelMapper.map(authorDto, Author.class); 
 		authorRepository.save(author);
+		authorDto.setId(author.getId());
 		return authorDto;
 	}
 	

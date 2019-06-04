@@ -22,12 +22,14 @@ import lombok.Setter;
 @Data
 public class BookDto {
 
-	@NotNull
 	private Long id;
 	@NotNull
 	private String name;
 	
 	private String content;
+	
+	@NotNull
+	private Long authorid;
 	
     private AuthorDto author;
 
