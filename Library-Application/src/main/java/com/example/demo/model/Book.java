@@ -24,14 +24,19 @@ public class Book {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	
 	@Column(name="name",length=300)
 	private String name;
+	
 	@Column(name="content",length=3000)
 	private String content;
+	
 	@Column(name="barcode",length=300)
 	private String barcode;
+	
 	@Column(name="publisher",length=300)
 	private String publisher;
+	
     @JoinColumn(name = "author_id")
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Author author;
