@@ -26,12 +26,15 @@ public class BookDto {
 	@NotNull
 	private String name;
 	
-	private String content;
 	
 	@NotNull
 	private Long authorid;
 	
+	@NotNull
+	private String barcode;
+	
     private AuthorDto author;
 
-
+	@NotNull
+	private String publisher;
 }

@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.AuthorDto;
 import com.example.demo.dto.BookDto;
+import com.example.demo.dto.BookUpdateDto;
 import com.example.demo.dto.UserDto;
 import com.example.demo.model.Author;
 import com.example.demo.model.Book;
@@ -44,6 +46,7 @@ public class BookServiceImp {
 		if(bookChecked !=null) {
 			throw new IllegalArgumentException("book already exist");
 		}
+		
 		if(author == null) {
 			throw new IllegalArgumentException("author doesn't exist");
 		}
@@ -61,6 +64,36 @@ public class BookServiceImp {
 			throw new NotFoundException("Book don't already exist");
 		}
 		BookDto[] bookDtos=modelMapper.map(books, BookDto[].class);
-		return Arrays.asList(bookDtos);
+		List<BookDto> listbookDtos=Arrays.asList(bookDtos);
+		listbookDtos.forEach(data->data.setAuthorid(data.getAuthor().getId()));
+		return listbookDtos;
+	}
+	
+	
+    @Transactional
+    public BookUpdateDto update(Long id, BookUpdateDto bookUpdateDto) {
+        Book book = bookRepository.getOne(id);
+        Author author =  authorRepository.getOne(bookUpdateDto.getAuthorid());
+        
+        book.setName(bookUpdateDto.getName());
+        book.setAuthor(author);
+        book.setBarcode(bookUpdateDto.getBarcode());
+        book.setContent(bookUpdateDto.getContent());
+        book.setPublisher(bookUpdateDto.getPublisher());
+
+        bookRepository.save(book);
+        bookUpdateDto=modelMapper.map(book, BookUpdateDto.class);
+        bookUpdateDto.setAuthorid(author.getId());
+        return bookUpdateDto;
+    }
+
+	public Boolean delete(Long id) {
+		Book book = bookRepository.getOne(id);
+		if(book==null) {
+			throw new IllegalArgumentException("Book does not exist id : "+id);
+			
+		}
+		bookRepository.deleteById(id);
+		return true;
 	}
 }

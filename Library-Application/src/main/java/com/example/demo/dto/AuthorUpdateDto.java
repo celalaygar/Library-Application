@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Data
-public class AuthorDto {
+public class AuthorUpdateDto {
 
 	private Long id;
 	
@@ -24,6 +24,7 @@ public class AuthorDto {
 	@NotNull
 	private String surname;
 	
+	private String about;
 	
 	private String email;
 	
