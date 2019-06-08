@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.AuthorDto;
+import com.example.demo.dto.AuthorOneDto;
 import com.example.demo.dto.AuthorUpdateDto;
 import com.example.demo.dto.BookUpdateDto;
 import com.example.demo.dto.UserDto;
@@ -25,7 +26,6 @@ public class AuthorServiceImp {
 	private final ModelMapper modelMapper;
 	private final UserRepository userRepository;
 	private final AuthorRepository authorRepository;
-	
 	
 	
 	public AuthorServiceImp(ModelMapper modelMapper,UserRepository userRepository,AuthorRepository authorRepository) {
@@ -56,16 +56,38 @@ public class AuthorServiceImp {
 		return Arrays.asList(authorDto);
 	}
 
-	public AuthorUpdateDto update(Long id, @Valid AuthorUpdateDto authorUpdateDto) {
+	public AuthorUpdateDto update(Long id, @Valid AuthorUpdateDto authorUpdateDto) throws NotFoundException {
+		try {
+			Author author=authorRepository.getOne(id);
+	        author=modelMapper.map(authorUpdateDto, Author.class);
+	        author.setId(id);
+	        authorRepository.save(author);
+	        authorUpdateDto.setId(author.getId());
+	        return authorUpdateDto;
+		} catch (Exception e) {
+			throw new NotFoundException("User email dosen't exist");
+		}
+	}
+
+	public AuthorOneDto getOne(Long id) {
 		Author author=authorRepository.getOne(id);
 		if(author == null) {
 			throw new IllegalArgumentException("User email dosen't exist");
 		}
 
-        author=modelMapper.map(authorUpdateDto, Author.class);
-        author.setId(id);
-        authorRepository.save(author);
-        authorUpdateDto.setId(author.getId());
-        return authorUpdateDto;
+		AuthorOneDto authorOneDto=modelMapper.map(author, AuthorOneDto.class);
+		authorOneDto.setId(id);
+		authorOneDto.getBooks().forEach(data->{ data.setAuthorId(id); });
+        return authorOneDto;
+	}
+
+	public Boolean delete(Long id) throws NotFoundException {
+		try {
+			Author author=authorRepository.getOne(id);
+			authorRepository.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			throw new NotFoundException("User email dosen't exist");
+		}
 	}
 }

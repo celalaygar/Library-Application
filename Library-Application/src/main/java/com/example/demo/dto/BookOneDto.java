@@ -20,18 +20,24 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Data
-public class BookDto {
+public class BookOneDto {
 
 	private Long id;
 	@NotNull
 	private String name;
-	@NotNull
-	private String barcode;
+	
+	private String content;
 	@NotNull
 	private String publisher;
-
-    private AuthorDto author;
+	
+	private Long custoomerId;
+	
+	@NotNull
+	private String barcode;
 
 	@NotNull
 	private Long authorId;
+	
+    private AuthorDto author;
+
 }

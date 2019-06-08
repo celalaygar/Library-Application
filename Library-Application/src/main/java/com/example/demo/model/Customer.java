@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -21,30 +22,25 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name="author")
-public class Author {
+@Table(name="customer")
+public class Customer {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
 	@NotNull
-	@Column(name="name",length=100,unique=true)
-	private String name;
+	@Column(name="fullname",length=100,unique=true)
+	private String fullname;
 	
-	@Column(name="about",length=3000)
-	private String about;
-	
-	@NotNull
-	@Column(name="surname",length=100)
-	private String surname;
+	@Column(name="job",length=3000)
+	private String job;
 	
 	@Column(name="email",length=100,unique = true)
 	private String email;
 	
 	@Column(name="phone",length=100)
 	private String phone;
-	
-	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<Book> books;
+
+
 }

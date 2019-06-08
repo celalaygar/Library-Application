@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.AuthorDto;
+import com.example.demo.dto.AuthorOneDto;
 import com.example.demo.dto.BookDto;
+import com.example.demo.dto.BookOneDto;
 import com.example.demo.dto.BookUpdateDto;
 import com.example.demo.dto.UserDto;
 import com.example.demo.model.Author;
@@ -42,13 +44,12 @@ public class BookServiceImp {
 	
 	public BookDto save(BookDto bookDto) {
 		Book bookChecked=bookRepository.findByName(bookDto.getName());
-		Author author=authorRepository.getOne(bookDto.getAuthorid());
+		Author author=authorRepository.getOne(bookDto.getAuthorId());
 		if(bookChecked !=null) {
 			throw new IllegalArgumentException("book already exist");
 		}
-		
-		if(author == null) {
-			throw new IllegalArgumentException("author doesn't exist");
+		if(author.getId() != bookDto.getAuthorId()) {
+			throw new IllegalArgumentException("Author does not match");
 		}
 		Book book=modelMapper.map(bookDto, Book.class);
 		book.setAuthor(author);
@@ -65,7 +66,7 @@ public class BookServiceImp {
 		}
 		BookDto[] bookDtos=modelMapper.map(books, BookDto[].class);
 		List<BookDto> listbookDtos=Arrays.asList(bookDtos);
-		listbookDtos.forEach(data->data.setAuthorid(data.getAuthor().getId()));
+		listbookDtos.forEach(data->data.setAuthorId(data.getAuthor().getId()));
 		return listbookDtos;
 	}
 	
@@ -73,7 +74,7 @@ public class BookServiceImp {
     @Transactional
     public BookUpdateDto update(Long id, BookUpdateDto bookUpdateDto) {
         Book book = bookRepository.getOne(id);
-        Author author =  authorRepository.getOne(bookUpdateDto.getAuthorid());
+        Author author =  authorRepository.getOne(bookUpdateDto.getAuthorId());
         
         book.setName(bookUpdateDto.getName());
         book.setAuthor(author);
@@ -83,17 +84,28 @@ public class BookServiceImp {
 
         bookRepository.save(book);
         bookUpdateDto=modelMapper.map(book, BookUpdateDto.class);
-        bookUpdateDto.setAuthorid(author.getId());
+        bookUpdateDto.setAuthorId(author.getId());
         return bookUpdateDto;
     }
-
-	public Boolean delete(Long id) {
-		Book book = bookRepository.getOne(id);
-		if(book==null) {
-			throw new IllegalArgumentException("Book does not exist id : "+id);
-			
+	public BookOneDto getOne(Long id) throws NotFoundException {
+		try {
+			Book book = bookRepository.getOne(id);
+			BookOneDto bookOneDto=modelMapper.map(book, BookOneDto.class);
+			bookOneDto.setId(id);
+			bookOneDto.setAuthorId(bookOneDto.getAuthor().getId());
+	        return bookOneDto;
+		} catch (Exception e) {
+			throw new NotFoundException("Book does not exist id : "+id);
 		}
-		bookRepository.deleteById(id);
-		return true;
+	}
+
+	public Boolean delete(Long id) throws NotFoundException {
+		try {
+			Book book = bookRepository.getOne(id);
+			bookRepository.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			throw new NotFoundException("Book does not exist id : "+id);
+		}
 	}
 }

@@ -29,7 +29,7 @@ public class BookUpdateDto {
 	private String content;
 	
 	@NotNull
-	private Long authorid;
+	private Long authorId;
 	
 	@NotNull
 	private String barcode;
