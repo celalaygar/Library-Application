@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.AuthorDto;
 import com.example.demo.dto.AuthorOneDto;
 import com.example.demo.dto.AuthorUpdateDto;
+import com.example.demo.dto.BookDto;
 import com.example.demo.dto.BookUpdateDto;
 import com.example.demo.service.imp.AuthorServiceImp;
 import com.example.demo.util.ApiPaths;
+import com.example.demo.util.TPage;
 
 import javassist.NotFoundException;
 
@@ -40,6 +43,13 @@ public class AuthorRestController {
         List<AuthorDto> authorDtos = authorServiceImp.getAll();
         return ResponseEntity.ok(authorDtos);
     }
+	//localhost:8182/api/author/pagination?page=1&size=3
+    @GetMapping("/pagination")
+    public ResponseEntity<TPage<AuthorDto>> getAllByPagination(Pageable pageable) {
+        TPage<AuthorDto> data = authorServiceImp.getAllPageable(pageable);
+        return ResponseEntity.ok(data);
+    }
+    
     
     //http://localhost:8182/api/author/2
     @GetMapping("/{id}")

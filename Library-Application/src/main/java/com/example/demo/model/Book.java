@@ -3,6 +3,8 @@ package com.example.demo.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -40,6 +42,10 @@ public class Book {
 	
 	@Column(name="publisher",length=300)
 	private String publisher;
+	
+	@Column(name="bookStatus",length=50)
+	@Enumerated(EnumType.STRING)
+	private BookStatus bookStatus;
 	
 	@NotNull
     @JoinColumn(name = "author_id")

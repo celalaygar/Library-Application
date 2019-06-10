@@ -1,5 +1,7 @@
 package com.example.demo.dto;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,6 +30,8 @@ public class AuthorDto {
 	private String email;
 	
 	private String phone;
+	
+	private List<BookDto> books;
 
 
 }

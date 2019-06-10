@@ -4,6 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +23,7 @@ import com.example.demo.model.User;
 import com.example.demo.repository.AuthorRepository;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.util.TPage;
 
 import javassist.NotFoundException;
 
@@ -60,7 +65,7 @@ public class BookServiceImp {
 	}
 	
 	public List<BookDto> getAll() throws NotFoundException {
-		List<Book> books=bookRepository.findAll();
+		List<Book> books=bookRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
 		if(books.size()<1) {
 			throw new NotFoundException("Book don't already exist");
 		}
@@ -69,7 +74,15 @@ public class BookServiceImp {
 		listbookDtos.forEach(data->data.setAuthorId(data.getAuthor().getId()));
 		return listbookDtos;
 	}
-	
+	public TPage<BookDto> getAllPageable(Pageable pageable) {
+		Page<Book> page=bookRepository.findAll(PageRequest.of(pageable.getPageNumber(), 
+															  pageable.getPageSize(), 
+															  Sort.by(Sort.Direction.ASC, "id")));
+		TPage<BookDto> tPage=new TPage<BookDto>();
+		BookDto[] bookDtos=modelMapper.map(page.getContent(), BookDto[].class);
+		tPage.setStat(page, Arrays.asList(bookDtos));
+		return tPage;
+	}
 	
     @Transactional
     public BookUpdateDto update(Long id, BookUpdateDto bookUpdateDto) {
@@ -108,4 +121,6 @@ public class BookServiceImp {
 			throw new NotFoundException("Book does not exist id : "+id);
 		}
 	}
+
+
 }

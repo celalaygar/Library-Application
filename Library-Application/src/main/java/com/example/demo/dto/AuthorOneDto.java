@@ -28,12 +28,11 @@ public class AuthorOneDto {
 	@NotNull
 	private String surname;
 	
-	
 	private String email;
 	
 	private String phone;
 	
-	private List<BookAttachedDto> books;
+	private List<BookDto> books;
 
 
 }
