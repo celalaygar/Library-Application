@@ -58,20 +58,27 @@ public class AuthorServiceImp {
 		if(authors.size()<1) {
 			throw new NotFoundException("Author don't already exist");
 		}
-		AuthorDto[] authorDto=modelMapper.map(authors, AuthorDto[].class);
-		return Arrays.asList(authorDto);
-	}
-	public TPage<AuthorDto> getAllPageable(Pageable pageable) {
-		Page<Author> page=authorRepository.findAll(PageRequest.of(pageable.getPageNumber(), 
-				  pageable.getPageSize(), 
-				  Sort.by(Sort.Direction.ASC, "id")));
-		TPage<AuthorDto> tPage=new TPage<AuthorDto>();
-		AuthorDto[] authorDtos=modelMapper.map(page.getContent(), AuthorDto[].class);
+		AuthorDto[] authorDtos=modelMapper.map(authors, AuthorDto[].class);
 		Arrays.asList(authorDtos).forEach(author->{
-			author.getBooks().forEach(aa->{ aa.setAuthor(null); });
+			author.getBooks().forEach(book->{ book.setAuthor(null);  });
 		});
-		tPage.setStat(page, Arrays.asList(authorDtos));
-		return tPage;
+		return Arrays.asList(authorDtos);
+	}
+	public TPage<AuthorDto> getAllPageable(Pageable pageable) throws NotFoundException {
+		try {
+			Page<Author> page=authorRepository.findAll(PageRequest.of(pageable.getPageNumber(), 
+					  pageable.getPageSize(), 
+					  Sort.by(Sort.Direction.ASC, "id")));
+			TPage<AuthorDto> tPage=new TPage<AuthorDto>();
+			AuthorDto[] authorDtos=modelMapper.map(page.getContent(), AuthorDto[].class);
+			Arrays.asList(authorDtos).forEach(author->{
+				author.getBooks().forEach(book->{ book.setAuthor(null); });
+			});
+			tPage.setStat(page, Arrays.asList(authorDtos));
+			return tPage;
+		} catch (Exception e) {
+			throw new NotFoundException("User email dosen't exist : "+e);
+		}
 	}
 	public AuthorUpdateDto update(Long id, @Valid AuthorUpdateDto authorUpdateDto) throws NotFoundException {
 		try {
@@ -82,20 +89,24 @@ public class AuthorServiceImp {
 	        authorUpdateDto.setId(author.getId());
 	        return authorUpdateDto;
 		} catch (Exception e) {
-			throw new NotFoundException("User email dosen't exist");
+			throw new NotFoundException("User email dosen't exist : "+e);
 		}
 	}
 
-	public AuthorOneDto getOne(Long id) {
-		Author author=authorRepository.getOne(id);
-		if(author == null) {
-			throw new IllegalArgumentException("User email dosen't exist");
+	public AuthorOneDto getOne(Long id) throws NotFoundException {
+		try {
+			Author author=authorRepository.getOne(id);
+			if(author == null) {
+				throw new IllegalArgumentException("User email dosen't exist");
+			}
+	
+			AuthorOneDto authorOneDto=modelMapper.map(author, AuthorOneDto.class);
+			authorOneDto.setId(id);
+			authorOneDto.getBooks().forEach(data->{ data.setAuthorId(id); data.setAuthor(null); });
+	        return authorOneDto;
+		} catch (Exception e) {
+			throw new NotFoundException("User email dosen't exist : "+e);
 		}
-
-		AuthorOneDto authorOneDto=modelMapper.map(author, AuthorOneDto.class);
-		authorOneDto.setId(id);
-		authorOneDto.getBooks().forEach(data->{ data.setAuthorId(id); });
-        return authorOneDto;
 	}
 
 	public Boolean delete(Long id) throws NotFoundException {
@@ -104,7 +115,7 @@ public class AuthorServiceImp {
 			authorRepository.deleteById(id);
 			return true;
 		} catch (Exception e) {
-			throw new NotFoundException("User email dosen't exist");
+			throw new NotFoundException("User email dosen't exist : "+e);
 		}
 	}
 

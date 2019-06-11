@@ -65,40 +65,60 @@ public class BookServiceImp {
 	}
 	
 	public List<BookDto> getAll() throws NotFoundException {
-		List<Book> books=bookRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
-		if(books.size()<1) {
-			throw new NotFoundException("Book don't already exist");
+
+		try {
+			List<Book> books=bookRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+			if(books.size()<1) {
+				throw new NotFoundException("Book don't already exist");
+			}
+			BookDto[] bookDtos=modelMapper.map(books, BookDto[].class);
+			Arrays.asList(bookDtos) .forEach(data->{
+				data.setAuthorId(data.getAuthor().getId());
+				data.getAuthor().setBooks(null);
+			});
+			return Arrays.asList(bookDtos);
+		} catch (Exception e) {
+			throw new NotFoundException("Book does not exist : ");
 		}
-		BookDto[] bookDtos=modelMapper.map(books, BookDto[].class);
-		List<BookDto> listbookDtos=Arrays.asList(bookDtos);
-		listbookDtos.forEach(data->data.setAuthorId(data.getAuthor().getId()));
-		return listbookDtos;
 	}
-	public TPage<BookDto> getAllPageable(Pageable pageable) {
-		Page<Book> page=bookRepository.findAll(PageRequest.of(pageable.getPageNumber(), 
-															  pageable.getPageSize(), 
-															  Sort.by(Sort.Direction.ASC, "id")));
-		TPage<BookDto> tPage=new TPage<BookDto>();
-		BookDto[] bookDtos=modelMapper.map(page.getContent(), BookDto[].class);
-		tPage.setStat(page, Arrays.asList(bookDtos));
-		return tPage;
+	public TPage<BookDto> getAllPageable(Pageable pageable) throws NotFoundException {
+
+		try {
+			Page<Book> page=bookRepository.findAll(PageRequest.of(pageable.getPageNumber(), 
+					  pageable.getPageSize(), 
+					  Sort.by(Sort.Direction.ASC, "id")));
+			TPage<BookDto> tPage=new TPage<BookDto>();
+			BookDto[] bookDtos=modelMapper.map(page.getContent(), BookDto[].class);
+			Arrays.asList(bookDtos) .forEach(data->{
+				data.setAuthorId(data.getAuthor().getId());
+				data.getAuthor().setBooks(null);
+			});
+			tPage.setStat(page, Arrays.asList(bookDtos));
+			return tPage;
+		} catch (Exception e) {
+			throw new NotFoundException("Book does not exist : ");
+		}
 	}
 	
     @Transactional
-    public BookUpdateDto update(Long id, BookUpdateDto bookUpdateDto) {
-        Book book = bookRepository.getOne(id);
-        Author author =  authorRepository.getOne(bookUpdateDto.getAuthorId());
-        
-        book.setName(bookUpdateDto.getName());
-        book.setAuthor(author);
-        book.setBarcode(bookUpdateDto.getBarcode());
-        book.setContent(bookUpdateDto.getContent());
-        book.setPublisher(bookUpdateDto.getPublisher());
-
-        bookRepository.save(book);
-        bookUpdateDto=modelMapper.map(book, BookUpdateDto.class);
-        bookUpdateDto.setAuthorId(author.getId());
-        return bookUpdateDto;
+    public BookUpdateDto update(Long id, BookUpdateDto bookUpdateDto) throws NotFoundException {
+		try {
+	        Book book = bookRepository.getOne(id);
+	        Author author =  authorRepository.getOne(bookUpdateDto.getAuthorId());
+	        
+	        book.setName(bookUpdateDto.getName());
+	        book.setAuthor(author);
+	        book.setBarcode(bookUpdateDto.getBarcode());
+	        book.setContent(bookUpdateDto.getContent());
+	        book.setPublisher(bookUpdateDto.getPublisher());
+	
+	        bookRepository.save(book);
+	        bookUpdateDto=modelMapper.map(book, BookUpdateDto.class);
+	        bookUpdateDto.setAuthorId(author.getId());
+	        return bookUpdateDto;
+		} catch (Exception e) {
+			throw new NotFoundException("Book does not exist id : "+id);
+		}
     }
 	public BookOneDto getOne(Long id) throws NotFoundException {
 		try {
@@ -106,6 +126,7 @@ public class BookServiceImp {
 			BookOneDto bookOneDto=modelMapper.map(book, BookOneDto.class);
 			bookOneDto.setId(id);
 			bookOneDto.setAuthorId(bookOneDto.getAuthor().getId());
+			bookOneDto.getAuthor().setBooks(null);
 	        return bookOneDto;
 		} catch (Exception e) {
 			throw new NotFoundException("Book does not exist id : "+id);

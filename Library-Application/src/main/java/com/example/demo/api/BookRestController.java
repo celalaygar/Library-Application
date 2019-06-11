@@ -51,7 +51,7 @@ public class BookRestController {
     
 	//localhost:8182/api/book/pagination?page=1&size=3
     @GetMapping("/pagination")
-    public ResponseEntity<TPage<BookDto>> getAllByPagination(Pageable pageable) {
+    public ResponseEntity<TPage<BookDto>> getAllByPagination(Pageable pageable) throws NotFoundException {
         TPage<BookDto> data = bookServiceImp.getAllPageable(pageable);
         return ResponseEntity.ok(data);
     }
@@ -69,7 +69,7 @@ public class BookRestController {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<BookUpdateDto> updateBook(@PathVariable(name="id",required=true) Long id,
-													@Valid @RequestBody BookUpdateDto bookUpdateDto){
+													@Valid @RequestBody BookUpdateDto bookUpdateDto) throws NotFoundException{
 		return ResponseEntity.ok(bookServiceImp.update(id, bookUpdateDto));
 	}
 	
