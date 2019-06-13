@@ -11,6 +11,84 @@ This project is about Library Application
 - Angular 7
 - Typescript
 - Bootstrap 4
+```
+### Author Rest api
+These links are just example how to use rest api with these links.
+
+Author get mapping : 
+```
+localhost:8182/api/author 
+localhost:8182/api/author/{id} 
+```
+Author get mapping as pagination: 
+```
+localhost:8182/api/author/pagination?page=0&size=3
+localhost:8182/api/author/pagination?page=1&size=5
+```
+Author post mapping :
+``` 
+localhost:8182/api/author
+{
+	"name":"lara",
+	"surname":"gül",
+	"email":"lara.g@gmail.com",
+	"phone":"+905434445511"
+	
+}
+``` 
+Author put mapping :
+``` 
+localhost:8182/api/author/{id} 
+{
+	"name":"hakan ali",
+	"surname":"kara",
+    	"email": "hasan.a@gmail.com",
+    	"phone": "+905434445511",
+	"about":"hakan ali is using an email called hasan.a@gmail.com"
+}
+``` 
+Author delete mapping : 
+``` 
+localhost:8182/api/author/{id} 
+```
+### Book Rest api
+These links are just example how to use rest api with these links.
+
+Book get mapping : 
+```
+localhost:8182/api/book 
+localhost:8182/api/book/{id}
+```
+Book get mapping as pagination: 
+```
+localhost:8182/api/book/pagination?page=0&size=3
+localhost:8182/api/book/pagination?page=1&size=5
+```
+Book post mapping : 
+```
+localhost:8182/api/book
+{
+	"name":"Ağa sızma teknikleri",
+	"barcode":"NTW-00352",
+	"content":"Network üzerinden ağa sızma teknikleri anlatılmaktadır.",
+	"publisher":"Kodlab Yayıncılık"
+}
+```
+Book put mapping :  
+```
+localhost:8182/api/book/{id} 
+
+{
+    	"name": "Spring boot 2",
+    	"barcode": "SPRING-01-2",
+	"content": "Spring boot 2 ile web uygulama adımları anlatılmıştır",
+    	"publisher": "Level 2",
+	"authorId": 4
+}
+```
+Book delete mapping : 
+```
+localhost:8182/api/book/{id} 
 ``` 
 #### Sql Query
 ``` 
