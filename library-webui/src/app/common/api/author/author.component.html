@@ -1,4 +1,4 @@
-<h5>Yazarlar</h5>
+<h2>Yazarlar</h2>
 <hr>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Yazar
   Oluştur</button>
@@ -65,7 +65,7 @@ class="bootstrap"
   <ngx-datatable-column prop="phone" name="phone" sortable="false"></ngx-datatable-column>
   <ngx-datatable-column prop="id" name="Actions " sortable="false">
     <ng-template let-value="value" ngx-datatable-cell-template>
-      <a [routerLink]="['Author-detail/',value]"><strong>Detaylı Gör</strong></a>
+      <a [routerLink]="['author-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
     </ng-template>
   </ngx-datatable-column>
 </ngx-datatable>

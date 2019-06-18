@@ -66,9 +66,10 @@ public class AuthorServiceImp {
 	}
 	public TPage<AuthorDto> getAllPageable(Pageable pageable) throws NotFoundException {
 		try {
-			Page<Author> page=authorRepository.findAll(PageRequest.of(pageable.getPageNumber(), 
-					  pageable.getPageSize(), 
-					  Sort.by(Sort.Direction.ASC, "id")));
+//			Page<Author> page=authorRepository.findAll(PageRequest.of(pageable.getPageNumber(), 
+//					  pageable.getPageSize(), 
+//					  Sort.by(Sort.Direction.ASC, "id")));
+			Page<Author> page=authorRepository.findAll(pageable);
 			TPage<AuthorDto> tPage=new TPage<AuthorDto>();
 			AuthorDto[] authorDtos=modelMapper.map(page.getContent(), AuthorDto[].class);
 			Arrays.asList(authorDtos).forEach(author->{
@@ -102,7 +103,7 @@ public class AuthorServiceImp {
 	
 			AuthorOneDto authorOneDto=modelMapper.map(author, AuthorOneDto.class);
 			authorOneDto.setId(id);
-			authorOneDto.getBooks().forEach(data->{ data.setAuthorId(id); data.setAuthor(null); });
+			authorOneDto.getBooks().forEach(data->{ data.setAuthorId(id);  });
 	        return authorOneDto;
 		} catch (Exception e) {
 			throw new NotFoundException("User email dosen't exist : "+e);

@@ -126,7 +126,7 @@ public class BookServiceImp {
 			BookOneDto bookOneDto=modelMapper.map(book, BookOneDto.class);
 			bookOneDto.setId(id);
 			bookOneDto.setAuthorId(bookOneDto.getAuthor().getId());
-			bookOneDto.getAuthor().setBooks(null);
+			
 	        return bookOneDto;
 		} catch (Exception e) {
 			throw new NotFoundException("Book does not exist id : "+id);

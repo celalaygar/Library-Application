@@ -38,6 +38,6 @@ public class BookOneDto {
 	@NotNull
 	private Long authorId;
 	
-    private AuthorDto author;
+    private AuthorDtoForOneBook author;
 
 }

@@ -32,7 +32,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     AppRoutingModule,
     NgxDatatableModule
   ],
-  providers: [AuthorService,AuthorService],
+  providers: [AuthorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

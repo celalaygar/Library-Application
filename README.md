@@ -90,6 +90,17 @@ Book delete mapping :
 ```
 localhost:8182/api/book/{id} 
 ``` 
+#### Create front side regarding Angular 7
+Follow step: open git bash and write bottom ones to create new project about angular 7
+- npm i @angular/cli
+- ng new project-name
+- cd project-name
+- npm install bootstrap
+- npm install jquery
+- npm install @swimlane/ngx-datatable
+- npm i ngx-datatable
+- npm install ngx-bootstrap
+Then you can get author and book data from back side regarding spring boot
 #### Sql Query
 ``` 
 

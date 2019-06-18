@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import javassist.NotFoundException;
 
 @RestController
 @RequestMapping(ApiPaths.AuthorCtrl.CTRL)
+@CrossOrigin
 public class AuthorRestController {
 	
 	private final AuthorServiceImp authorServiceImp;
@@ -45,7 +47,7 @@ public class AuthorRestController {
     }
 	//localhost:8182/api/author/pagination?page=1&size=3
     @GetMapping("/pagination")
-    public ResponseEntity<TPage<AuthorDto>> getAllByPagination(Pageable pageable) {
+    public ResponseEntity<TPage<AuthorDto>> getAllByPagination(Pageable pageable) throws NotFoundException {
         TPage<AuthorDto> data = authorServiceImp.getAllPageable(pageable);
         return ResponseEntity.ok(data);
     }
@@ -53,7 +55,7 @@ public class AuthorRestController {
     
     //http://localhost:8182/api/author/2
     @GetMapping("/{id}")
-	public ResponseEntity<AuthorOneDto> getOneAuthor(@PathVariable(name="id",required=true) Long id){
+	public ResponseEntity<AuthorOneDto> getOneAuthor(@PathVariable(name="id",required=true) Long id) throws NotFoundException{
 		return ResponseEntity.ok(authorServiceImp.getOne(id));
 	}
 

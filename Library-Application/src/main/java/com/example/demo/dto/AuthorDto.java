@@ -25,7 +25,8 @@ public class AuthorDto {
 	
 	@NotNull
 	private String surname;
-	
+
+	private String about;
 	
 	private String email;
 	

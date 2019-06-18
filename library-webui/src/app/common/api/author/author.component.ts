@@ -21,14 +21,14 @@ export class AuthorComponent implements OnInit {
   loadAuthors(){
     this.authorService.getAll().subscribe(res => {
       this.authors = res;
-      console.log(...this.authors);
+      //console.log(...this.authors);
     });
   }
 
 
 
   setPage(pageInfo) {
-    console.log(pageInfo.offset)
+    //console.log(pageInfo.offset)
     this.page.page = pageInfo.offset;
     this.authorService.getAllPageable(this.page).subscribe(pagedData => {
       this.page.size = pagedData.size;
