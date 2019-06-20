@@ -46,4 +46,15 @@ export class AuthorService {
       }
     ));
   }
+  save(id: number): Observable<any> {
+    return this.apiService.getById(this.AUTHOR_PATH + '/' + id).pipe(map(
+      res => {
+        if (res) {
+          return res;
+        } else {
+          return {};
+        }
+      }
+    ));
+  }
 }

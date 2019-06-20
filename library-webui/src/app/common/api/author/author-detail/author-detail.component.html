@@ -1,6 +1,74 @@
-<h2>Yazar Detayı</h2>
+<h2>Yazar: {{author.name}}  {{author.surname}}</h2>
 <hr>
 <button class="btn btn-secondary" (click)="backClicked()" >Back</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertBookPanel" 
+  (click)="showbox()" data-whatever="@mdo">Kitap
+  Oluştur</button>
+<div  class="modal fade" id="insertBookPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Kitap Oluştur...</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!--Create book form start-->
+      <div class="modal-body">
+        <form [formGroup]="BookForm" (ngSubmit)="saveBook()">
+          <div class="form-group">
+            <label>name</label>
+            <input type="text" formControlName="name" class="form-control"
+              [ngClass]="{ 'is-invalid': f.name.errors }" />
+            <div *ngIf="f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">name is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Publisher</label>
+            <input type="text" formControlName="publisher" class="form-control"
+              [ngClass]="{ 'is-invalid': f.publisher.errors }" />
+            <div *ngIf="f.publisher.errors" class="invalid-feedback">
+              <div *ngIf="f.publisher.errors.required">publisher is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>barcode</label>
+            <input type="text" formControlName="barcode" class="form-control"
+              [ngClass]="{ 'is-invalid': f.barcode.errors }" />
+            <div *ngIf="f.barcode.errors" class="invalid-feedback">
+              <div *ngIf="f.barcode.errors.required">barcode is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>content</label>
+            <input type="text" formControlName="content" class="form-control"
+              [ngClass]="{ 'is-invalid': f.content.errors }" />
+            <div *ngIf="f.content.errors" class="invalid-feedback">
+              <div *ngIf="f.content.errors.required">content is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Author</label>
+            <input type="text" readonly [value]="author.name +' '+ author.surname" class="form-control" />
+   
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" >Create</button>
+          </div>
+        </form>
+      </div>
+      <!--Create book form ende-->
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeAndResetModal()" data-dismiss="modal" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <hr>
 
 <!--Author Detail Start-->
@@ -15,13 +83,12 @@
     <hr>
     <h5 class="card-title">{{author.name}}  {{author.surname}}  Kimdir ? </h5>
     <p class="card-text"><b>Kimdir ? </b>{{author.about}} </p>
-    <button class="btn btn-primary">Go somewhere</button>
   </div>
 </div>
 <!--Author Detail End-->
 <hr>
 <!--Author Book Start-->
-<h5>Yazarın Kitapları</h5>
+<h2>Yazar {{author.name}}  {{author.surname}} Kitapları</h2>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -32,6 +99,7 @@
       <th scope="col">Content</th>
       <th scope="col">Publisher</th>
       <th scope="col">Book Status</th>
+      <th scope="col">İşlemler</th>
     </tr>
   </thead>
   <tbody>
@@ -43,6 +111,7 @@
       <td>{{book.content}}</td>
       <td>{{book.publisher}}</td>
       <td>{{book.bookStatus}}</td>
+      <td><button class="btn btn-sm btn-danger" (click)="deleteBook(book.id)" >Delete</button></td>
     </tr>
   </tbody>
 </table>

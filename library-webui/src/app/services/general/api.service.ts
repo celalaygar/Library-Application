@@ -22,8 +22,6 @@ export class ApiService {
   }
 
   getAllPageable(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    // console.log(environment.API_BASE_PATH + path);
-    // console.log(params);
     return this.http.get<any>(environment.API_BASE_PATH + path, {params}).pipe(catchError(this.formatError));
   }
 
@@ -40,7 +38,7 @@ export class ApiService {
   }
 
   delete(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    return this.http.delete(environment.API_BASE_PATH + path, {params}).pipe(catchError(this.formatError));
+    return this.http.delete(environment.API_BASE_PATH + path).pipe(catchError(this.formatError));
   }
 
   private formatError(error: any) {

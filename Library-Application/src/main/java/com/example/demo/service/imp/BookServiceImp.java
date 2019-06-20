@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.AuthorDto;
+import com.example.demo.dto.AuthorDtoForOneBook;
 import com.example.demo.dto.AuthorOneDto;
 import com.example.demo.dto.BookDto;
 import com.example.demo.dto.BookOneDto;
@@ -47,21 +48,21 @@ public class BookServiceImp {
 		this.bookRepository=bookRepository;
 	}
 	
-	public BookDto save(BookDto bookDto) {
-		Book bookChecked=bookRepository.findByName(bookDto.getName());
-		Author author=authorRepository.getOne(bookDto.getAuthorId());
+	public BookOneDto save(BookOneDto bookOneDto) {
+		Book bookChecked=bookRepository.findByName(bookOneDto.getName());
+		Author author=authorRepository.getOne(bookOneDto.getAuthorId());
 		if(bookChecked !=null) {
 			throw new IllegalArgumentException("book already exist");
 		}
-		if(author.getId() != bookDto.getAuthorId()) {
+		if(author.getId() != bookOneDto.getAuthorId()) {
 			throw new IllegalArgumentException("Author does not match");
 		}
-		Book book=modelMapper.map(bookDto, Book.class);
+		Book book=modelMapper.map(bookOneDto, Book.class);
 		book.setAuthor(author);
 		bookRepository.save(book);
-		bookDto.setId(book.getId());
-		bookDto.setAuthor(modelMapper.map(author, AuthorDto.class));
-		return bookDto;
+		bookOneDto.setId(book.getId());
+		bookOneDto.setAuthor(modelMapper.map(author, AuthorDtoForOneBook.class));
+		return bookOneDto;
 	}
 	
 	public List<BookDto> getAll() throws NotFoundException {

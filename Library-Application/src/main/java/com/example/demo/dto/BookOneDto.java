@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.example.demo.model.BookStatus;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,17 +25,22 @@ import lombok.Setter;
 public class BookOneDto {
 
 	private Long id;
+	
 	@NotNull
 	private String name;
 	
+	@NotNull
+	private String barcode;
+	
 	private String content;
+	
 	@NotNull
 	private String publisher;
 	
 	private Long custoomerId;
 	
-	@NotNull
-	private String barcode;
+	
+	private BookStatus bookStatus;
 
 	@NotNull
 	private Long authorId;

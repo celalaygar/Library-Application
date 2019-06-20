@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthorService } from './services/author.service';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ApiService } from './services/general/api.service';
+import { BookService } from './services/book.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     AppRoutingModule,
     NgxDatatableModule
   ],
-  providers: [AuthorService],
+  providers: [AuthorService, BookService, ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

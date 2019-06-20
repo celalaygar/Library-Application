@@ -63,8 +63,8 @@ public class BookRestController {
     }
 
 	@PostMapping()
-	public ResponseEntity<BookDto> createProject(@Valid @RequestBody BookDto bookDto){
-		return ResponseEntity.ok(bookServiceImp.save(bookDto));
+	public ResponseEntity<BookOneDto> createProject(@Valid @RequestBody BookOneDto bookOneDto){
+		return ResponseEntity.ok(bookServiceImp.save(bookOneDto));
 	}
 	
 	@PutMapping("/{id}")

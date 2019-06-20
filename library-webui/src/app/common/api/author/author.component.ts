@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AuthorService } from 'src/app/services/author.service';
 import { Page } from 'src/app/shared/Page';
+import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-author',
@@ -12,23 +13,22 @@ export class AuthorComponent implements OnInit {
   rows = [];
   cols = [];
   page = new Page();
+
+
   constructor(private authorService: AuthorService) { }
 
   ngOnInit() {
-    //this.loadAuthors();
     this.setPage({ offset: 0 });
   }
   loadAuthors(){
     this.authorService.getAll().subscribe(res => {
       this.authors = res;
-      //console.log(...this.authors);
     });
   }
 
 
 
   setPage(pageInfo) {
-    //console.log(pageInfo.offset)
     this.page.page = pageInfo.offset;
     this.authorService.getAllPageable(this.page).subscribe(pagedData => {
       this.page.size = pagedData.size;

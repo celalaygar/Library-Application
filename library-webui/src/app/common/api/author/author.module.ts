@@ -5,8 +5,10 @@ import { AuthorComponent } from './author.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BsModalRef, ModalModule, BsModalService} from 'ngx-bootstrap';
 import { AuthorService } from 'src/app/services/author.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthorDetailComponent } from './author-detail/author-detail.component';
+import { BookService } from 'src/app/services/book.service';
+import { ApiService } from 'src/app/services/general/api.service';
 
 @NgModule({
   declarations: [AuthorComponent, AuthorDetailComponent],
@@ -14,8 +16,12 @@ import { AuthorDetailComponent } from './author-detail/author-detail.component';
     CommonModule,
     AuthorRoutingModule,
     FormsModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    ReactiveFormsModule
   ],
-  providers: [AuthorService]
+  providers: [AuthorService,
+    BookService,
+    ApiService,
+    BsModalRef]
 })
 export class AuthorModule { }
