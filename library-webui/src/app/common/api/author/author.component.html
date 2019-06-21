@@ -13,32 +13,54 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form [formGroup]="AuthorForm" (ngSubmit)="saveAuthor()">
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">İsmi:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <label>name</label>
+            <input type="text" formControlName="name" class="form-control"
+              [ngClass]="{ 'is-invalid': f.name.errors }" />
+            <div *ngIf="f.name.errors" class="invalid-feedback">
+              <div *ngIf="f.name.errors.required">name is required</div>
+            </div>
           </div>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Soyismi:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <label>surname</label>
+            <input type="text" formControlName="surname" class="form-control"
+              [ngClass]="{ 'is-invalid': f.surname.errors }" />
+            <div *ngIf="f.surname.errors" class="invalid-feedback">
+              <div *ngIf="f.surname.errors.required">surname is required</div>
+            </div>
           </div>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Email:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <label>email</label>
+            <input type="text" formControlName="email" class="form-control"
+              [ngClass]="{ 'is-invalid': f.email.errors }" />
+            <div *ngIf="f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.email">email is required</div>
+            </div>
           </div>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Telefon:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <label>phone</label>
+            <input type="text" formControlName="phone" class="form-control"
+              [ngClass]="{ 'is-invalid': f.phone.errors }" />
+            <div *ngIf="f.phone.errors" class="invalid-feedback">
+              <div *ngIf="f.phone.errors.required">phone is required</div>
+            </div>
           </div>
           <div class="form-group">
-            <label for="message-text" class="col-form-label">Kimdir ? :</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <label>about</label>
+            <input type="text" formControlName="about" class="form-control"
+              [ngClass]="{ 'is-invalid': f.about.errors }" />
+            <div *ngIf="f.about.errors" class="invalid-feedback">
+              <div *ngIf="f.about.errors.required">about is required</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" >Create</button>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
       </div>
     </div>
   </div>
@@ -66,6 +88,7 @@ class="bootstrap"
   <ngx-datatable-column prop="id" name="Actions " sortable="false">
     <ng-template let-value="value" ngx-datatable-cell-template>
       <a [routerLink]="['author-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
+      <button class="btn btn-sm btn-danger" (click)="deleteAuthor(value)" ><strong>Sil</strong></button>
     </ng-template>
   </ngx-datatable-column>
 </ngx-datatable>

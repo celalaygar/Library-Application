@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { AuthorService } from 'src/app/services/author.service';
 import { Page } from 'src/app/shared/Page';
 import { ModalDirective } from 'ngx-bootstrap';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-author',
@@ -15,11 +16,23 @@ export class AuthorComponent implements OnInit {
   page = new Page();
 
 
-  constructor(private authorService: AuthorService) { }
+  //form parameters
+  AuthorForm: FormGroup;
+  constructor(private authorService: AuthorService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.setPage({ offset: 0 });
+
+    this.AuthorForm = this.formBuilder.group({
+      'name': [null, [Validators.required]],
+      'surname': [null, [Validators.required]],
+      'about': [null, [Validators.required]],
+      'email': [null, [Validators.email]],
+      'phone': [null, [Validators.required]],
+    });
   }
+  
   loadAuthors(){
     this.authorService.getAll().subscribe(res => {
       this.authors = res;
@@ -37,5 +50,24 @@ export class AuthorComponent implements OnInit {
       this.rows = pagedData.content;
     });
   }
+  saveAuthor(){
+    if (!this.AuthorForm.valid) {
+      return;
+    }
+    this.authorService.post(this.AuthorForm.value).subscribe(res => {
+      console.log(res);
+      this.AuthorForm.reset();
+      this.setPage({ offset: 0 });
+    });
+  }
+  deleteAuthor(id){
+    console.log(id);
+    this.authorService.delete(id).subscribe(res=>{
+      
+      this.setPage({ offset: 0 });
+    });
+  }
 
+
+  get f() { return this.AuthorForm.controls; }
 }

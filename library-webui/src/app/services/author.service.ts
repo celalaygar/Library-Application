@@ -46,8 +46,19 @@ export class AuthorService {
       }
     ));
   }
-  save(id: number): Observable<any> {
-    return this.apiService.getById(this.AUTHOR_PATH + '/' + id).pipe(map(
+  post(author): Observable<any> {
+    return this.apiService.post(this.AUTHOR_PATH, author).pipe(map(
+      res => {
+        if (res) {
+          return res;
+        } else {
+          return {};
+        }
+      }
+    ));
+  }
+  delete(id):  Observable<any> {
+    return this.apiService.delete(this.AUTHOR_PATH + '/' + id).pipe(map(
       res => {
         if (res) {
           return res;

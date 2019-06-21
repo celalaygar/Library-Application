@@ -79,10 +79,11 @@
       <li class="list-group-item"><b>İsim Soyisim : </b>{{author.name}}  {{author.surname}}   </li>
       <li class="list-group-item"><b>Email : </b>{{author.email}} </li>
       <li class="list-group-item"><b>Telefon: </b>{{author.phone}} </li>
+      <li class="list-group-item">
+        <h5 class="card-title">{{author.name}}  {{author.surname}}  Kimdir ? </h5>
+        <p class="card-text"><b>Kimdir ? </b>{{author.about}} </p>
+      </li>
     </ul>
-    <hr>
-    <h5 class="card-title">{{author.name}}  {{author.surname}}  Kimdir ? </h5>
-    <p class="card-text"><b>Kimdir ? </b>{{author.about}} </p>
   </div>
 </div>
 <!--Author Detail End-->
@@ -111,7 +112,7 @@
       <td>{{book.content}}</td>
       <td>{{book.publisher}}</td>
       <td>{{book.bookStatus}}</td>
-      <td><button class="btn btn-sm btn-danger" (click)="deleteBook(book.id)" >Delete</button></td>
+      <td><button class="btn btn-sm btn-danger" (click)="deleteBook(book.id)" >Sil</button></td>
     </tr>
   </tbody>
 </table>
