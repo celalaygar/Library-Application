@@ -17,12 +17,15 @@ export class AuthorDetailComponent implements OnInit {
   books = [];
   id: number;
   authors = [];
-
+  updated = true;
   showModal = true;
 
-  //form parameters
+  //form parameters about book
   BookForm: FormGroup;
   modalRef: BsModalRef;
+
+  //form parameters about Author
+  AuthorUpdateForm: FormGroup;
 
   constructor(private authorService: AuthorService,
               private bookService: BookService,
@@ -31,9 +34,12 @@ export class AuthorDetailComponent implements OnInit {
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.staticLoadPage();
+    this.LoadAuthorUpdateForm(this.author);
+  }
+  staticLoadPage(){
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      this.loadAuthorDetail();
     });
 
     this.loadAuthorDetail();
@@ -48,34 +54,52 @@ export class AuthorDetailComponent implements OnInit {
     this.BookForm.value['authorId'] = this.id;
   }
 
-  // loadAuthors(){
-  //   this.authorService.getAll().subscribe(res => {
-  //     this.authors = res;
-  //   });
-  // }
-
   loadAuthorDetail() {
-    this.authorService.getById(this.id).subscribe(data => {
-      this.author = data;
-      this.books = data['books'];
+    this.authorService.getById(this.id).subscribe(response => {
+      this.author = response;
+      this.books = response['books'];
     });
   }
-
+  LoadAuthorUpdateForm(res){
+    this.updated=true;
+    this.AuthorUpdateForm = this.formBuilder.group({
+      'name': [res['name'], [Validators.required]],
+      'surname': [res['surname'], [Validators.required]],
+      'email': [res['email'], [Validators.required]],
+      'phone': [res['phone'], [Validators.required]],
+      'about': [res['about']]
+    });
+  }
+  updateAuthor(){
+    console.log('loading')
+    if (!this.AuthorUpdateForm.valid) {
+      return;
+    }
+    this.authorService.put(this.id,this.AuthorUpdateForm.value).subscribe(res => {
+      console.log(res);
+      this.staticLoadPage();
+      this.LoadAuthorUpdateForm(res);
+      if(res['id']==this.id){
+        this.updated = false;
+      }
+    });
+  }
   saveBook() {
     this.BookForm.value['authorId'] = this.id;
     if (!this.BookForm.valid) {
       return;
     }
     this.bookService.post(this.BookForm.value).subscribe(res => {
-      console.log(res);
       this.loadAuthorDetail();
       this.BookForm.reset();
-      this.showModal = false;
-
+      if(res['id'] > 0 ){
+        this.showModal = false;
+      }
     });
   }
 
-  get f() { return this.BookForm.controls; }
+  get f1() { return this.BookForm.controls; }
+  get f2() { return this.AuthorUpdateForm.controls; }
 
   deleteBook(id) {
     this.bookService.delete(id).subscribe(res => {
@@ -87,15 +111,16 @@ export class AuthorDetailComponent implements OnInit {
       }
     })
   }
-
-  closeAndResetModal() {
-    this.showModal = false;
-  }
-
   backClicked() {
     this.location.back();
   }
-  showbox() {
+  LoadInsertBookForm() {
     this.showModal = true;
   }
+  // loadAuthors(){
+  //   this.authorService.getAll().subscribe(res => {
+  //     this.authors = res;
+  //   });
+  // }
+
 }

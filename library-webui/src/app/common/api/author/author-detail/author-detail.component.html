@@ -1,9 +1,83 @@
 <h2>Yazar: {{author.name}}  {{author.surname}}</h2>
 <hr>
 <button class="btn btn-secondary" (click)="backClicked()" >Back</button>
+<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#updateAuthorPanel" 
+  (click)="LoadAuthorUpdateForm(author)" data-whatever="@mdo"> Güncelle </button>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertBookPanel" 
-  (click)="showbox()" data-whatever="@mdo">Kitap
-  Oluştur</button>
+  (click)="LoadInsertBookForm()" data-whatever="@mdo"> Kitap
+  Oluştur </button>
+
+  <!--Update Author form start-->
+  <div  class="modal fade" id="updateAuthorPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Yazar Bilgilerini Güncelle</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="updated; else elseBlock1"  class="modal-body">
+        <form [formGroup]="AuthorUpdateForm" (ngSubmit)="updateAuthor()">
+          <div class="form-group">
+            <label>name</label>
+            <input type="text" formControlName="name" class="form-control"
+              [ngClass]="{ 'is-invalid': f2.name.errors }" />
+            <div *ngIf="f2.name.errors" class="invalid-feedback">
+              <div *ngIf="f2.name.errors.required">name is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Surname</label>
+            <input type="text" formControlName="surname" class="form-control"
+              [ngClass]="{ 'is-invalid': f2.surname.errors }" />
+            <div *ngIf="f2.surname.errors" class="invalid-feedback">
+              <div *ngIf="f2.surname.errors.required">surname is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="text" formControlName="email" class="form-control"
+              [ngClass]="{ 'is-invalid': f2.email.errors }" />
+            <div *ngIf="f2.email.errors" class="invalid-feedback">
+              <div *ngIf="f2.email.errors.required">email is required</div>
+            </div>
+          </div>about
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" formControlName="phone" class="form-control"
+              [ngClass]="{ 'is-invalid': f2.phone.errors }" />
+            <div *ngIf="f2.phone.errors" class="invalid-feedback">
+              <div *ngIf="f2.phone.errors.required">phone is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>About</label>
+            <input type="text" formControlName="about" class="form-control"
+              [ngClass]="{ 'is-invalid': f2.about.errors }" />
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" >UPDATE</button>
+          </div>
+        </form>
+      </div>
+      <ng-template #elseBlock1>
+        <div class="modal-body">
+          <h5>Perfect.....!</h5>
+          <strong>Author was updated.....</strong>
+        </div>
+      </ng-template>
+      <div class="modal-footer">
+        <button class="btn btn-secondary"  data-dismiss="modal" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Update Author form ende-->
+
+
+  <!--Create Book form start-->
 <div  class="modal fade" id="insertBookPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -14,40 +88,38 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-
-      <!--Create book form start-->
-      <div class="modal-body">
+      <div *ngIf="showModal; else elseBlock2" class="modal-body">
         <form [formGroup]="BookForm" (ngSubmit)="saveBook()">
           <div class="form-group">
             <label>name</label>
             <input type="text" formControlName="name" class="form-control"
-              [ngClass]="{ 'is-invalid': f.name.errors }" />
-            <div *ngIf="f.name.errors" class="invalid-feedback">
-              <div *ngIf="f.name.errors.required">name is required</div>
+              [ngClass]="{ 'is-invalid': f1.name.errors }" />
+            <div *ngIf="f1.name.errors" class="invalid-feedback">
+              <div *ngIf="f1.name.errors.required">name is required</div>
             </div>
           </div>
           <div class="form-group">
             <label>Publisher</label>
             <input type="text" formControlName="publisher" class="form-control"
-              [ngClass]="{ 'is-invalid': f.publisher.errors }" />
-            <div *ngIf="f.publisher.errors" class="invalid-feedback">
-              <div *ngIf="f.publisher.errors.required">publisher is required</div>
+              [ngClass]="{ 'is-invalid': f1.publisher.errors }" />
+            <div *ngIf="f1.publisher.errors" class="invalid-feedback">
+              <div *ngIf="f1.publisher.errors.required">publisher is required</div>
             </div>
           </div>
           <div class="form-group">
             <label>barcode</label>
             <input type="text" formControlName="barcode" class="form-control"
-              [ngClass]="{ 'is-invalid': f.barcode.errors }" />
-            <div *ngIf="f.barcode.errors" class="invalid-feedback">
-              <div *ngIf="f.barcode.errors.required">barcode is required</div>
+              [ngClass]="{ 'is-invalid': f1.barcode.errors }" />
+            <div *ngIf="f1.barcode.errors" class="invalid-feedback">
+              <div *ngIf="f1.barcode.errors.required">barcode is required</div>
             </div>
           </div>
           <div class="form-group">
             <label>content</label>
             <input type="text" formControlName="content" class="form-control"
-              [ngClass]="{ 'is-invalid': f.content.errors }" />
-            <div *ngIf="f.content.errors" class="invalid-feedback">
-              <div *ngIf="f.content.errors.required">content is required</div>
+              [ngClass]="{ 'is-invalid': f1.content.errors }" />
+            <div *ngIf="f1.content.errors" class="invalid-feedback">
+              <div *ngIf="f1.content.errors.required">content is required</div>
             </div>
           </div>
           <div class="form-group">
@@ -60,14 +132,21 @@
           </div>
         </form>
       </div>
-      <!--Create book form ende-->
+      
+      <ng-template #elseBlock2>
+          <div class="modal-body">
+            <h5>Perfect.....!</h5>
+            <strong>Book was added.....</strong>
+          </div>
+        </ng-template>
 
       <div class="modal-footer">
-        <button class="btn btn-secondary" (click)="closeAndResetModal()" data-dismiss="modal" >Close</button>
+        <button class="btn btn-secondary" data-dismiss="modal" >Close</button>
       </div>
     </div>
   </div>
 </div>
+<!--Create Book form ende-->
 
 <hr>
 

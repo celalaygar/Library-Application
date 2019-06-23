@@ -57,6 +57,17 @@ export class AuthorService {
       }
     ));
   }
+  put(id,author): Observable<any> {
+    return this.apiService.put(this.AUTHOR_PATH + '/' + id, author).pipe(map(
+      res => {
+        if (res) {
+          return res;
+        } else {
+          return {};
+        }
+      }
+    ));
+  }
   delete(id):  Observable<any> {
     return this.apiService.delete(this.AUTHOR_PATH + '/' + id).pipe(map(
       res => {
