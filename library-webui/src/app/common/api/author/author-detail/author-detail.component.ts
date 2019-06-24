@@ -17,15 +17,17 @@ export class AuthorDetailComponent implements OnInit {
   books = [];
   id: number;
   authors = [];
-  updated = true;
-  showModal = true;
+
+  bookStatuses: Array<any> = [];
 
   //form parameters about book
   BookForm: FormGroup;
   modalRef: BsModalRef;
+  updated = true;
 
   //form parameters about Author
   AuthorUpdateForm: FormGroup;
+  showModal = true;
 
   constructor(private authorService: AuthorService,
               private bookService: BookService,
@@ -42,16 +44,17 @@ export class AuthorDetailComponent implements OnInit {
       this.id = params['id'];
     });
 
-    this.loadAuthorDetail();
-
     this.BookForm = this.formBuilder.group({
       'name': [null, [Validators.required]],
       'publisher': [null, [Validators.required]],
       'barcode': [null, [Validators.required]],
       'content': [null, [Validators.required]],
+      'bookStatus': [null, [Validators.required]],
       'authorId': [this.id]
     });
     this.BookForm.value['authorId'] = this.id;
+    this.loadAuthorDetail();
+    this.getAllBookStatus();
   }
 
   loadAuthorDetail() {
@@ -110,6 +113,11 @@ export class AuthorDetailComponent implements OnInit {
 
       }
     })
+  }
+  getAllBookStatus(){
+    this.bookService.getAllBookStatus().subscribe( res => {
+      this.bookStatuses = res;
+    });
   }
   backClicked() {
     this.location.back();

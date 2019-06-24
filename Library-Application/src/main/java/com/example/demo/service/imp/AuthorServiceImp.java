@@ -81,6 +81,17 @@ public class AuthorServiceImp {
 			throw new NotFoundException("User email dosen't exist : "+e);
 		}
 	}
+	public List<AuthorDto> findAllByName(String name) throws NotFoundException {
+		List<Author> authors=authorRepository.findByNameOrSurname(name,name);
+		if(authors.size()<1) {
+			throw new NotFoundException("Author don't already exist");
+		}
+		AuthorDto[] authorDtos=modelMapper.map(authors, AuthorDto[].class);
+		Arrays.asList(authorDtos).forEach(author->{
+			author.getBooks().forEach(book->{ book.setAuthor(null);  });
+		});
+		return Arrays.asList(authorDtos);
+	}
 	public AuthorUpdateDto update(Long id, @Valid AuthorUpdateDto authorUpdateDto) throws NotFoundException {
 		try {
 			Author author=authorRepository.getOne(id);
@@ -119,6 +130,8 @@ public class AuthorServiceImp {
 			throw new NotFoundException("User email dosen't exist : "+e);
 		}
 	}
+
+
 
 
 }

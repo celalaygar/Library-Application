@@ -1,6 +1,7 @@
 <h2>Yazarlar</h2>
 <hr>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertAuthorPanel" data-whatever="@mdo">Yazar
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertAuthorPanel"
+  data-whatever="@mdo">Yazar
   Oluştur</button>
 <div class="modal fade" id="insertAuthorPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
@@ -12,7 +13,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div *ngIf="controlAuthorForm; else elseBlock1" class="modal-body">
         <form [formGroup]="AuthorForm" (ngSubmit)="saveAuthor()">
           <div class="form-group">
             <label>name</label>
@@ -55,10 +56,16 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" >Create</button>
+            <button type="submit" class="btn btn-primary">Create</button>
           </div>
         </form>
       </div>
+      <ng-template #elseBlock1>
+        <div class="modal-body">
+          <h5>Perfect.....!</h5>
+          <strong>Author was added.....</strong>
+        </div>
+      </ng-template>
       <div class="modal-footer">
         <button class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
@@ -67,28 +74,73 @@
 </div>
 
 <hr>
+<form class="form-inline" [formGroup]="searchForm" (ngSubmit)="searchAuthor()">
+  <div class="form-group">
+    <label for="inputPassword6">Yazar ismi veya soyismi giriniz : </label>
+    <input  type="text" class="form-control mx-sm-3" placeholder="Ara (en az 3 karakter)" formControlName="name" class="form-control"
+      [ngClass]="{ 'is-invalid': sf.name.errors }" />
+    <div *ngIf="sf.name.errors" class="invalid-feedback">
+      <div *ngIf="sf.name.errors.minLength">name has to be least 3 characters.</div>
+    </div>
+  </div>
+  <div class="from-group">
+    <button type="submit" class="btn btn-primary mb-2"> Search </button>
+  </div>
+</form>
+<hr>
+<div *ngIf="control; else elseBlock2">
+  <ngx-datatable
+  class="bootstrap"
+  [rows]="rows"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [externalPaging]="true"
+  [count]="page.totalElements"
+  [offset]="page.page"
+  [limit]="page.size"
+  (page)='setPage($event)'>
+    <ngx-datatable-column prop="id" name="No" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="name" name="name" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="surname" name="surname" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="email" name="email" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="phone" name="phone" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="id" name="Actions " sortable="false">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <a [routerLink]="['author-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
+        <button class="btn btn-sm btn-danger" (click)="deleteAuthor(value)" ><strong>Sil</strong></button>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
 
-<ngx-datatable
-class="bootstrap"
-[rows]="rows"
-[columnMode]="'force'"
-[headerHeight]="50"
-[footerHeight]="50"
-[rowHeight]="'auto'"
-[externalPaging]="true"
-[count]="page.totalElements"
-[offset]="page.page"
-[limit]="page.size"
-(page)='setPage($event)'>
-  <ngx-datatable-column prop="id" name="No" sortable="false"></ngx-datatable-column>
-  <ngx-datatable-column prop="name" name="name" sortable="false"></ngx-datatable-column>
-  <ngx-datatable-column prop="surname" name="surname" sortable="false"></ngx-datatable-column>
-  <ngx-datatable-column prop="email" name="email" sortable="false"></ngx-datatable-column>
-  <ngx-datatable-column prop="phone" name="phone" sortable="false"></ngx-datatable-column>
-  <ngx-datatable-column prop="id" name="Actions " sortable="false">
-    <ng-template let-value="value" ngx-datatable-cell-template>
-      <a [routerLink]="['author-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
-      <button class="btn btn-sm btn-danger" (click)="deleteAuthor(value)" ><strong>Sil</strong></button>
-    </ng-template>
-  </ngx-datatable-column>
-</ngx-datatable>
+<ng-template #elseBlock2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">id</th>
+        <th scope="col">name</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">İşlemler</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let auth of authors">
+        <th scope="row">#</th>
+        <td>{{auth.id}}</td>
+        <td>{{auth.name}}</td>
+        <td>{{auth.surname}}</td>
+        <td>{{auth.email}}</td>
+        <td>{{auth.phone}}</td>
+        <td>
+          <a [routerLink]="['author-detail/',auth.id]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
+          <button class="btn btn-sm btn-danger" (click)="deleteAuthor(auth.id)" ><strong>Sil</strong></button></td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+</ng-template>

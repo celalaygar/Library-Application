@@ -1,5 +1,6 @@
 package com.example.demo.api;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -21,6 +22,7 @@ import com.example.demo.dto.AuthorDto;
 import com.example.demo.dto.BookDto;
 import com.example.demo.dto.BookOneDto;
 import com.example.demo.dto.BookUpdateDto;
+import com.example.demo.model.BookStatus;
 import com.example.demo.service.imp.AuthorServiceImp;
 import com.example.demo.service.imp.BookServiceImp;
 import com.example.demo.util.ApiPaths;
@@ -77,4 +79,9 @@ public class BookRestController {
 	public ResponseEntity<Boolean> deleteBook(@PathVariable(name="id", required=true) Long id) throws NotFoundException {
 		return ResponseEntity.ok(bookServiceImp.delete(id));
 	}
+	
+    @GetMapping("/statuses")
+    public ResponseEntity<List<BookStatus>> getAllBookStatus() {
+        return ResponseEntity.ok(Arrays.asList(BookStatus.values()));
+}
 }

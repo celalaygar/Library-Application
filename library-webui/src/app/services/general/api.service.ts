@@ -28,7 +28,9 @@ export class ApiService {
   getById(path: string): Observable<any> {
     return this.http.get<any>(environment.API_BASE_PATH + path).pipe(catchError(this.formatError));
   }
-
+  findAllByName(path: string): Observable<any> {
+    return this.http.get<any>(environment.API_BASE_PATH + path).pipe(catchError(this.formatError));
+  }
   post(path: string, params: HttpParams = new HttpParams()): Observable<any> {
     return this.http.post(environment.API_BASE_PATH + path, params).pipe(catchError(this.formatError));
   }

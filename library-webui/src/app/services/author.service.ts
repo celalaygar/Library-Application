@@ -10,6 +10,7 @@ import { map } from 'rxjs/internal/operators';
 export class AuthorService {
   AUTHOR_PATH = '/author';
   AUTHOR_PATH_PAGE = '/pagination';
+  FIND_ALL_BY_NAME_PATH = '/find-all?name=';
 
   constructor(private apiService: ApiService, private http: HttpClient) { }
 
@@ -26,6 +27,17 @@ export class AuthorService {
   }
   getAllPageable(page){
     return this.apiService.getAllPageable(this.AUTHOR_PATH + this.AUTHOR_PATH_PAGE, page ).pipe(map(
+      res => {
+        if (res) {
+          return res;
+        } else {
+          return {};
+        }
+      }
+    ));
+  }
+  findAllByName(name){
+    return this.apiService.findAllByName(this.AUTHOR_PATH + this.FIND_ALL_BY_NAME_PATH + name).pipe(map(
       res => {
         if (res) {
           return res;

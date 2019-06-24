@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.AuthorDto;
 import com.example.demo.dto.AuthorOneDto;
@@ -51,8 +52,13 @@ public class AuthorRestController {
         TPage<AuthorDto> data = authorServiceImp.getAllPageable(pageable);
         return ResponseEntity.ok(data);
     }
-    
-    
+	//http://localhost:8182/api/author/find-all?name=name
+	@GetMapping("find-all")
+	public ResponseEntity<List<AuthorDto>> findAllByName(@RequestParam String name) throws NotFoundException {
+	    List<AuthorDto> authorDtos = authorServiceImp.findAllByName(name);
+	    return ResponseEntity.ok(authorDtos);
+	}
+	    
     //http://localhost:8182/api/author/2
     @GetMapping("/{id}")
 	public ResponseEntity<AuthorOneDto> getOneAuthor(@PathVariable(name="id",required=true) Long id) throws NotFoundException{

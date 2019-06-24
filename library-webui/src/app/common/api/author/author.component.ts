@@ -14,16 +14,23 @@ export class AuthorComponent implements OnInit {
   rows = [];
   cols = [];
   page = new Page();
-
-
+  control = true;
+  controlAuthorForm = true;
   //form parameters
   AuthorForm: FormGroup;
+  searchForm: FormGroup;
   constructor(private authorService: AuthorService,
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.setPage({ offset: 0 });
+    this.loadStaticPage();
+  }
 
+  loadStaticPage(){
+    this.setPage({ offset: 0 });
+    this.searchForm=  this.formBuilder.group({
+      'name': [null, [Validators.minLength(3)]]
+    });
     this.AuthorForm = this.formBuilder.group({
       'name': [null, [Validators.required]],
       'surname': [null, [Validators.required]],
@@ -32,7 +39,7 @@ export class AuthorComponent implements OnInit {
       'phone': [null, [Validators.required]],
     });
   }
-  
+
   loadAuthors(){
     this.authorService.getAll().subscribe(res => {
       this.authors = res;
@@ -58,16 +65,28 @@ export class AuthorComponent implements OnInit {
       console.log(res);
       this.AuthorForm.reset();
       this.setPage({ offset: 0 });
+      this.controlAuthorForm = false;
     });
   }
   deleteAuthor(id){
     console.log(id);
     this.authorService.delete(id).subscribe(res=>{
-      
       this.setPage({ offset: 0 });
+      this.control = true;
+      this.loadStaticPage();
     });
   }
 
+  searchAuthor(){
+    if (!this.searchForm.valid) {
+      return;
+    }
+    this.authorService.findAllByName(this.searchForm.value['name']).subscribe(res => {
+      this.authors = res;
+      this.control=false;
+    });
+  }
 
+  get sf() { return this.searchForm.controls; }
   get f() { return this.AuthorForm.controls; }
 }
