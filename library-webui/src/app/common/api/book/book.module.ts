@@ -19,6 +19,11 @@ import { BookDetailsComponent } from './book-details/book-details.component';
     NgxDatatableModule,
     ReactiveFormsModule
   ],
-  providers: [AuthorService, BookService, BsModalRef,ApiService]
+  providers: [
+    AuthorService,
+    BookService,
+    BsModalRef,
+    ApiService
+  ]
 })
 export class BookModule { }

@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.example.demo.model.BookStatus;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,8 +35,11 @@ public class BookUpdateDto {
 	
 	@NotNull
 	private String barcode;
+
+	@NotNull
+	private BookStatus bookStatus;
 	
-    private AuthorDto author;
+    private AuthorDtoForOneEntity author;
 
 	@NotNull
 	private String publisher;

@@ -5,7 +5,5 @@ export class Author {
     public email: string;
     public phone: string;
     public about: string;
-    constructor(){
-        
-    }
+    constructor() { }
   }

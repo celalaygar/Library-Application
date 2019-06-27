@@ -36,7 +36,6 @@ export class ApiService {
   }
 
   put(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    console.log(path)
     return this.http.put(environment.API_BASE_PATH + path, JSON.stringify(params), this.httpOptions).pipe(catchError(this.formatError));
   }
 

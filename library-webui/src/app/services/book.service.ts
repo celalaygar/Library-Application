@@ -71,6 +71,17 @@ export class BookService {
       }
     ));
   }
+  put(id: number, book): Observable<any> {
+    return this.apiService.put(this.BOOK_PATH + '/' + id, book).pipe(map(
+      res => {
+        if (res) {
+          return res;
+        } else {
+          return {};
+        }
+      }
+    ));
+  }
   delete(id): Observable<any> {
     return this.apiService.delete(this.BOOK_PATH + '/' + id).pipe(map(
       res => {

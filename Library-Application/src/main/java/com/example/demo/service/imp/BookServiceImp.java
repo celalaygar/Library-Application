@@ -106,11 +106,12 @@ public class BookServiceImp {
 	        Author author =  authorRepository.getOne(bookUpdateDto.getAuthorId());
 	        
 	        book.setName(bookUpdateDto.getName());
-	        book.setAuthor(author);
 	        book.setBarcode(bookUpdateDto.getBarcode());
 	        book.setContent(bookUpdateDto.getContent());
 	        book.setPublisher(bookUpdateDto.getPublisher());
-	
+	        book.setBookStatus(bookUpdateDto.getBookStatus());
+	        book.setAuthor(author);
+	        
 	        bookRepository.save(book);
 	        bookUpdateDto=modelMapper.map(book, BookUpdateDto.class);
 	        bookUpdateDto.setAuthorId(author.getId());
