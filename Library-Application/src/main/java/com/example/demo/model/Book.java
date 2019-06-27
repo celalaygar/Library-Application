@@ -52,7 +52,7 @@ public class Book {
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Author author;
 
-    @JoinColumn(name = "customer_id")
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Customer customer;
+    @JoinColumn(name = "student_id")
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+	private Student student;
 }

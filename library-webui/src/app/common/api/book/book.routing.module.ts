@@ -1,14 +1,15 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import { BookComponent } from './book.component';
+import { BookDetailsComponent } from './book-details/book-details.component';
 
 const routes: Routes = [
   {
     path: '', component: BookComponent
   },
-//   {
-//     path: 'author-detail/:id', component: IssueDetailComponent
-//   }
+  {
+    path: 'book-detail/:id', component: BookDetailsComponent
+  }
 ];
 
 @NgModule({

@@ -59,9 +59,7 @@ public class AuthorServiceImp {
 			throw new NotFoundException("Author don't already exist");
 		}
 		AuthorDto[] authorDtos=modelMapper.map(authors, AuthorDto[].class);
-		Arrays.asList(authorDtos).forEach(author->{
-			author.getBooks().forEach(book->{ book.setAuthor(null);  });
-		});
+
 		return Arrays.asList(authorDtos);
 	}
 	public TPage<AuthorDto> getAllPageable(Pageable pageable) throws NotFoundException {
@@ -72,9 +70,7 @@ public class AuthorServiceImp {
 			//Page<Author> page=authorRepository.findAll(pageable);
 			TPage<AuthorDto> tPage=new TPage<AuthorDto>();
 			AuthorDto[] authorDtos=modelMapper.map(page.getContent(), AuthorDto[].class);
-			Arrays.asList(authorDtos).forEach(author->{
-				author.getBooks().forEach(book->{ book.setAuthor(null); });
-			});
+
 			tPage.setStat(page, Arrays.asList(authorDtos));
 			return tPage;
 		} catch (Exception e) {
@@ -87,9 +83,7 @@ public class AuthorServiceImp {
 			throw new NotFoundException("Author don't already exist");
 		}
 		AuthorDto[] authorDtos=modelMapper.map(authors, AuthorDto[].class);
-		Arrays.asList(authorDtos).forEach(author->{
-			author.getBooks().forEach(book->{ book.setAuthor(null);  });
-		});
+
 		return Arrays.asList(authorDtos);
 	}
 	public AuthorUpdateDto update(Long id, @Valid AuthorUpdateDto authorUpdateDto) throws NotFoundException {

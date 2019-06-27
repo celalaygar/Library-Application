@@ -2,15 +2,23 @@ package com.example.demo.dto;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.example.demo.model.Book;
+import com.example.demo.model.City;
 
 import lombok.Data;
 import lombok.Getter;
@@ -18,25 +26,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Getter
 @Setter
-@Data
 @NoArgsConstructor
-public class AuthorOneDto {
+@Data
+public class StudentDto {
 
 	private Long id;
 	
 	@NotNull
-	private String name;
+	private String fullname;
+
+	private String university;
 	
+	private String department;
+
 	@NotNull
-	private String surname;
-	
-	private String about;
-	
 	private String email;
-	
+
+	@NotNull
 	private String phone;
 	
-	private List<BookDtoForOneEntity> books;
-
+	private String address;
+	
+	private City city;
+	
+	private List<BookOneDto> books;
 
 }

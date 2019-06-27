@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.AuthorDto;
-import com.example.demo.dto.AuthorDtoForOneBook;
+import com.example.demo.dto.AuthorDtoForOneEntity;
 import com.example.demo.dto.AuthorOneDto;
 import com.example.demo.dto.BookDto;
 import com.example.demo.dto.BookOneDto;
@@ -49,9 +49,9 @@ public class BookServiceImp {
 	}
 	
 	public BookOneDto save(BookOneDto bookOneDto) {
-		Book bookChecked=bookRepository.findByName(bookOneDto.getName());
+		List<Book> bookChecked=bookRepository.findByName(bookOneDto.getName());
 		Author author=authorRepository.getOne(bookOneDto.getAuthorId());
-		if(bookChecked !=null) {
+		if(bookChecked.size()>0) {
 			throw new IllegalArgumentException("book already exist");
 		}
 		if(author.getId() != bookOneDto.getAuthorId()) {
@@ -61,7 +61,7 @@ public class BookServiceImp {
 		book.setAuthor(author);
 		bookRepository.save(book);
 		bookOneDto.setId(book.getId());
-		bookOneDto.setAuthor(modelMapper.map(author, AuthorDtoForOneBook.class));
+		bookOneDto.setAuthor(modelMapper.map(author, AuthorDtoForOneEntity.class));
 		return bookOneDto;
 	}
 	
@@ -75,7 +75,6 @@ public class BookServiceImp {
 			BookDto[] bookDtos=modelMapper.map(books, BookDto[].class);
 			Arrays.asList(bookDtos) .forEach(data->{
 				data.setAuthorId(data.getAuthor().getId());
-				data.getAuthor().setBooks(null);
 			});
 			return Arrays.asList(bookDtos);
 		} catch (Exception e) {
@@ -92,7 +91,6 @@ public class BookServiceImp {
 			BookDto[] bookDtos=modelMapper.map(page.getContent(), BookDto[].class);
 			Arrays.asList(bookDtos) .forEach(data->{
 				data.setAuthorId(data.getAuthor().getId());
-				data.getAuthor().setBooks(null);
 			});
 			tPage.setStat(page, Arrays.asList(bookDtos));
 			return tPage;
@@ -142,6 +140,15 @@ public class BookServiceImp {
 		} catch (Exception e) {
 			throw new NotFoundException("Book does not exist id : "+id);
 		}
+	}
+
+	public List<BookDto> SearchBooksByName(String name) throws NotFoundException {
+		List<Book> books=bookRepository.SearchBooksByName(name);
+		if(books.size()<1) {
+			throw new NotFoundException("Book don't already exist");
+		}
+		BookDto[] bookDtos=modelMapper.map(books, BookDto[].class);
+		return Arrays.asList(bookDtos);
 	}
 
 

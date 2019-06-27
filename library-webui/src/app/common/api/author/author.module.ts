@@ -19,9 +19,11 @@ import { ApiService } from 'src/app/services/general/api.service';
     NgxDatatableModule,
     ReactiveFormsModule
   ],
-  providers: [AuthorService,
+  providers: [
+    AuthorService,
     BookService,
     ApiService,
-    BsModalRef]
+    BsModalRef
+  ]
 })
 export class AuthorModule { }

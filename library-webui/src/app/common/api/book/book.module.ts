@@ -5,13 +5,20 @@ import { BookComponent } from './book.component';
 import { AuthorService } from 'src/app/services/author.service';
 import { BookService } from 'src/app/services/book.service';
 import { ApiService } from 'src/app/services/general/api.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { BsModalRef } from 'ngx-bootstrap';
+import { BookDetailsComponent } from './book-details/book-details.component';
 
 @NgModule({
-  declarations: [BookComponent],
+  declarations: [BookComponent, BookDetailsComponent],
   imports: [
     CommonModule,
-    BookRoutingModule
+    BookRoutingModule,
+    FormsModule,
+    NgxDatatableModule,
+    ReactiveFormsModule
   ],
-  providers: [AuthorService]
+  providers: [AuthorService, BookService, BsModalRef,ApiService]
 })
 export class BookModule { }

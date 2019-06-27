@@ -32,7 +32,7 @@ public class AuthorDto {
 	
 	private String phone;
 	
-	private List<BookDto> books;
+	private List<BookDtoForOneEntity> books;
 
 
 }

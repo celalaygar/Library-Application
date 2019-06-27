@@ -60,10 +60,12 @@ public class BookRestController {
     
     @GetMapping("/{id}")
     public ResponseEntity<BookOneDto> getAll(@PathVariable(name="id",required=true) Long id) throws NotFoundException {
-        
         return ResponseEntity.ok(bookServiceImp.getOne(id));
     }
-
+    @GetMapping("/find/{name}")
+    public ResponseEntity<List<BookDto>> findByName(@PathVariable(name="name",required=true) String name) throws NotFoundException {
+        return ResponseEntity.ok(bookServiceImp.SearchBooksByName(name));
+    }
 	@PostMapping()
 	public ResponseEntity<BookOneDto> createProject(@Valid @RequestBody BookOneDto bookOneDto){
 		return ResponseEntity.ok(bookServiceImp.save(bookOneDto));

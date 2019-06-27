@@ -45,6 +45,6 @@ public class BookDto {
 	private Long authorId;
 	
 	
-    private AuthorDto author;
+    private AuthorDtoForOneEntity author;
 
 }

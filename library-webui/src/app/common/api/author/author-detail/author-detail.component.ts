@@ -79,7 +79,6 @@ export class AuthorDetailComponent implements OnInit {
       return;
     }
     this.authorService.put(this.id,this.AuthorUpdateForm.value).subscribe(res => {
-      console.log(res);
       this.staticLoadPage();
       this.LoadAuthorUpdateForm(res);
       if(res['id']==this.id){
