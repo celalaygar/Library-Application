@@ -1,18 +1,21 @@
 ## Library-Application (This project is beeing built by me)
-This project is about Library Application
-#### Using Tools & Technologies
+This project is about Library Application. 
+I hace run this project's backside on localhost:8182/ and frontside on localhost:5422/
+## Using Tools & Technologies
 ``` 
-- Spring Boot
+- Spring Boot 2.1.5
 - Spring Security
 - JWT
 - REST API, DTO
 - Jpa, Hibernate
-- PostgreSql
-- Angular 7
+- PostgreSql 9.6
+- Angular 8
 - Typescript
 - Bootstrap 4
+- Lombok
+- ModelMapper
 ```
-### Author Rest api
+## Author Rest api
 These links are just example how to use rest api with these links.
 
 Author get mapping : 
@@ -32,7 +35,8 @@ localhost:8182/api/author
 	"name":"lara",
 	"surname":"gül",
 	"email":"lara.g@gmail.com",
-	"phone":"+905434445511"
+	"phone":"+905434445511",
+	"about":"hakan ali is using an email called hasan.a@gmail.com"
 	
 }
 ``` 
@@ -42,8 +46,8 @@ localhost:8182/api/author/{id}
 {
 	"name":"hakan ali",
 	"surname":"kara",
-    	"email": "hasan.a@gmail.com",
-    	"phone": "+905434445511",
+	"email": "hasan.a@gmail.com",
+	"phone": "+905434445511",
 	"about":"hakan ali is using an email called hasan.a@gmail.com"
 }
 ``` 
@@ -51,7 +55,7 @@ Author delete mapping :
 ``` 
 localhost:8182/api/author/{id} 
 ```
-### Book Rest api
+## Book Rest api
 These links are just example how to use rest api with these links.
 
 Book get mapping : 
@@ -71,7 +75,9 @@ localhost:8182/api/book
 	"name":"Ağa sızma teknikleri",
 	"barcode":"NTW-00352",
 	"content":"Network üzerinden ağa sızma teknikleri anlatılmaktadır.",
-	"publisher":"Kodlab Yayıncılık"
+	"publisher":"Kodlab Yayıncılık",
+	"bookStatus":"FREE",
+	"authorId":1
 }
 ```
 Book put mapping :  
@@ -79,10 +85,11 @@ Book put mapping :
 localhost:8182/api/book/{id} 
 
 {
-    	"name": "Spring boot 2",
-    	"barcode": "SPRING-01-2",
+	"name": "Spring boot 2",
+	"barcode": "SPRING-01-2",
 	"content": "Spring boot 2 ile web uygulama adımları anlatılmıştır",
-    	"publisher": "Level 2",
+	"publisher": "Level 2",
+	"bookStatus":"USED",
 	"authorId": 4
 }
 ```
@@ -90,8 +97,8 @@ Book delete mapping :
 ```
 localhost:8182/api/book/{id} 
 ``` 
-#### Create front side regarding Angular 7
-Follow step: open git bash and write bottom ones to create new project about angular 7
+## Create front side regarding Angular 8
+Follow step: open git bash and write bottom ones to create new project about angular 8
 - npm i @angular/cli
 - ng new project-name
 - cd project-name
@@ -101,7 +108,7 @@ Follow step: open git bash and write bottom ones to create new project about ang
 - npm i ngx-datatable
 - npm install ngx-bootstrap
 Then you can get author and book data from back side regarding spring boot
-#### Sql Query
+### Sql Query
 ``` 
 
 CREATE TABLE public.users
@@ -115,8 +122,6 @@ CREATE TABLE public.users
     CONSTRAINT uk_iqm8x8lkitrfo4idy96trfm9p UNIQUE (uname)
 
 )
-
-
 
 CREATE TABLE public.author
 (
@@ -133,7 +138,6 @@ CREATE TABLE public.author
     CONSTRAINT uk_or6k6jmywerxbme223c988bmg UNIQUE (name)
 
 )
-
 
 CREATE TABLE public.book
 (

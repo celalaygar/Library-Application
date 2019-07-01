@@ -12,6 +12,7 @@ const routes: Routes = [
         {path: '', pathMatch: 'full', redirectTo: 'author'},
         {path: 'author', loadChildren: './common/api/author/author.module#AuthorModule'},
         {path: 'book', loadChildren: './common/api/book/book.module#BookModule'},
+        {path: 'student', loadChildren: './common/api/student/student.module#StudentModule'},
       ]
     },
     {path: 'login', component: LoginComponent},
