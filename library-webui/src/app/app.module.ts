@@ -16,6 +16,7 @@ import { AuthorService } from './services/author.service';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ApiService } from './services/general/api.service';
 import { BookService } from './services/book.service';
+import { StudentService } from './services/student.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,12 @@ import { BookService } from './services/book.service';
     AppRoutingModule,
     NgxDatatableModule
   ],
-  providers: [AuthorService, BookService, ApiService],
+  providers: [
+    AuthorService, 
+    BookService, 
+    StudentService,
+    ApiService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

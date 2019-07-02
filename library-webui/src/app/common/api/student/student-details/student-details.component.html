@@ -1,3 +1,97 @@
-<p>
-  student-details works!
-</p>
+<h2>Yazar: {{student.name}}  {{student.surname}}</h2>
+<hr>
+<button class="btn btn-secondary" (click)="backClicked()" >Back</button>
+<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#updateStudentPanel" 
+  (click)="LoadStudentUpdateForm(author)" data-whatever="@mdo"> Güncelle </button>
+
+  
+  <!--Update Student form start-->
+  <div  class="modal fade" id="updateStudentPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Yazar Bilgilerini Güncelle</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="showModal; else elseBlock1"  class="modal-body">
+        <form [formGroup]="StudentUpdateForm" (ngSubmit)="updateStudent()">
+          <div class="form-group">
+            <label>fullname</label>
+            <input type="text" formControlName="fullname" class="form-control"
+              [ngClass]="{ 'is-invalid': sif.fullname.errors }" />
+            <div *ngIf="sif.fullname.errors" class="invalid-feedback">
+              <div *ngIf="sif.fullname.errors.required">fullname is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>tc no</label>
+            <input type="text" formControlName="tcNo" class="form-control"
+              [ngClass]="{ 'is-invalid': sif.tcNo.errors }" />
+            <div *ngIf="sif.tcNo.errors" class="invalid-feedback">
+              <div *ngIf="sif.tcNo.errors.min">Tc No is least 11 characters</div>
+              <div *ngIf="sif.tcNo.errors.max">Tc No is most 11 characters</div>
+              <div *ngIf="sif.tcNo.errors.required">Tc No is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>email</label>
+            <input type="text" formControlName="email" class="form-control"
+              [ngClass]="{ 'is-invalid': sif.email.errors }" />
+            <div *ngIf="sif.email.errors" class="invalid-feedback">
+              <div *ngIf="sif.email.errors.required">email is required</div>
+              <div *ngIf="sif.email.errors.email">email must be email adress</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>phone</label>
+            <input type="text" formControlName="phone" class="form-control"
+              [ngClass]="{ 'is-invalid': sif.phone.errors }" />
+            <div *ngIf="sif.phone.errors" class="invalid-feedback">
+              <div *ngIf="sif.phone.errors.required">phone is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>adress</label>
+            <input type="text" formControlName="address" class="form-control"
+              [ngClass]="{ 'is-invalid': sif.address.errors }" />
+            <div *ngIf="sif.address.errors" class="invalid-feedback">
+              <div *ngIf="sif.address.errors.required">address is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>university</label>
+            <input type="text" formControlName="university" class="form-control"
+              [ngClass]="{ 'is-invalid': sif.university.errors }" />
+            <div *ngIf="sif.university.errors" class="invalid-feedback">
+              <div *ngIf="sif.university.errors.required">university No is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>department</label>
+            <input type="text" formControlName="department" class="form-control"
+              [ngClass]="{ 'is-invalid': sif.department.errors }" />
+            <div *ngIf="sif.department.errors" class="invalid-feedback">
+              <div *ngIf="sif.department.errors.required">depertmant No is required</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" >UPDATE</button>
+          </div>
+        </form>
+      </div>
+      <ng-template #elseBlock1>
+        <div class="modal-body">
+          <h5>Perfect.....!</h5>
+          <strong>Student was updated.....</strong>
+        </div>
+      </ng-template>
+      <div class="modal-footer">
+        <button class="btn btn-secondary"  data-dismiss="modal" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Update Student form ende-->

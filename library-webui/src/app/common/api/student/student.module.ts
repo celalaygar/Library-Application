@@ -5,6 +5,10 @@ import { StudentDetailsComponent } from './student-details/student-details.compo
 import { StudentRoutingModule } from './student.routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { AuthorService } from 'src/app/services/author.service';
+import { BookService } from 'src/app/services/book.service';
+import { BsModalRef } from 'ngx-bootstrap';
+import { StudentService } from 'src/app/services/student.service';
 
 @NgModule({
   declarations: [StudentComponent, StudentDetailsComponent],
@@ -14,6 +18,12 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     FormsModule,
     NgxDatatableModule,
     ReactiveFormsModule
+  ],
+  providers: [
+    AuthorService,
+    BookService,
+    StudentService,
+    BsModalRef
   ]
 })
 export class StudentModule { }

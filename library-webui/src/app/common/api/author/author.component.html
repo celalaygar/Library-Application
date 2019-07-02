@@ -2,8 +2,7 @@
 <a href="/author"  class="btn btn-primary mb-2">Yenile</a>
 <hr>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertAuthorPanel"
-  data-whatever="@mdo">Yazar
-  Oluştur</button>
+(click)="loadAuthorFormPanel()" data-whatever="@mdo">Yazar Oluştur</button>
 <div class="modal fade" id="insertAuthorPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -37,7 +36,8 @@
             <input type="text" formControlName="email" class="form-control"
               [ngClass]="{ 'is-invalid': f.email.errors }" />
             <div *ngIf="f.email.errors" class="invalid-feedback">
-              <div *ngIf="f.email.errors.email">email is required</div>
+              <div *ngIf="f.email.errors.email">email must be email adress as required</div>
+              <div *ngIf="f.email.errors.required">email is required</div>
             </div>
           </div>
           <div class="form-group">

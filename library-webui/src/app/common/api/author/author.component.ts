@@ -46,7 +46,16 @@ export class AuthorComponent implements OnInit {
     });
   }
 
-
+  loadAuthorFormPanel(){
+    this.controlAuthorForm=true;
+    this.AuthorForm = this.formBuilder.group({
+      'name': [null, [Validators.required]],
+      'surname': [null, [Validators.required]],
+      'about': [null, [Validators.required]],
+      'email': [null, [Validators.email,Validators.required]],
+      'phone': [null, [Validators.required]],
+    });
+  }
 
   setPage(pageInfo) {
     this.page.page = pageInfo.offset;

@@ -30,6 +30,9 @@ public class Student {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+
+	@Column(name="tcNo",length=11,unique=true)
+	private String tcNo;
 	
 	@NotNull
 	@Column(name="fullname",length=100,unique=true)

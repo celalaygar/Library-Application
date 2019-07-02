@@ -1,10 +1,12 @@
 package com.example.demo.api;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +20,8 @@ import com.example.demo.dto.AuthorUpdateDto;
 import com.example.demo.dto.BookUpdateDto;
 import com.example.demo.dto.StudenPatchtDto;
 import com.example.demo.dto.StudentDto;
+import com.example.demo.model.BookStatus;
+import com.example.demo.model.City;
 import com.example.demo.service.imp.AuthorServiceImp;
 import com.example.demo.service.imp.StudentServiceImp;
 import com.example.demo.util.ApiPaths;
@@ -25,7 +29,8 @@ import com.example.demo.util.ApiPaths;
 import javassist.NotFoundException;
 
 @RestController
-@RequestMapping(ApiPaths.CustomerCtrl.CTRL)
+@RequestMapping(ApiPaths.StudentCtrl.CTRL)
+@CrossOrigin
 public class StudentRestController {
 
 	private final StudentServiceImp studentServiceImp;
@@ -42,8 +47,8 @@ public class StudentRestController {
 	}
 
 	@PostMapping()
-	public ResponseEntity<StudentDto> createStudent(@Valid @RequestBody StudentDto customerDto) {
-		return ResponseEntity.ok(studentServiceImp.save(customerDto));
+	public ResponseEntity<StudentDto> createStudent(@Valid @RequestBody StudentDto studentDto) {
+		return ResponseEntity.ok(studentServiceImp.save(studentDto));
 	}
 
 	@PutMapping("/{id}")
@@ -58,4 +63,9 @@ public class StudentRestController {
 		
 		return ResponseEntity.ok(studentServiceImp.insertBookForStudent(id, studenPatchtDto));
 	}
+	
+    @GetMapping("/cities")
+    public ResponseEntity<List<City>> getAllBookStatus() {
+        return ResponseEntity.ok(Arrays.asList(City.values()));
+    }
 }

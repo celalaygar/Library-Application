@@ -32,6 +32,8 @@ public class StudentDto {
 
 	private Long id;
 	
+	private String tcNo;
+	
 	@NotNull
 	private String fullname;
 

@@ -31,6 +31,8 @@ import lombok.Setter;
 public class StudentOneDto {
 
 	private Long id;
+
+	private String tcNo;
 	
 	@NotNull
 	private String fullname;
