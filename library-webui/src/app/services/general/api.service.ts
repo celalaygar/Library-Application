@@ -29,6 +29,7 @@ export class ApiService {
     return this.http.get<any>(environment.API_BASE_PATH + path).pipe(catchError(this.formatError));
   }
   findAllByName(path: string): Observable<any> {
+    console.log(environment.API_BASE_PATH + path)
     return this.http.get<any>(environment.API_BASE_PATH + path).pipe(catchError(this.formatError));
   }
   post(path: string, params: HttpParams = new HttpParams()): Observable<any> {

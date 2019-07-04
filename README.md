@@ -43,6 +43,7 @@ localhost:8182/api/author
 Author put mapping :
 ``` 
 localhost:8182/api/author/{id} 
+
 {
 	"name":"hakan ali",
 	"surname":"kara",
@@ -71,6 +72,7 @@ localhost:8182/api/book/pagination?page=1&size=5
 Book post mapping : 
 ```
 localhost:8182/api/book
+
 {
 	"name":"Ağa sızma teknikleri",
 	"barcode":"NTW-00352",
@@ -97,6 +99,47 @@ Book delete mapping :
 ```
 localhost:8182/api/book/{id} 
 ``` 
+
+## Student Rest api
+Student get mapping : 
+```
+localhost:8182/api/student 
+localhost:8182/api/student/{id}
+```
+Student get mapping as pagination: 
+```
+localhost:8182/api/student/pagination?page=0&size=3
+localhost:8182/api/student/pagination?page=1&size=5
+```
+Student post mapping :
+```
+localhost:8182/api/student
+
+{
+	"fullname":"pınar kara1",
+	"tcNo":"11111111121",
+	"email":"pınar.kara1@gmail.com",
+	"phone":"+9054344455122",
+	"university":"gazi üniversitesi",
+	"department":"beden öğretmenliği",
+	"address":"karşı1yaka 513.sokak no : 1/1",
+	"city":"ADANA"
+	
+}
+
+```
+Student patch mapping : 
+```
+localhost:8182/api/student/{id}
+
+{
+	"bookId":4
+}
+```
+Student delete mapping : 
+```
+localhost:8182/api/student/{id}
+```
 ## Create front side regarding Angular 8
 Follow step: open git bash and write bottom ones to create new project about angular 8
 - npm i @angular/cli
@@ -152,5 +195,26 @@ CREATE TABLE public.book
         REFERENCES public.author (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
+)
+
+
+CREATE TABLE public.student
+(
+    id bigint NOT NULL,
+    address character varying(100) COLLATE pg_catalog."default",
+    city character varying(100) COLLATE pg_catalog."default",
+    department character varying(3000) COLLATE pg_catalog."default",
+    email character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    fullname character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    phone character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    tc_no character varying(11) COLLATE pg_catalog."default",
+    university character varying(3000) COLLATE pg_catalog."default",
+    CONSTRAINT student_pkey PRIMARY KEY (id),
+    CONSTRAINT uk_6vhihqulrkjbo4rf08auq73fp UNIQUE (fullname)
+,
+    CONSTRAINT uk_fe0i52si7ybu0wjedj6motiim UNIQUE (email)
+,
+    CONSTRAINT uk_gv4cafrm5j078fxw7po0o6cxu UNIQUE (tc_no)
+
 )
 ``` 

@@ -1,6 +1,12 @@
 <h2>Öğrenciler</h2>
 <a href="/student"  class="btn btn-primary mb-2">Yenile</a>
 <hr>
+<div *ngIf="message" class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Dikkat !!! </strong> {{message}} 
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#updateStudentPanel" 
 (click)="LoadStudentInsertForm()" data-whatever="@mdo"> Öğrenci Ekle </button>
 
@@ -104,3 +110,64 @@ aria-hidden="true">
 </div>
 </div>
 <!--Update Student form ende-->
+<hr>
+<div *ngIf="control; else elseBlock2">
+    <ngx-datatable
+    class="bootstrap"
+    [rows]="rows"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [externalPaging]="true"
+    [count]="page.totalElements"
+    [offset]="page.page"
+    [limit]="page.size"
+    (page)='setPage($event)'>
+      <ngx-datatable-column prop="id" name="No" sortable="false" maxWidth="30" draggable="false" ></ngx-datatable-column>
+      <ngx-datatable-column prop="tcNo" name="Tc NNo" sortable="false"></ngx-datatable-column>
+      <ngx-datatable-column prop="fullname" name="fullname" sortable="false" draggable="false"></ngx-datatable-column>
+      <ngx-datatable-column prop="email" name="email" sortable="false" draggable="false"></ngx-datatable-column>
+      <ngx-datatable-column prop="phone" name="phone" sortable="false" draggable="false"></ngx-datatable-column>
+      <ngx-datatable-column prop="university" name="university" sortable="false" draggable="false"></ngx-datatable-column>
+      <ngx-datatable-column prop="department" name="department" sortable="false" draggable="false"></ngx-datatable-column>
+      <!-- <ngx-datatable-column prop="address" name="address" sortable="false" draggable="false"></ngx-datatable-column> -->
+      <ngx-datatable-column prop="id" name="Actions " sortable="false" draggable="false">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          <a [routerLink]="['student-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
+          <button class="btn btn-sm btn-danger" (click)="deleteStudent(value)" ><strong>Sil</strong></button>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+  
+  <ng-template #elseBlock2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">id</th>
+          <th scope="col">barcode</th>
+          <th scope="col">Author Name</th>
+          <th scope="col">publisher</th>
+          <th scope="col">bookStatus</th>
+          <th scope="col">İşlemler</th>
+        </tr>
+      </thead>
+      <!-- <tbody>
+        <tr  *ngFor="let book of books">
+          <th scope="row">#</th>
+          <td>{{book.id}}</td>
+          <td>{{book.name}}</td>
+          <td>{{book.author.name}}</td>
+          <td>{{book.publisher}}</td>
+          <td>{{book.bookStatus}}</td>
+          <td>
+            <a [routerLink]="['book-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
+            <button class="btn btn-sm btn-danger" (click)="deleteBook(book.id)" ><strong>Sil</strong></button>
+          </td>
+        </tr>
+      </tbody> -->
+    </table>
+    <hr>
+  </ng-template>

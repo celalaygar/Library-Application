@@ -1,9 +1,15 @@
 <h2>Kitaplar</h2> 
 <a href="/book"  class="btn btn-primary mb-2">Yenile</a>
 <hr>
+<div *ngIf="message" class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Dikkat !!! </strong> {{message}} 
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
 <form class="form-inline" [formGroup]="searchBookForm" (ngSubmit)="searchBook()">
   <div class="form-group">
-    <label for="inputPassword6">Yazar ismi veya soyismi giriniz : </label>
+    <label for="inputPassword6">Kitap ismi giriniz : </label>
     <input type="text" class="form-control mx-sm-3" placeholder="Ara (en az 3 karakter)" formControlName="name"
       class="form-control" [ngClass]="{ 'is-invalid': sf.name.errors }" />
     <div *ngIf="sf.name.errors" class="invalid-feedback">
@@ -35,12 +41,12 @@
       <ngx-datatable-column prop="author.surname" name="Author Surname" sortable="false"></ngx-datatable-column>
       <ngx-datatable-column prop="publisher" name="publisher" sortable="false"></ngx-datatable-column>
       <ngx-datatable-column prop="bookStatus" name="bookStatus" sortable="false"></ngx-datatable-column>
-      <<ngx-datatable-column prop="id" name="Actions " sortable="false" draggable="false">
+      <ngx-datatable-column prop="id" name="Actions " sortable="false" draggable="false">
         <ng-template let-value="value" ngx-datatable-cell-template>
           <a [routerLink]="['book-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
           <button class="btn btn-sm btn-danger" (click)="deleteBook(value)" ><strong>Sil</strong></button>
         </ng-template>
-      </ngx-datatable-column> -->
+      </ngx-datatable-column>
     </ngx-datatable>
   </div>
   

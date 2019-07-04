@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +27,7 @@ import com.example.demo.model.City;
 import com.example.demo.service.imp.AuthorServiceImp;
 import com.example.demo.service.imp.StudentServiceImp;
 import com.example.demo.util.ApiPaths;
+import com.example.demo.util.TPage;
 
 import javassist.NotFoundException;
 
@@ -45,7 +48,12 @@ public class StudentRestController {
 		List<StudentDto> customerDtos = studentServiceImp.getAll();
 		return ResponseEntity.ok(customerDtos);
 	}
-
+	//localhost:8182/api/student/pagination?page=1&size=3
+    @GetMapping("/pagination")
+    public ResponseEntity<TPage<StudentDto>> getAllByPagination(Pageable pageable) throws NotFoundException {
+        TPage<StudentDto> data = studentServiceImp.getAllPageable(pageable);
+        return ResponseEntity.ok(data);
+    }
 	@PostMapping()
 	public ResponseEntity<StudentDto> createStudent(@Valid @RequestBody StudentDto studentDto) {
 		return ResponseEntity.ok(studentServiceImp.save(studentDto));
@@ -63,7 +71,10 @@ public class StudentRestController {
 		
 		return ResponseEntity.ok(studentServiceImp.insertBookForStudent(id, studenPatchtDto));
 	}
-	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Boolean> deleteBook(@PathVariable(name="id", required=true) Long id) throws NotFoundException {
+		return ResponseEntity.ok(studentServiceImp.delete(id));
+	}
     @GetMapping("/cities")
     public ResponseEntity<List<City>> getAllBookStatus() {
         return ResponseEntity.ok(Arrays.asList(City.values()));

@@ -26,5 +26,5 @@ public class BookDtoForOneEntity {
 	private BookStatus bookStatus;
 	@NotNull
 	private Long authorId;
-	private Long custoomerId;
+	private Long studentId;
 }

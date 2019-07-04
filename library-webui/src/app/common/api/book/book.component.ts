@@ -18,17 +18,18 @@ export class BookComponent implements OnInit {
   books = [];
   //search book form
   searchBookForm: FormGroup;
-  
-  constructor(private bookService : BookService,
-              private formBuilder: FormBuilder) { }
+  message: string | undefined;
+
+  constructor(private bookService: BookService,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.loadStaticPage();
   }
-  loadStaticPage(){
+  loadStaticPage() {
     this.setPage({ offset: 0 });
-    this.searchBookForm=  this.formBuilder.group({
-      'name': [null, [Validators.minLength(3),Validators.required]]
+    this.searchBookForm = this.formBuilder.group({
+      'name': [null, [Validators.minLength(3), Validators.required]]
     });
 
   }
@@ -42,23 +43,33 @@ export class BookComponent implements OnInit {
     });
   }
 
-  searchBook(){
+  searchBook() {
     if (!this.searchBookForm.valid) {
       return;
     }
-    this.bookService.findAllByName(this.searchBookForm.value['name']).subscribe(res => {
-      this.control = false;
-      this.books = res;
-    });
+    this.bookService.findAllByName(this.searchBookForm.value['name']).subscribe(
+      res => {
+        this.control = false;
+        this.books = res;
+        this.message = ' Kayıtlar bulunmuştur. ';
+      },
+      error => {
+        this.message = ' Hay Aksi <strong>' + this.searchBookForm.value['name'] + '</strong> bu isimde bir kitap kaydı bulunamamıştır. ';
+      });
   }
-  deleteBook(id){
-    this.bookService.delete(id).subscribe(res =>{
+  deleteBook(id) {
+    this.bookService.delete(id).subscribe(res => {
+
       this.control = true;
       this.loadStaticPage();
-    });
+      this.message = ' Kayıt silinmiştir. ';
+    },
+      error => {
+        this.message = ' Kayıt Bulunamamıştır.. ';
+      });
 
   }
 
-  
+
   get sf() { return this.searchBookForm.controls; }
 }

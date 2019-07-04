@@ -3,6 +3,7 @@ import { BookService } from 'src/app/services/book.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { StudentService } from 'src/app/services/student.service';
+import { Page } from 'src/app/shared/Page';
 
 @Component({
   selector: 'app-student',
@@ -10,6 +11,12 @@ import { StudentService } from 'src/app/services/student.service';
   styleUrls: ['./student.component.css']
 })
 export class StudentComponent implements OnInit {
+
+  message: string | undefined;
+  //ngx datatable parameters
+  rows = [];
+  page = new Page();
+  control = true;
 
   //student insert form parameters
   cities: Array<any> = [];
@@ -20,10 +27,25 @@ export class StudentComponent implements OnInit {
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.loadStaticPage();
+  }
+  loadStaticPage(){
+    this.setPage({ offset: 0 });
     this.LoadStudentInsertForm();
+  }
+  setPage(pageInfo) {
+    this.control = true;
+    this.page.page = pageInfo.offset;
+    this.studentService.getAllPageable(this.page).subscribe(pagedData => {
+      this.page.size = pagedData.size;
+      this.page.page = pagedData.page;
+      this.page.totalElements = pagedData.totalElements;
+      this.rows = pagedData.content;
+    });
   }
 
   LoadStudentInsertForm(){
+    this.getAllCities();
     this.showModal = true;
     this.StudentInsertForm = this.formBuilder.group({
       'fullname':     [null, [Validators.required]],
@@ -35,7 +57,6 @@ export class StudentComponent implements OnInit {
       'university':   [null, [Validators.required]],
       'department':   [null, [Validators.required]],
     });
-    this.getAllCities();
   }
 
   insertStudent(){
@@ -43,9 +64,12 @@ export class StudentComponent implements OnInit {
       return;
     }
     this.studentService.post(this.StudentInsertForm.value).subscribe(res=>{
-      this.LoadStudentInsertForm();
+      this.loadStaticPage();
       console.log("insert student");
+      this.message = ' Kayıt Yapılmıştır.. ';
       this.showModal = false;
+    }, error => {
+      this.message = ' Hay Aksi Kayıt Yapılamadı. ' ;
     });
   }
 
@@ -54,6 +78,15 @@ export class StudentComponent implements OnInit {
       this.cities = res;
     });
   }
+  deleteStudent(id){
+    console.log(id);
+    this.studentService.delete(id).subscribe(res => {
+      this.loadStaticPage();
+      this.message = ' Kayıt Silinmiştir. ';
+    }, error => {
+      this.message = ' Hay Aksi Kayıt Silinemedi. ' ;
 
+    });
+  }
   get sif() { return this.StudentInsertForm.controls; }
 }

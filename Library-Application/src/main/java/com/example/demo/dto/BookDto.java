@@ -37,7 +37,7 @@ public class BookDto {
 	@NotNull
 	private String publisher;
 	
-	private Long custoomerId;
+	private Long studentId;
 	
 	private BookStatus bookStatus;
 	

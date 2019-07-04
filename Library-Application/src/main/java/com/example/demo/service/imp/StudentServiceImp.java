@@ -7,6 +7,10 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.AuthorDto;
@@ -23,6 +27,7 @@ import com.example.demo.repository.AuthorRepository;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.util.TPage;
 
 import javassist.NotFoundException;
 
@@ -96,6 +101,41 @@ public class StudentServiceImp {
 		bookRepository.save(bookChecked.get());
 		student=studentRepository.getOne(id);
 		return modelMapper.map(student, StudentDto.class);
+	}
+
+	public TPage<StudentDto> getAllPageable(Pageable pageable) throws NotFoundException {
+		try {
+			Page<Student> page=studentRepository.findAll(PageRequest.of(pageable.getPageNumber(), 
+					  pageable.getPageSize(), 
+					  Sort.by(Sort.Direction.ASC, "id")));
+			//Page<Author> page=authorRepository.findAll(pageable);
+			TPage<StudentDto> tPage=new TPage<StudentDto>();
+			StudentDto[] studentDtos=modelMapper.map(page.getContent(), StudentDto[].class);
+
+			tPage.setStat(page, Arrays.asList(studentDtos));
+			return tPage;
+		} catch (Exception e) {
+			throw new NotFoundException("User email dosen't exist : "+e);
+		}
+	}
+
+	public Boolean delete(Long id) throws NotFoundException {
+
+		try {
+			Student student=studentRepository.getOne(id);
+			if(student.getBooks().size()>0) {
+				student.getBooks().forEach(book ->{
+					book.setStudent(null);
+					bookRepository.save(book);
+				});
+			}
+			student.setBooks(null);
+			studentRepository.delete(student);
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
+		
 	}
 	
 	
