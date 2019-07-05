@@ -65,44 +65,6 @@ public class StudentServiceImp {
 		studentDto.setId(student.getId());
 		return studentDto;
 	}
-	
-	public List<StudentDto> getAll() throws NotFoundException {
-		List<Student> students=studentRepository.findAll();
-		if(students.size()<1) {
-			throw new NotFoundException("Customer don't already exist");
-		}
-		StudentDto[] studentDtos=modelMapper.map(students, StudentDto[].class);
-		return Arrays.asList(studentDtos);
-	}
-
-	public StudentDto update(Long id, @Valid StudentDto studentDto) throws NotFoundException {
-		Student student=studentRepository.getOne(id);
-		if(student == null) {
-			throw new IllegalArgumentException("Student dosen't exist");
-		}
-
-		student=modelMapper.map(studentDto, Student.class);
-		student.setId(id);
-		studentRepository.save(student);
-		studentDto.setId(student.getId());
-        return studentDto;
-	}
-
-	public StudentDto insertBookForStudent(Long id, @Valid StudenPatchtDto studenPatchtDto) throws NotFoundException {
-		Student student=studentRepository.getOne(id);
-		if(student == null) {
-			throw new IllegalArgumentException("Student dosen't exist");
-		}
-		Optional<Book> bookChecked=bookRepository.findById(studenPatchtDto.getBookId());
-		if(!bookChecked.isPresent()) {
-			throw new NotFoundException("Book dosen't exist");
-		}
-		bookChecked.get().setStudent(student);
-		bookRepository.save(bookChecked.get());
-		student=studentRepository.getOne(id);
-		return modelMapper.map(student, StudentDto.class);
-	}
-
 	public TPage<StudentDto> getAllPageable(Pageable pageable) throws NotFoundException {
 		try {
 			Page<Student> page=studentRepository.findAll(PageRequest.of(pageable.getPageNumber(), 
@@ -118,6 +80,52 @@ public class StudentServiceImp {
 			throw new NotFoundException("User email dosen't exist : "+e);
 		}
 	}
+
+	public List<StudentDto> getAll() throws NotFoundException {
+		List<Student> students=studentRepository.findAll();
+		if(students.size()<1) {
+			throw new NotFoundException("Customer don't already exist");
+		}
+		StudentDto[] studentDtos=modelMapper.map(students, StudentDto[].class);
+		return Arrays.asList(studentDtos);
+	}
+
+	public StudentDto findById(Long id) {
+		Optional<Student> studentOpt=studentRepository.findById(id);
+		if(!studentOpt.isPresent()) {
+			throw new IllegalArgumentException("Student dosen't exist");
+		}
+		return modelMapper.map(studentOpt.get(), StudentDto.class);
+	}
+	
+	public StudentDto update(Long id, @Valid StudentDto studentDto) throws NotFoundException {
+		Student student=studentRepository.getOne(id);
+		if(student == null) {
+			throw new IllegalArgumentException("Student dosen't exist");
+		}
+
+		student=modelMapper.map(studentDto, Student.class);
+		student.setId(id);
+		studentRepository.save(student);
+		studentDto.setId(student.getId());
+        return studentDto;
+	}
+
+	public StudentDto getBookForStudent(Long id, @Valid StudenPatchtDto studenPatchtDto) throws NotFoundException {
+		Student student=studentRepository.getOne(id);
+		if(student == null) {
+			throw new IllegalArgumentException("Student dosen't exist");
+		}
+		Optional<Book> bookChecked=bookRepository.findById(studenPatchtDto.getBookId());
+		if(!bookChecked.isPresent()) {
+			throw new NotFoundException("Book dosen't exist");
+		}
+		bookChecked.get().setStudent(student);
+		bookRepository.save(bookChecked.get());
+		student=studentRepository.getOne(id);
+		return modelMapper.map(student, StudentDto.class);
+	}
+
 
 	public Boolean delete(Long id) throws NotFoundException {
 
@@ -135,8 +143,25 @@ public class StudentServiceImp {
 		}catch (Exception e) {
 			return false;
 		}
-		
 	}
+
+	public StudentDto leaveBookForStudent(Long id, @Valid StudenPatchtDto studenPatchtDto) throws NotFoundException {
+		Optional<Student> studentOpt=studentRepository.findById(id);
+		if(!studentOpt.isPresent()) {
+			throw new IllegalArgumentException("Student dosen't exist");
+		}
+		Optional<Book> bookChecked=bookRepository.findById(studenPatchtDto.getBookId());
+		if(!bookChecked.isPresent()) {
+			throw new NotFoundException("Book dosen't exist");
+		}
+		bookChecked.get().setStudent(null);
+		bookRepository.save(bookChecked.get());
+		studentOpt.get().getBooks().remove(bookChecked.get());
+		studentRepository.save(studentOpt.get());
+		Student student=studentRepository.getOne(id);
+		return modelMapper.map(student, StudentDto.class);
+	}
+
 	
 	
 }

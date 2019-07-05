@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.example.demo.model.BookStatus;
+import com.example.demo.model.Student;
 
 import lombok.Data;
 import lombok.Getter;
@@ -44,7 +45,8 @@ public class BookDto {
 	@NotNull
 	private Long authorId;
 	
-	
     private AuthorDtoForOneEntity author;
+    
+	private StudentDtoForOneEntity student;
 
 }

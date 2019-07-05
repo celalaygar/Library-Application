@@ -10,6 +10,8 @@ import { map } from 'rxjs/internal/operators';
 export class StudentService {
   STUDENT_PATH = '/student';
   STUDENT_PATH_PAGE = '/pagination';
+  GET_BOOK_PATH = '/get-book';
+  LEAVE_BOOK_PATH = '/leave-book';
   CITIES_PATH = '/cities';
   FIND_BY_TC_NO = '/find';
   constructor(private apiService: ApiService,

@@ -54,6 +54,10 @@ public class StudentRestController {
         TPage<StudentDto> data = studentServiceImp.getAllPageable(pageable);
         return ResponseEntity.ok(data);
     }
+    @GetMapping("/{id}")
+	public ResponseEntity<StudentDto> selectStudent(@PathVariable(name = "id", required = true) Long id) {
+		return ResponseEntity.ok(studentServiceImp.findById(id));
+	}
 	@PostMapping()
 	public ResponseEntity<StudentDto> createStudent(@Valid @RequestBody StudentDto studentDto) {
 		return ResponseEntity.ok(studentServiceImp.save(studentDto));
@@ -65,11 +69,17 @@ public class StudentRestController {
 		return ResponseEntity.ok(studentServiceImp.update(id, studentDto));
 	}
 
-	@PatchMapping("/{id}")
-	public ResponseEntity<StudentDto> insertBookForStudent(@PathVariable(name = "id", required = true) Long id,
+	@PatchMapping("/get-book/{id}")
+	public ResponseEntity<StudentDto> getBookForStudent(@PathVariable(name = "id", required = true) Long id,
 			@Valid @RequestBody StudenPatchtDto studenPatchtDto) throws NotFoundException {
 		
-		return ResponseEntity.ok(studentServiceImp.insertBookForStudent(id, studenPatchtDto));
+		return ResponseEntity.ok(studentServiceImp.getBookForStudent(id, studenPatchtDto));
+	}
+	@PatchMapping("/leave-book/{id}")
+	public ResponseEntity<StudentDto> leaveBookForStudent(@PathVariable(name = "id", required = true) Long id,
+			@Valid @RequestBody StudenPatchtDto studenPatchtDto) throws NotFoundException {
+		
+		return ResponseEntity.ok(studentServiceImp.leaveBookForStudent(id, studenPatchtDto));
 	}
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> deleteBook(@PathVariable(name="id", required=true) Long id) throws NotFoundException {

@@ -130,7 +130,13 @@ localhost:8182/api/student
 ```
 Student patch mapping : 
 ```
-localhost:8182/api/student/{id}
+localhost:8182/api/student/get-book/{id}
+
+{
+	"bookId":4
+}
+
+localhost:8182/api/student/leave-book/{id}
 
 {
 	"bookId":4
