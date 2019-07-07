@@ -18,7 +18,9 @@ export class AuthorComponent implements OnInit {
   controlAuthorForm = true;
   //form parameters
   AuthorForm: FormGroup;
+
   searchForm: FormGroup;
+  message: string | undefined;
   constructor(private authorService: AuthorService,
               private formBuilder: FormBuilder) { }
 
@@ -70,12 +72,17 @@ export class AuthorComponent implements OnInit {
     if (!this.AuthorForm.valid) {
       return;
     }
-    this.authorService.post(this.AuthorForm.value).subscribe(res => {
-      console.log(res);
+    this.authorService.post(this.AuthorForm.value).subscribe(
+      res => {
       this.AuthorForm.reset();
       this.setPage({ offset: 0 });
       this.controlAuthorForm = false;
-    });
+      this.message = 'Kayıt işlemi başarılı.';
+      }, 
+      error =>{
+
+        this.message = 'Kayıt işlemi başarısız';
+      });
   }
   deleteAuthor(id){
     console.log(id);
@@ -92,7 +99,11 @@ export class AuthorComponent implements OnInit {
     }
     this.authorService.findAllByName(this.searchForm.value['name']).subscribe(res => {
       this.authors = res;
-      this.control=false;
+      this.control = false;
+      this.message = 'Kayıtlar bulunmuştur.';
+    }, 
+    error =>{
+      this.message = 'Herhangi bir kayıt bulunamamıştır ';
     });
   }
 

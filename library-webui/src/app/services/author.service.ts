@@ -10,7 +10,7 @@ import { map } from 'rxjs/internal/operators';
 export class AuthorService {
   AUTHOR_PATH = '/author';
   AUTHOR_PATH_PAGE = '/pagination';
-  FIND_ALL_BY_NAME_PATH = '/find-all?name=';
+  FIND_ALL_BY_NAME_PATH = '/find?name=';
 
   constructor(private apiService: ApiService, private http: HttpClient) { }
 

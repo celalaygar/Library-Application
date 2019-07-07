@@ -83,6 +83,9 @@ export class StudentDetailsComponent implements OnInit {
       this.cities = res;
     });
   }
+  leaveBook(bookId){
+    console.log('book left id is ' + bookId);
+  }
   get suf() { return this.StudentUpdateForm.controls; }
   backClicked() {
     this.location.back();

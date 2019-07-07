@@ -1,5 +1,11 @@
 <h2>Yazar: {{author.name}}  {{author.surname}}</h2>
 <hr>
+<div *ngIf="message" class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Dikkat !!! </strong> {{message}} 
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
 <button class="btn btn-secondary" (click)="backClicked()" >Back</button>
 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#updateAuthorPanel" 
   (click)="LoadAuthorUpdateForm(author)" data-whatever="@mdo"> Güncelle </button>

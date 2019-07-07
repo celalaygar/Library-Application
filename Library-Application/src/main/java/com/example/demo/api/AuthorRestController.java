@@ -52,10 +52,12 @@ public class AuthorRestController {
         TPage<AuthorDto> data = authorServiceImp.getAllPageable(pageable);
         return ResponseEntity.ok(data);
     }
-	//http://localhost:8182/api/author/find-all?name=name
-	@GetMapping("find-all")
+	//http://localhost:8182/api/author/find?name=name
+	@GetMapping("/find")
 	public ResponseEntity<List<AuthorDto>> findAllByName(@RequestParam String name) throws NotFoundException {
+		System.out.println("-------------------1");
 	    List<AuthorDto> authorDtos = authorServiceImp.findAllByName(name);
+		System.out.println("-------------------2");
 	    return ResponseEntity.ok(authorDtos);
 	}
 	    

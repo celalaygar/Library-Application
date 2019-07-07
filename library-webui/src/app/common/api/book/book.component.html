@@ -41,6 +41,7 @@
       <ngx-datatable-column prop="author.surname" name="Author Surname" sortable="false"></ngx-datatable-column>
       <ngx-datatable-column prop="publisher" name="publisher" sortable="false"></ngx-datatable-column>
       <ngx-datatable-column prop="bookStatus" name="bookStatus" sortable="false"></ngx-datatable-column>
+      <ngx-datatable-column prop="student.fullname" name="Student " sortable="false"></ngx-datatable-column>
       <ngx-datatable-column prop="id" name="Actions " sortable="false" draggable="false">
         <ng-template let-value="value" ngx-datatable-cell-template>
           <a [routerLink]="['book-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
@@ -60,6 +61,7 @@
           <th scope="col">Author Name</th>
           <th scope="col">publisher</th>
           <th scope="col">bookStatus</th>
+          <!-- <th scope="col">Student</th> -->
           <th scope="col">İşlemler</th>
         </tr>
       </thead>
@@ -71,6 +73,8 @@
           <td>{{book.author.name}}</td>
           <td>{{book.publisher}}</td>
           <td>{{book.bookStatus}}</td>
+          <!-- <td *ngIf="book.student.fullname; else elsee">{{book.student.fullname}}</td>
+          <td #elsee></td> -->
           <td>
             <a [routerLink]="['book-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
             <button class="btn btn-sm btn-danger" (click)="deleteBook(book.id)" ><strong>Sil</strong></button>

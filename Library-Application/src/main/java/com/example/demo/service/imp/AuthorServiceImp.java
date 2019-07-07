@@ -79,10 +79,14 @@ public class AuthorServiceImp {
 	}
 	public List<AuthorDto> findAllByName(String name) throws NotFoundException {
 		List<Author> authors=authorRepository.findByNameOrSurname(name,name);
+		System.out.println("-------------------");
 		if(authors.size()<1) {
+			System.out.println("-------------------");
 			throw new NotFoundException("Author don't already exist");
 		}
+		System.out.println("-------------------");
 		AuthorDto[] authorDtos=modelMapper.map(authors, AuthorDto[].class);
+		System.out.println("-------------------");
 
 		return Arrays.asList(authorDtos);
 	}

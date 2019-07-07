@@ -9,9 +9,10 @@ import { AuthorService } from 'src/app/services/author.service';
 import { BookService } from 'src/app/services/book.service';
 import { BsModalRef } from 'ngx-bootstrap';
 import { StudentService } from 'src/app/services/student.service';
+import { GetBookComponent } from './get-book/get-book.component';
 
 @NgModule({
-  declarations: [StudentComponent, StudentDetailsComponent],
+  declarations: [StudentComponent, StudentDetailsComponent,GetBookComponent],
   imports: [
     CommonModule,
     StudentRoutingModule,

@@ -57,7 +57,8 @@ public class BookRestController {
         TPage<BookDto> data = bookServiceImp.getAllPageable(pageable);
         return ResponseEntity.ok(data);
     }
-    
+    //localhost:8182/api/book/1
+    //localhost:8182/api/book/5
     @GetMapping("/{id}")
     public ResponseEntity<BookOneDto> getAll(@PathVariable(name="id",required=true) Long id) throws NotFoundException {
         return ResponseEntity.ok(bookServiceImp.getOne(id));

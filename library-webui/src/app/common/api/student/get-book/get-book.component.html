@@ -1,0 +1,87 @@
+<h1>Kitaplar </h1>
+<button class="btn btn-secondary" (click)="backClicked()">Back</button>
+<div *ngIf="message" class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Dikkat !!! </strong> {{message}} 
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form class="form-inline" [formGroup]="searchBookForm" (ngSubmit)="searchBook()">
+  <div class="form-group">
+    <label for="inputPassword6">Kitap ismi giriniz : </label>
+    <input type="text" class="form-control mx-sm-3" placeholder="Ara (en az 3 karakter)" formControlName="name"
+      class="form-control" [ngClass]="{ 'is-invalid': sf.name.errors }" />
+    <div *ngIf="sf.name.errors" class="invalid-feedback">
+      <div *ngIf="sf.name.errors.minLength">name has to be least 3 characters.</div>
+    </div>
+  </div>
+  <div class="from-group">
+    <button type="submit" class="btn btn-primary mb-2"> Search </button>
+  </div>
+</form>
+<hr>
+<div *ngIf="control; else elseBlock2">
+  <ngx-datatable
+  class="bootstrap"
+  [rows]="rows"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [externalPaging]="true"
+  [count]="page.totalElements"
+  [offset]="page.page"
+  [limit]="page.size"
+  (page)='setPage($event)'>
+    <ngx-datatable-column prop="id" name="No" sortable="false" maxWidth="50" draggable="false" ></ngx-datatable-column>
+    <ngx-datatable-column prop="name" name="name" sortable="false" draggable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="barcode" name="barcode" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="author.name" name="Author Name" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="author.surname" name="Author Surname" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="publisher" name="publisher" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="bookStatus" name="bookStatus" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="student.fullname" name="Student" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="id" name="Get Book" sortable="false">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <button  class="btn btn-sm btn-warning"  (click)="getBook(id, value)"  ><strong>Kitabı Al</strong></button>
+      </ng-template>
+
+    </ngx-datatable-column>
+    <ngx-datatable-column prop="id" name="Actions " sortable="false" draggable="false">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <a [routerLink]="['book-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
+  
+  <ng-template #elseBlock2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">id</th>
+          <th scope="col">barcode</th>
+          <th scope="col">Author Name</th>
+          <th scope="col">publisher</th>
+          <th scope="col">bookStatus</th>
+          <th scope="col">İşlemler</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr  *ngFor="let book of books">
+          <th scope="row">#</th>
+          <td>{{book.id}}</td>
+          <td>{{book.name}}</td>
+          <td>{{book.author.name}}</td>
+          <td>{{book.publisher}}</td>
+          <td>{{book.bookStatus}}</td>
+          <td>
+            <a [routerLink]="['book-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
+            <a  (click)="getBook(value)"  class="btn btn-sm btn-warning"><strong>Kitabı Al</strong></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
+  </ng-template>

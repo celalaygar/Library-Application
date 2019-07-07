@@ -71,8 +71,9 @@ public class StudentRestController {
 
 	@PatchMapping("/get-book/{id}")
 	public ResponseEntity<StudentDto> getBookForStudent(@PathVariable(name = "id", required = true) Long id,
+			//@Valid @RequestBody Long bookId ) throws NotFoundException {
 			@Valid @RequestBody StudenPatchtDto studenPatchtDto) throws NotFoundException {
-		
+		System.out.println(studenPatchtDto.getBookId());
 		return ResponseEntity.ok(studentServiceImp.getBookForStudent(id, studenPatchtDto));
 	}
 	@PatchMapping("/leave-book/{id}")

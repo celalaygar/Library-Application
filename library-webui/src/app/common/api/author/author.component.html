@@ -1,6 +1,12 @@
 <h2>Yazarlar</h2>
 <a href="/author"  class="btn btn-primary mb-2">Yenile</a>
 <hr>
+<div *ngIf="message" class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Dikkat !!! </strong> {{message}} 
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertAuthorPanel"
 (click)="loadAuthorFormPanel()" data-whatever="@mdo">Yazar Oluştur</button>
 <div class="modal fade" id="insertAuthorPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

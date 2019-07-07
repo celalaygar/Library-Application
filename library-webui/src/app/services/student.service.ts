@@ -73,6 +73,17 @@ export class StudentService {
       }
     ));
   }
+  getBookForpatch(id, params): Observable<any> {
+    return this.apiService.patch(this.STUDENT_PATH + this.GET_BOOK_PATH + '/' + id, params).pipe(map(
+      res => {
+        if (res) {
+          return res;
+        } else {
+          return {};
+        }
+      }
+    ));
+  }
   delete(id): Observable<any> {
     return this.apiService.delete(this.STUDENT_PATH + '/' + id).pipe(map(
       res => {

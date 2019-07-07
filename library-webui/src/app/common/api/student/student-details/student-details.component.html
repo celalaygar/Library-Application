@@ -7,6 +7,7 @@
   </button>
 </div>
 <button class="btn btn-secondary" (click)="backClicked()">Back</button>
+<a href="/student/get-book/{{student.id}}" class="btn btn-success" >Kitap seç</a>
 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#updateStudentPanel"
   (click)="LoadStudentUpdateForm(student)" data-whatever="@mdo"> Güncelle </button>
 
@@ -151,7 +152,7 @@
       <td>
         <a [routerLink]="['../../../book/book-detail/',book.id]" class="btn btn-sm btn-success"><strong>Detaylı
             Gör</strong></a>
-        <button class="btn btn-sm btn-danger" (click)="deleteBook(book.id)"><strong>Bırak</strong></button>
+        <button class="btn btn-sm btn-danger" (click)="leaveBook(book.id)"><strong>Kitabı Bırak</strong></button>
       </td>
     </tr>
   </tbody>

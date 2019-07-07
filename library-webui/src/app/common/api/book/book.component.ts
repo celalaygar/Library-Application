@@ -21,7 +21,7 @@ export class BookComponent implements OnInit {
   message: string | undefined;
 
   constructor(private bookService: BookService,
-    private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.loadStaticPage();
