@@ -45,7 +45,6 @@
       <ng-template let-value="value" ngx-datatable-cell-template>
         <button  class="btn btn-sm btn-warning"  (click)="getBook(id, value)"  ><strong>Kitabı Al</strong></button>
       </ng-template>
-
     </ngx-datatable-column>
     <ngx-datatable-column prop="id" name="Actions " sortable="false" draggable="false">
       <ng-template let-value="value" ngx-datatable-cell-template>
@@ -68,7 +67,7 @@
           <th scope="col">İşlemler</th>
         </tr>
       </thead>
-      <tbody>
+      <!-- <tbody>
         <tr  *ngFor="let book of books">
           <th scope="row">#</th>
           <td>{{book.id}}</td>
@@ -81,7 +80,7 @@
             <a  (click)="getBook(value)"  class="btn btn-sm btn-warning"><strong>Kitabı Al</strong></a>
           </td>
         </tr>
-      </tbody>
+      </tbody> -->
     </table>
     <hr>
   </ng-template>

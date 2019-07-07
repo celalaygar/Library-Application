@@ -132,8 +132,10 @@ aria-hidden="true">
       <ngx-datatable-column prop="university" name="university" sortable="false" draggable="false"></ngx-datatable-column>
       <ngx-datatable-column prop="department" name="department" sortable="false" draggable="false"></ngx-datatable-column>
       <!-- <ngx-datatable-column prop="address" name="address" sortable="false" draggable="false"></ngx-datatable-column> -->
+      
       <ngx-datatable-column prop="id" name="Actions " sortable="false" draggable="false">
         <ng-template let-value="value" ngx-datatable-cell-template>
+          <a [routerLink]="['get-book/',value]" class="btn btn-sm btn-warning" >Kitap seç</a>
           <a [routerLink]="['student-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
           <button class="btn btn-sm btn-danger" (click)="deleteStudent(value)" ><strong>Sil</strong></button>
         </ng-template>
