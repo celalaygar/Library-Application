@@ -111,8 +111,8 @@ public class StudentServiceImp {
         return studentDto;
 	}
 
-	public StudentDto getBookForStudent(Long id, @Valid StudenPatchtDto studenPatchtDto) throws NotFoundException {
-		Student student=studentRepository.getOne(id);
+	public StudentDto getBookForStudent( @Valid StudenPatchtDto studenPatchtDto) throws NotFoundException {
+		Student student=studentRepository.getOne(studenPatchtDto.getStudentId());
 		if(student == null) {
 			throw new IllegalArgumentException("Student dosen't exist");
 		}
@@ -122,7 +122,7 @@ public class StudentServiceImp {
 		}
 		bookChecked.get().setStudent(student);
 		bookRepository.save(bookChecked.get());
-		student=studentRepository.getOne(id);
+		student=studentRepository.getOne(studenPatchtDto.getStudentId());
 		return modelMapper.map(student, StudentDto.class);
 	}
 
@@ -145,8 +145,8 @@ public class StudentServiceImp {
 		}
 	}
 
-	public StudentDto leaveBookForStudent(Long id, @Valid StudenPatchtDto studenPatchtDto) throws NotFoundException {
-		Optional<Student> studentOpt=studentRepository.findById(id);
+	public StudentDto leaveBookForStudent(@Valid StudenPatchtDto studenPatchtDto) throws NotFoundException {
+		Optional<Student> studentOpt=studentRepository.findById(studenPatchtDto.getStudentId());
 		if(!studentOpt.isPresent()) {
 			throw new IllegalArgumentException("Student dosen't exist");
 		}
@@ -158,7 +158,7 @@ public class StudentServiceImp {
 		bookRepository.save(bookChecked.get());
 		studentOpt.get().getBooks().remove(bookChecked.get());
 		studentRepository.save(studentOpt.get());
-		Student student=studentRepository.getOne(id);
+		Student student=studentRepository.getOne(studenPatchtDto.getStudentId());
 		return modelMapper.map(student, StudentDto.class);
 	}
 

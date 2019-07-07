@@ -20,9 +20,10 @@ export class GetBookComponent implements OnInit {
   page = new Page();
   control = true;
   books = [];
-  bookId: any ;
+  bookId: any;
   //search book form
   searchBookForm: FormGroup;
+  getbookForm: FormGroup;
   constructor(private route: ActivatedRoute,
               private location: Location,
               private bookService: BookService,
@@ -37,6 +38,10 @@ export class GetBookComponent implements OnInit {
   loadStaticPage() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
+    });
+    this.getbookForm = this.formBuilder.group({
+      'bookId': [null, [Validators.required]],
+      'studentId': [this.id, [Validators.required]]
     });
     this.setPage({ offset: 0 });
     this.searchBookForm = this.formBuilder.group({
@@ -67,29 +72,33 @@ export class GetBookComponent implements OnInit {
         this.message = ' Hay Aksi <strong>' + this.searchBookForm.value['name'] + '</strong> bu isimde bir kitap kaydı bulunamamıştır. ';
       });
   }
-  getBook(id,bookId){
-    this.bookService.getById(bookId).subscribe( res =>{
-        if(res['student'] == null){
-          this.getbookForPatching(id,bookId);
-        } else {
-          this.message = ' Kitabın kayıtlı bir sahibi vardır. ';
-          console.log(this.message);
-        }
-      });
-  }
-  getbookForPatching(id,bookId){
-    this.studentService.getBookForpatch(id, { "bookId": bookId} ).subscribe(
-      res => {
-        this.loadStaticPage();
-        this.message = ' Kayıt işlemi başarılıdır. ';
+  getBook(bookId) {
+    this.getbookForm = this.formBuilder.group({
+      'bookId': [bookId, [Validators.required]],
+      'studentId': [this.id, [Validators.required]]
+    });
+
+    this.bookService.getById(bookId).subscribe(res => {
+      if (res['student'] == null) {
+
+        this.studentService.getBookForpatch(this.getbookForm.value).subscribe(
+          res => {
+            this.loadStaticPage();
+            this.message = ' Kayıt işlemi başarılıdır. ';
+            console.log(this.message);
+          }
+          , error => {
+            this.message = ' Kayıt işlemi başarısız. : ' + error;
+            console.log(this.message);
+          }
+        );
+      } else {
+        this.message = ' Kitabın kayıtlı bir sahibi vardır. ';
         console.log(this.message);
       }
-      , error => {
-        this.message = ' Kayıt işlemi başarısız. : ' + error;
-        console.log(this.message);
-      }
-    );
+    });
   }
+
   get sf() { return this.searchBookForm.controls; }
   backClicked() {
     this.location.back();

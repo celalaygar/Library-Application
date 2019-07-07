@@ -69,18 +69,16 @@ public class StudentRestController {
 		return ResponseEntity.ok(studentServiceImp.update(id, studentDto));
 	}
 
-	@PatchMapping("/get-book/{id}")
-	public ResponseEntity<StudentDto> getBookForStudent(@PathVariable(name = "id", required = true) Long id,
+	@PatchMapping("/get-book")
+	public ResponseEntity<StudentDto> getBookForStudent(@Valid @RequestBody StudenPatchtDto studenPatchtDto) throws NotFoundException {
 			//@Valid @RequestBody Long bookId ) throws NotFoundException {
-			@Valid @RequestBody StudenPatchtDto studenPatchtDto) throws NotFoundException {
-		System.out.println(studenPatchtDto.getBookId());
-		return ResponseEntity.ok(studentServiceImp.getBookForStudent(id, studenPatchtDto));
+		System.out.println("student id : "+studenPatchtDto.getStudentId()+" book id : "+studenPatchtDto.getBookId());
+		return ResponseEntity.ok(studentServiceImp.getBookForStudent(studenPatchtDto));
 	}
-	@PatchMapping("/leave-book/{id}")
-	public ResponseEntity<StudentDto> leaveBookForStudent(@PathVariable(name = "id", required = true) Long id,
-			@Valid @RequestBody StudenPatchtDto studenPatchtDto) throws NotFoundException {
+	@PatchMapping("/leave-book")
+	public ResponseEntity<StudentDto> leaveBookForStudent( @Valid @RequestBody StudenPatchtDto studenPatchtDto) throws NotFoundException {
 		
-		return ResponseEntity.ok(studentServiceImp.leaveBookForStudent(id, studenPatchtDto));
+		return ResponseEntity.ok(studentServiceImp.leaveBookForStudent(studenPatchtDto));
 	}
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Boolean> deleteBook(@PathVariable(name="id", required=true) Long id) throws NotFoundException {

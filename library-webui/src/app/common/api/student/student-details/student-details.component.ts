@@ -51,7 +51,7 @@ export class StudentDetailsComponent implements OnInit {
     this.updated = true;
     this.StudentUpdateForm = this.formBuilder.group({
       'fullname':     [res.fullname, [Validators.required]],
-      'tcNo':         [res.tcNo, [Validators.min(10000000000),Validators.max(100000000000),Validators.required]],
+      'tcNo':         [res.tcNo, [Validators.min(10000000000), Validators.max(100000000000), Validators.required]],
       'email':        [res.email, [Validators.required,Validators.email]],
       'phone':        [res.phone, [Validators.required]],
       'address':      [res.address, [Validators.required]],

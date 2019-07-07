@@ -31,7 +31,7 @@ import lombok.Setter;
 public class StudenPatchtDto {
 
 	private Long id;
-	
+	private Long studentId;
 	private Long bookId;
 
 }

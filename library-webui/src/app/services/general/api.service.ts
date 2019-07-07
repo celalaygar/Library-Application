@@ -39,8 +39,9 @@ export class ApiService {
     return this.http.put(environment.API_BASE_PATH + path, JSON.stringify(params), this.httpOptions).pipe(catchError(this.formatError));
   }
   patch(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    console.log(environment.API_BASE_PATH + path + ' : '+ params['bookId']);
-    return this.http.patch(environment.API_BASE_PATH + path, JSON.stringify(params)).pipe(catchError(this.formatError));
+    console.log(environment.API_BASE_PATH + path );
+    console.log(params);
+    return this.http.patch(environment.API_BASE_PATH + path, params).pipe(catchError(this.formatError));
   }
 
   delete(path: string, params: HttpParams = new HttpParams()): Observable<any> {

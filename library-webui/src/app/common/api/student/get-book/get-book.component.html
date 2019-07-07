@@ -43,7 +43,7 @@
     <ngx-datatable-column prop="student.fullname" name="Student" sortable="false"></ngx-datatable-column>
     <ngx-datatable-column prop="id" name="Get Book" sortable="false">
       <ng-template let-value="value" ngx-datatable-cell-template>
-        <button  class="btn btn-sm btn-warning"  (click)="getBook(id, value)"  ><strong>Kitabı Al</strong></button>
+        <button  class="btn btn-sm btn-warning"  (click)="getBook( value)"  ><strong>Kitabı Al</strong></button>
       </ng-template>
     </ngx-datatable-column>
     <ngx-datatable-column prop="id" name="Actions " sortable="false" draggable="false">
