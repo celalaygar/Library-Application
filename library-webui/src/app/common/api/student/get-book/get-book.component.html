@@ -1,5 +1,41 @@
-<h1>Kitaplar </h1>
+<h1>Kitap Seçme Paneli  </h1>
 <button class="btn btn-secondary" (click)="backClicked()">Back</button>
+
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
+  Öğrenci Bilgileri
+</button>
+
+<!--Student details start-->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Öğrenci Bilgileri</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><b>İsim Soyisim : </b>{{student.fullname}}</li>
+          <li class="list-group-item"><b>tc no : </b>{{student.tcNo}} </li>
+          <li class="list-group-item"><b>email : </b>{{student.email}} </li>
+          <li class="list-group-item"><b>phone: </b>{{student.phone}}</li>
+          <li class="list-group-item"><b>university : </b>{{student.university}}</li>
+          <li class="list-group-item"><b>department : </b>{{student.department}}</li>
+          <li class="list-group-item"><b>city : </b>{{student.city}}</li>
+          <li class="list-group-item"><b>address : </b>{{student.address}} </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Student details end-->
+
+<hr>
 <div *ngIf="message" class="alert alert-warning alert-dismissible fade show" role="alert">
   <strong>Dikkat !!! </strong> {{message}} 
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -20,6 +56,7 @@
   </div>
 </form>
 <hr>
+<h3>Kitaplar </h3>
 <div *ngIf="control; else elseBlock2">
   <ngx-datatable
   class="bootstrap"
@@ -35,7 +72,7 @@
   (page)='setPage($event)'>
     <ngx-datatable-column prop="id" name="No" sortable="false" maxWidth="50" draggable="false" ></ngx-datatable-column>
     <ngx-datatable-column prop="name" name="name" sortable="false" draggable="false"></ngx-datatable-column>
-    <ngx-datatable-column prop="barcode" name="barcode" sortable="false"></ngx-datatable-column>
+    <!-- <ngx-datatable-column prop="barcode" name="barcode" sortable="false"></ngx-datatable-column> -->
     <ngx-datatable-column prop="author.name" name="Author Name" sortable="false"></ngx-datatable-column>
     <ngx-datatable-column prop="author.surname" name="Author Surname" sortable="false"></ngx-datatable-column>
     <ngx-datatable-column prop="publisher" name="publisher" sortable="false"></ngx-datatable-column>
@@ -48,7 +85,7 @@
     </ngx-datatable-column>
     <ngx-datatable-column prop="id" name="Actions " sortable="false" draggable="false">
       <ng-template let-value="value" ngx-datatable-cell-template>
-        <a [routerLink]="['book-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
+        <a [routerLink]="['../../../book/book-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
       </ng-template>
     </ngx-datatable-column>
   </ngx-datatable>
@@ -67,7 +104,7 @@
           <th scope="col">İşlemler</th>
         </tr>
       </thead>
-      <!-- <tbody>
+      <tbody>
         <tr  *ngFor="let book of books">
           <th scope="row">#</th>
           <td>{{book.id}}</td>
@@ -76,11 +113,11 @@
           <td>{{book.publisher}}</td>
           <td>{{book.bookStatus}}</td>
           <td>
-            <a [routerLink]="['book-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
             <a  (click)="getBook(value)"  class="btn btn-sm btn-warning"><strong>Kitabı Al</strong></a>
+            <a [routerLink]="['../../../book/book-detail/',book.id]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
           </td>
         </tr>
-      </tbody> -->
+      </tbody>
     </table>
     <hr>
   </ng-template>

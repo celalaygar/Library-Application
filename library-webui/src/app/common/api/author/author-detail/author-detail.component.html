@@ -191,7 +191,7 @@
       <th scope="col">id</th>
       <th scope="col">name</th>
       <th scope="col">Barcode</th>
-      <th scope="col">Content</th>
+      <th scope="col">Student</th>
       <th scope="col">Publisher</th>
       <th scope="col">Book Status</th>
       <th scope="col">İşlemler</th>
@@ -202,12 +202,12 @@
       <td>{{book.id}}</td>
       <td>{{book.name}}</td>
       <td>{{book.barcode}}</td>
-      <td>{{book.content}}</td>
+      <td>{{book.student.fullname}}</td>
       <td>{{book.publisher}}</td>
       <td>{{book.bookStatus}}</td>
       <td>
+        <a [routerLink]="['../../../book/book-detail/',book.id]" class="btn btn-sm btn-info">Detaylı Gör</a>
         <button class="btn btn-sm btn-danger" (click)="deleteBook(book.id)" >Sil</button>
-        <a [routerLink]="['../../../book/book-detail/',book.id]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
         <!-- <a href="book/book-detail/{{book.id}}" class="btn btn-sm btn-success"><strong>Detaylı Gör2</strong></a> -->
       </td>
     </tr>

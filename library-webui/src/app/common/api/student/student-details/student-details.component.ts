@@ -21,6 +21,9 @@ export class StudentDetailsComponent implements OnInit {
   StudentUpdateForm: FormGroup;
   updated = true;
   cities: Array<any> = [];
+
+  //leave book parameters 
+  leaveBookForm: FormGroup;
   constructor(private route: ActivatedRoute,
               private location: Location,
               private bookService: BookService,
@@ -34,9 +37,16 @@ export class StudentDetailsComponent implements OnInit {
 
   loadStudentDetails() {
     this.getAllCities();
+
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
+
+    this.leaveBookForm = this.formBuilder.group({
+      'bookId': [null, [Validators.required]],
+      'studentId': [this.id, [Validators.required]]
+    });
+    
     this.studentService.getById(this.id).subscribe(
       res => {
       this.student = res;
@@ -83,8 +93,22 @@ export class StudentDetailsComponent implements OnInit {
       this.cities = res;
     });
   }
+
   leaveBook(bookId){
-    console.log('book left id is ' + bookId);
+    this.leaveBookForm = this.formBuilder.group({
+      'bookId': [bookId, [Validators.required]],
+      'studentId': [this.id, [Validators.required]]
+    });
+    this.studentService.leaveBook(this.leaveBookForm.value).subscribe(
+      res => {
+        this.loadStudentDetails();
+        this.LoadStudentUpdateForm(this.student);
+        this.message = ' Silme işlemi başarılıdır. ';
+      }
+      , error => {
+        this.message = ' Silme işlemi başarısız. : ' + error;
+      }
+    );
   }
   get suf() { return this.StudentUpdateForm.controls; }
   backClicked() {

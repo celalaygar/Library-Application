@@ -5,6 +5,7 @@ import { Page } from 'src/app/shared/Page';
 import { BookService } from 'src/app/services/book.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { StudentService } from 'src/app/services/student.service';
+import { Student } from '../Student';
 
 @Component({
   selector: 'app-get-book',
@@ -14,6 +15,7 @@ import { StudentService } from 'src/app/services/student.service';
 export class GetBookComponent implements OnInit {
   message: string | undefined;
   id: number;
+  student = new  Student();
   //ngx datatable parameters
   rows = [];
   cols = [];
@@ -36,28 +38,32 @@ export class GetBookComponent implements OnInit {
   }
 
   loadStaticPage() {
+    //Select id
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
+
+    this.studentService.getById(this.id).subscribe(
+      res => {
+      this.student = res;
+      },
+      error => {
+        this.message = 'Bu id : ' + this.id + ' bir kullanıcı bulunamadı.';
+    });
+
+    //load getbook form
     this.getbookForm = this.formBuilder.group({
       'bookId': [null, [Validators.required]],
       'studentId': [this.id, [Validators.required]]
     });
+
     this.setPage({ offset: 0 });
     this.searchBookForm = this.formBuilder.group({
       'name': [null, [Validators.minLength(3), Validators.required]]
     });
 
   }
-  setPage(pageInfo) {
-    this.page.page = pageInfo.offset;
-    this.bookService.getAllPageable(this.page).subscribe(pagedData => {
-      this.page.size = pagedData.size;
-      this.page.page = pagedData.page;
-      this.page.totalElements = pagedData.totalElements;
-      this.rows = pagedData.content;
-    });
-  }
+
   searchBook() {
     if (!this.searchBookForm.valid) {
       return;
@@ -72,7 +78,9 @@ export class GetBookComponent implements OnInit {
         this.message = ' Hay Aksi <strong>' + this.searchBookForm.value['name'] + '</strong> bu isimde bir kitap kaydı bulunamamıştır. ';
       });
   }
+
   getBook(bookId) {
+    this.message = null;
     this.getbookForm = this.formBuilder.group({
       'bookId': [bookId, [Validators.required]],
       'studentId': [this.id, [Validators.required]]
@@ -81,24 +89,30 @@ export class GetBookComponent implements OnInit {
     this.bookService.getById(bookId).subscribe(res => {
       if (res['student'] == null) {
 
-        this.studentService.getBookForpatch(this.getbookForm.value).subscribe(
+        this.studentService.getBook(this.getbookForm.value).subscribe(
           res => {
             this.loadStaticPage();
             this.message = ' Kayıt işlemi başarılıdır. ';
-            console.log(this.message);
           }
           , error => {
             this.message = ' Kayıt işlemi başarısız. : ' + error;
-            console.log(this.message);
           }
         );
       } else {
         this.message = ' Kitabın kayıtlı bir sahibi vardır. ';
-        console.log(this.message);
       }
     });
   }
-
+  
+  setPage(pageInfo) {
+    this.page.page = pageInfo.offset;
+    this.bookService.getAllPageable(this.page).subscribe(pagedData => {
+      this.page.size = pagedData.size;
+      this.page.page = pagedData.page;
+      this.page.totalElements = pagedData.totalElements;
+      this.rows = pagedData.content;
+    });
+  }
   get sf() { return this.searchBookForm.controls; }
   backClicked() {
     this.location.back();

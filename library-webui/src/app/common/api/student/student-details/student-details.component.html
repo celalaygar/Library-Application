@@ -113,12 +113,12 @@
 <!--Update Student form ende-->
 
 <div class="card">
-  <h5 class="card-header">Kitabın Özellikleri</h5>
+  <h5 class="card-header">Öğrenci Bilgileri</h5>
   <div class="card-body">
     <ul class="list-group list-group-flush">
       <li class="list-group-item"><b>İsim Soyisim : </b>{{student.fullname}}</li>
       <li class="list-group-item"><b>tc no : </b>{{student.tcNo}} </li>
-      <li class="list-group-item"><b>fullname : </b>{{student.email}} </li>
+      <li class="list-group-item"><b>email : </b>{{student.email}} </li>
       <li class="list-group-item"><b>phone: </b>{{student.phone}}</li>
       <li class="list-group-item"><b>university : </b>{{student.university}}</li>
       <li class="list-group-item"><b>department : </b>{{student.department}}</li>
@@ -150,7 +150,7 @@
       <td>{{book.publisher}}</td>
       <td>{{book.bookStatus}}</td>
       <td>
-        <a [routerLink]="['../../../book/book-detail/',book.id]" class="btn btn-sm btn-success"><strong>Detaylı
+        <a [routerLink]="['../../../book/book-detail/',book.id]" class="btn btn-sm btn-info"><strong>Detaylı
             Gör</strong></a>
         <button class="btn btn-sm btn-danger" (click)="leaveBook(book.id)"><strong>Kitabı Bırak</strong></button>
       </td>

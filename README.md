@@ -1,6 +1,6 @@
 ## Library-Application (This project is beeing built by me)
 This project is about Library Application. 
-I hace run this project's backside on localhost:8182/ and frontside on localhost:5422/
+I have run this project's backside on localhost:8182/ and frontside on localhost:5422/
 ## Using Tools & Technologies
 ``` 
 - Spring Boot 2.1.5
@@ -130,15 +130,17 @@ localhost:8182/api/student
 ```
 Student patch mapping : 
 ```
-localhost:8182/api/student/get-book/{id}
+localhost:8182/api/student/get-book
 
 {
+	"studentId":7,
 	"bookId":4
 }
 
-localhost:8182/api/student/leave-book/{id}
+localhost:8182/api/student/leave-book
 
 {
+	"studentId":7,
 	"bookId":4
 }
 ```

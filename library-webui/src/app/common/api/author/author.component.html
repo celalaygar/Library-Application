@@ -79,8 +79,6 @@
     </div>
   </div>
 </div>
-
-<hr>
 <form class="form-inline" [formGroup]="searchForm" (ngSubmit)="searchAuthor()">
   <div class="form-group">
     <label for="inputPassword6">Yazar ismi veya soyismi giriniz : </label>
@@ -115,7 +113,7 @@
     <ngx-datatable-column prop="phone" name="phone" sortable="false"></ngx-datatable-column>
     <ngx-datatable-column prop="id" name="Actions " sortable="false">
       <ng-template let-value="value" ngx-datatable-cell-template>
-        <a [routerLink]="['author-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
+        <a [routerLink]="['author-detail/',value]" class="btn btn-sm btn-info"><strong>Detaylı Gör</strong></a>
         <button class="btn btn-sm btn-danger" (click)="deleteAuthor(value)" ><strong>Sil</strong></button>
       </ng-template>
     </ngx-datatable-column>
@@ -144,7 +142,7 @@
         <td>{{auth.email}}</td>
         <td>{{auth.phone}}</td>
         <td>
-          <a [routerLink]="['author-detail/',auth.id]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
+          <a [routerLink]="['author-detail/',auth.id]" class="btn btn-sm btn-info"><strong>Detaylı Gör</strong></a>
           <button class="btn btn-sm btn-danger" (click)="deleteAuthor(auth.id)" ><strong>Sil</strong></button></td>
       </tr>
     </tbody>

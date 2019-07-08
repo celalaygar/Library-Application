@@ -73,8 +73,20 @@ export class StudentService {
       }
     ));
   }
-  getBookForpatch(params): Observable<any> {
+  getBook(params): Observable<any> {
     return this.apiService.patch(this.STUDENT_PATH + this.GET_BOOK_PATH, params).pipe(map(
+      res => {
+        if (res) {
+          return res;
+        } else {
+          return {};
+        }
+      }
+    ));
+  }
+  
+  leaveBook(params): Observable<any> {
+    return this.apiService.patch(this.STUDENT_PATH + this.LEAVE_BOOK_PATH, params).pipe(map(
       res => {
         if (res) {
           return res;
