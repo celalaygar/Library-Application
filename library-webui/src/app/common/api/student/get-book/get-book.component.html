@@ -113,7 +113,7 @@
           <td>{{book.publisher}}</td>
           <td>{{book.bookStatus}}</td>
           <td>
-            <a  (click)="getBook(value)"  class="btn btn-sm btn-warning"><strong>Kitabı Al</strong></a>
+            <a  (click)="getBook(book.id)"  class="btn btn-sm btn-warning"><strong>Kitabı Al</strong></a>
             <a [routerLink]="['../../../book/book-detail/',book.id]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
           </td>
         </tr>

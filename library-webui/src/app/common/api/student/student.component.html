@@ -136,7 +136,7 @@ aria-hidden="true">
       <ngx-datatable-column prop="id" name="Actions " sortable="false" draggable="false">
         <ng-template let-value="value" ngx-datatable-cell-template>
           <a [routerLink]="['get-book/',value]" class="btn btn-sm btn-warning" >Kitap seç</a>
-          <a [routerLink]="['student-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
+          <a [routerLink]="['student-detail/',value]" class="btn btn-sm btn-info"><strong>Detaylı Gör</strong></a>
           <button class="btn btn-sm btn-danger" (click)="deleteStudent(value)" ><strong>Sil</strong></button>
         </ng-template>
       </ngx-datatable-column>
@@ -165,7 +165,7 @@ aria-hidden="true">
           <td>{{book.publisher}}</td>
           <td>{{book.bookStatus}}</td>
           <td>
-            <a [routerLink]="['book-detail/',value]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>
+            <a [routerLink]="['book-detail/',value]" class="btn btn-sm btn-info"><strong>Detaylı Gör</strong></a>
             <button class="btn btn-sm btn-danger" (click)="deleteBook(book.id)" ><strong>Sil</strong></button>
           </td>
         </tr>
