@@ -27,10 +27,13 @@ public class User {
 	private String username;
 	
 	@Column(name="pwd",length=300)
-	private String password;	
+	private String password;
 	
-	@Column(name="surname",length=100)
-	private String surname;
+	@Column(name="firstname",length=100)
+	private String firstname;
+	
+	@Column(name="lastname",length=100)
+	private String lastname;
 	
 	@Column(name="email",length=100,unique = true)
 	private String email;

@@ -55,9 +55,7 @@ public class AuthorRestController {
 	//http://localhost:8182/api/author/find?name=name
 	@GetMapping("/find")
 	public ResponseEntity<List<AuthorDto>> findAllByName(@RequestParam String name) throws NotFoundException {
-		System.out.println("-------------------1");
 	    List<AuthorDto> authorDtos = authorServiceImp.findAllByName(name);
-		System.out.println("-------------------2");
 	    return ResponseEntity.ok(authorDtos);
 	}
 	    

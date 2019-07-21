@@ -1,6 +1,6 @@
 ## Library-Application (This project is beeing built by me)
-This project is about Library Application. 
-I have run this project's backside on localhost:8182/ and frontside on localhost:5422/
+- This project is about Library Application. 
+- I have run this project's backside on localhost:8182/ and frontside on localhost:5422/ while building this project both of sides
 ## Using Tools & Technologies
 ``` 
 - Spring Boot 2.1.5
@@ -15,6 +15,26 @@ I have run this project's backside on localhost:8182/ and frontside on localhost
 - Lombok
 - ModelMapper
 ```
+
+## Create backend side Spring boot 2.1.5
+- Download this repository
+- When click Library Application project then click Maven->Update project.
+
+## Create front side regarding Angular 8
+- Download this repository
+- Write ng update while being  in this path called `.../Library-Application/library-webui`
+- Or if you wanna create this project again You need to write commands of bottom ones.
+Follow step: open git bash and write bottom ones to create new project about angular 8
+- npm i @angular/cli
+- ng new project-name
+- cd project-name
+- npm install bootstrap
+- npm install jquery
+- npm install @swimlane/ngx-datatable
+- npm i ngx-datatable
+- npm install ngx-bootstrap
+Then you can get author and book data from back side regarding spring boot
+
 ## Author Rest api
 These links are just example how to use rest api with these links.
 
@@ -162,14 +182,17 @@ Then you can get author and book data from back side regarding spring boot
 ### Sql Query
 ``` 
 
+
 CREATE TABLE public.users
 (
     id bigint NOT NULL,
     email character varying(100) COLLATE pg_catalog."default",
     pwd character varying(300) COLLATE pg_catalog."default",
-    surname character varying(100) COLLATE pg_catalog."default",
     uname character varying(100) COLLATE pg_catalog."default",
+    firstname character varying(100) COLLATE pg_catalog."default",
+    lastname character varying(100) COLLATE pg_catalog."default",
     CONSTRAINT users_pkey PRIMARY KEY (id),
+    CONSTRAINT uk_6dotkott2kjsp8vw4d0m25fb7 UNIQUE (email),
     CONSTRAINT uk_iqm8x8lkitrfo4idy96trfm9p UNIQUE (uname)
 
 )
