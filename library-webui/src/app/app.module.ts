@@ -10,13 +10,17 @@ import { RegisterComponent } from './register/register.component';
 import { NotfoundComponent } from './shared/notfound/notfound.component';
 import { AppRoutingModule } from './app.routing.module';
 import { MainComponent } from './common/main/main.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthorService } from './services/author.service';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ApiService } from './services/general/api.service';
 import { BookService } from './services/book.service';
 import { StudentService } from './services/student.service';
+import { JwtInterceptor } from './security/jwt.interceptor';
+import { AuthGuard } from './security/auth.guard';
+import { AuthenticationService } from './security/authentication.service';
+import { ErrorInterceptor } from './security/authentication.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,12 @@ import { StudentService } from './services/student.service';
     AuthorService, 
     BookService, 
     StudentService,
-    ApiService
+    ApiService,
+    AuthGuard,
+    AuthenticationService,
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+
   ],
   bootstrap: [AppComponent]
 })

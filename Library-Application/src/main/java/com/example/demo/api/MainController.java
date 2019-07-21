@@ -56,7 +56,8 @@ public class MainController {
 
     @RequestMapping(value = "/sign-in", method = RequestMethod.POST)
     public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) throws AuthenticationException {
-    	
+    	System.out.println(request.getUsername());
+    	System.out.println(request.getPassword());
     	authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
     	
     	final User user = userRepository.findByUsername(request.getUsername());
