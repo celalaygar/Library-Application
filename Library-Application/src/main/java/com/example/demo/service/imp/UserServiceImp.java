@@ -45,27 +45,25 @@ public class UserServiceImp {
 
 	@Transactional
 	public Boolean register(RegistirationRequest registirationRequest) throws Exception {
+
 		
-		try {
-//			Optional<User> OptUser=userRepository.findByEmail(registirationRequest.getEmail());
-//
-//			if(!OptUser.isPresent()) {
-//				return false;
-//			}
-			
-			User user=new User();
-	    	registirationRequest.setPassword(bCryptPasswordEncoder.encode(registirationRequest.getPassword()));
-	    	//user = modelMapper.map(registirationRequest, User.class);
-	    	user.setUsername(registirationRequest.getUsername());
-	    	user.setEmail(registirationRequest.getEmail());
-	    	user.setFirstname(registirationRequest.getFirstname());
-	    	user.setLastname(registirationRequest.getLastname());
-	    	user.setPassword(registirationRequest.getPassword());
-	    	userRepository.save(user);
-			return true;
-		} catch (Exception e) {
-			throw new Exception("REGISTIRATION : " + e);
-			
+		List<User> userList=userRepository.findByEmail(registirationRequest.getEmail());
+		if(userList.size()>0) {
+			throw new Exception("User exist with this : " + registirationRequest.getEmail());
 		}
+		if(userRepository.getByUsername(registirationRequest.getUsername()).size()>0) {
+			throw new Exception("User exist with this name called : " + registirationRequest.getUsername());
+		}
+		User user=new User();
+    	registirationRequest.setPassword(bCryptPasswordEncoder.encode(registirationRequest.getPassword()));
+    	//user = modelMapper.map(registirationRequest, User.class);
+    	user.setUsername(registirationRequest.getUsername());
+    	user.setEmail(registirationRequest.getEmail());
+    	user.setFirstname(registirationRequest.getFirstname());
+    	user.setLastname(registirationRequest.getLastname());
+    	user.setPassword(registirationRequest.getPassword());
+    	userRepository.save(user);
+		return true;
+
 	}
 }

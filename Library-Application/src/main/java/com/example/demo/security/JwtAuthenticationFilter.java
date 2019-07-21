@@ -1,5 +1,4 @@
 package com.example.demo.security;
-
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -26,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
 
@@ -36,7 +36,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtTokenUtil jwtTokenUtil;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+    protected void doFilterInternal(HttpServletRequest req, 
+						    		HttpServletResponse res, 
+						    		FilterChain chain) throws IOException, ServletException {
         String header = req.getHeader(HEADER_STRING);
         String username = null;
         String authToken = null;
@@ -45,14 +47,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 username = jwtTokenUtil.getUsernameFromToken(authToken);
             } catch (IllegalArgumentException e) {
-                log.error("an error occured during getting username from token", e);
+//                log.error("an error occured during getting username from token", e);
             } catch (ExpiredJwtException e) {
-                log.warn("the token is expired and not valid anymore", e);
+//                log.warn("the token is expired and not valid anymore", e);
             } catch (SignatureException e) {
-                log.error("Authentication Failed. Username or Password not valid.");
+//                log.error("Authentication Failed. Username or Password not valid.");
             }
         } else {
-            log.warn("couldn't find bearer string, will ignore the header");
+//            log.warn("couldn't find bearer string, will ignore the header");
         }
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
@@ -61,11 +63,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
-                log.info("authenticated user " + username + ", setting security context");
+//                log.info("authenticated user " + username + ", setting security context");
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
 
         chain.doFilter(req, res);
     }
-    }
+}

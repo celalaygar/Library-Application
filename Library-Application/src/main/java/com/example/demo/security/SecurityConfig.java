@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
     public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
         return new JwtAuthenticationFilter();
     }
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
@@ -54,11 +54,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
         http
                 .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
     }
-    
-    
+
     //şifreleme algoritması ile hash lenip veritabanına yerleştiriliyor.
     @Bean
     public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
-    }
+    }	
+
 }
