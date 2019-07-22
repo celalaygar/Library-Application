@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -65,5 +66,36 @@ public class UserServiceImp {
     	userRepository.save(user);
 		return true;
 
+	}
+
+
+	public UserDto findByUserName(String username) throws NotFoundException {
+		try {
+			User user = userRepository.findByUsername(username);
+			UserDto userDto = modelMapper.map(user, UserDto.class);
+			return userDto;
+		} catch (Exception e) {
+			throw new NotFoundException("User dosen't exist with this name called : " + username);
+		}
+		
+		
+	}
+
+
+	public Boolean update(String username, @Valid UserDto userDto) throws NotFoundException {
+		List<User> userlist = userRepository.getByUsername(username);
+		if(userlist.size()<0) {
+			throw new NotFoundException("User dosen't exist with this name called : " + username);
+		}
+		User user=new User();
+    	//user = modelMapper.map(registirationRequest, User.class);
+		user.setId(userlist.get(0).getId());
+    	user.setUsername(userDto.getUsername());
+    	user.setEmail(userDto.getEmail());
+    	user.setFirstname(userDto.getFirstname());
+    	user.setLastname(userDto.getLastname());
+    	user.setPassword(userlist.get(0).getPassword());
+    	userRepository.save(user);
+		return true;
 	}
 }

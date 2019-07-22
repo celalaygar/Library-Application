@@ -12,7 +12,7 @@ import { StudentService } from 'src/app/services/student.service';
 import { GetBookComponent } from './get-book/get-book.component';
 
 @NgModule({
-  declarations: [StudentComponent, StudentDetailsComponent,GetBookComponent],
+  declarations: [StudentComponent, StudentDetailsComponent, GetBookComponent],
   imports: [
     CommonModule,
     StudentRoutingModule,

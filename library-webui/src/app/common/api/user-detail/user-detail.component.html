@@ -1,0 +1,136 @@
+<h5>Kullanıcı Bilgileri</h5>
+<hr>
+<div *ngIf="message" class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Dikkat !!! </strong> {{message}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<button  *ngIf="showModal; else elseblock1" type="button" class="btn btn-danger" (click)="closeLoadUserUpdateForm()"> Güncelle Bölümünü Kapat </button>
+<ng-template #elseblock1>
+    <button type="button" class="btn btn-warning" 
+    (click)="openLoadUserUpdateForm()"> Güncelle Bölümünü Aç</button>
+</ng-template>
+<!--Update Student form start-->
+<!-- <div class="modal fade" id="updateUserPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Öğrenci Ekle</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="showModal; else elseBlock1" class="modal-body">
+        <form [formGroup]="UserUpdateForm" (ngSubmit)="updateUser()">
+          <div class="form-group">
+            <label>username</label>
+            <input type="text" formControlName="username" class="form-control"
+              [ngClass]="{ 'is-invalid': uf.username.errors }" />
+            <div *ngIf="uf.username.errors" class="invalid-feedback">
+              <div *ngIf="uf.username.errors.required">username is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>email</label>
+            <input type="text" formControlName="email" class="form-control"
+              [ngClass]="{ 'is-invalid': uf.email.errors }" />
+            <div *ngIf="uf.email.errors" class="invalid-feedback">
+              <div *ngIf="uf.email.errors.required">email is required</div>
+              <div *ngIf="uf.email.errors.email">email must be email adress</div>
+            </div>
+          </div><div class="form-group">
+              <label>firstname</label>
+              <input type="text" formControlName="firstname" class="form-control"
+                [ngClass]="{ 'is-invalid': uf.firstname.errors }" />
+              <div *ngIf="uf.firstname.errors" class="invalid-feedback">
+                <div *ngIf="uf.firstname.errors.required">firstname is required</div>
+              </div>
+            </div><div class="form-group">
+                <label>lastname</label>
+                <input type="text" formControlName="lastname" class="form-control"
+                  [ngClass]="{ 'is-invalid': uf.lastname.errors }" />
+                <div *ngIf="uf.lastname.errors" class="invalid-feedback">
+                  <div *ngIf="uf.lastname.errors.required">lastname is required</div>
+                </div>
+              </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">INSERT</button>
+          </div>
+        </form>
+      </div>
+      <ng-template #elseBlock1>
+        <div class="modal-body">
+          <h5>Perfect.....!</h5>
+          <strong>Student was updated.....</strong>
+        </div>
+      </ng-template>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!--Update Student form ende-->
+
+<div class="container row">
+  <div class="col-sm-6">
+    <div class="card">
+      <h5 class="card-header">Kullanıcı Bilgileri</h5>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><b>username : </b>{{user.username}} </li>
+          <li class="list-group-item"><b>email : </b>{{user.email}} </li>
+          <li class="list-group-item"><b>firstname : </b>{{user.firstname}} </li>
+          <li class="list-group-item"><b>lastname : </b>{{user.lastname}} </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showModal" class="col-sm-6">
+    <div class="card" style="padding: 5px">
+      <h5 class="card-header">Kullanıcı Güncelleme formu</h5>
+      <form [formGroup]="UserUpdateForm" (ngSubmit)="updateUser()">
+        <div class="form-group">
+          <label>username</label>
+          <input type="text" formControlName="username" class="form-control"
+            [ngClass]="{ 'is-invalid': uf.username.errors }" />
+          <div *ngIf="uf.username.errors" class="invalid-feedback">
+            <div *ngIf="uf.username.errors.required">username is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>email</label>
+          <input type="text" formControlName="email" class="form-control"
+            [ngClass]="{ 'is-invalid': uf.email.errors }" />
+          <div *ngIf="uf.email.errors" class="invalid-feedback">
+            <div *ngIf="uf.email.errors.required">email is required</div>
+            <div *ngIf="uf.email.errors.email">email must be email adress</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>firstname</label>
+          <input type="text" formControlName="firstname" class="form-control"
+            [ngClass]="{ 'is-invalid': uf.firstname.errors }" />
+          <div *ngIf="uf.firstname.errors" class="invalid-feedback">
+            <div *ngIf="uf.firstname.errors.required">firstname is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>lastname</label>
+          <input type="text" formControlName="lastname" class="form-control"
+            [ngClass]="{ 'is-invalid': uf.lastname.errors }" />
+          <div *ngIf="uf.lastname.errors" class="invalid-feedback">
+            <div *ngIf="uf.lastname.errors.required">lastname is required</div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Güncelle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

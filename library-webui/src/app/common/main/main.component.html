@@ -1,7 +1,17 @@
-
+<div class="row">
+    <div class="col-sm-4">
+        <h3>Kütüphane uygulaması </h3>
+      </div>
+      <div class="col"></div>
+      <div class="col-sm-2">
+        
+          <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+              <a [routerLink]="['/user/user-detail',currentUser.username]" class="btn btn-info" >{{currentUser.username}}</a>
+              <a [routerLink]="['/login']" class="btn btn-secondary" >Çıkış</a>
+          </div>
+      </div>
+</div>
 <div class="col-sm-12">
   <router-outlet></router-outlet>
-  <p>
-    main works!
-  </p>
+
 </div>

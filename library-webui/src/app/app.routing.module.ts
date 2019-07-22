@@ -14,6 +14,7 @@ const routes: Routes = [
       { path: 'author', loadChildren: './common/api/author/author.module#AuthorModule' },
       { path: 'book', loadChildren: './common/api/book/book.module#BookModule' },
       { path: 'student', loadChildren: './common/api/student/student.module#StudentModule' },
+      { path: 'user', loadChildren: './common/api/user-detail/user.module#UserModule' },
     ]
   },
   //{path: '', pathMatch: 'full', redirectTo: 'login'},

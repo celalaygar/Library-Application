@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
       password: ['', Validators.required],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
     });
     this.authenticationService.logout();
   }

@@ -19,14 +19,12 @@ import lombok.Setter;
 @Data
 public class UserDto {
 
-	@NotNull
-	private Long id;
-	
+
 	private String username;
 	
-	private String password;	
+	private String firstname;
 	
-	private String surname;
+	private String lastname;
 
 	@NotNull
 	private String email;
