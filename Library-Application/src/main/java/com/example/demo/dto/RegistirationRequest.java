@@ -12,14 +12,13 @@ import lombok.Setter;
 @Setter
 public class RegistirationRequest {
 
-	
 	private String username;
-	
+
 	private String password;
-	
+
 	private String firstname;
-	
+
 	private String lastname;
-	
+
 	private String email;
 }

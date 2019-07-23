@@ -20,12 +20,12 @@ public class StudentDtoForOneEntity {
 	private Long id;
 
 	private String tcNo;
-	
+
 	@NotNull
 	private String fullname;
 
 	private String university;
-	
+
 	private String department;
 
 	@NotNull
@@ -33,10 +33,9 @@ public class StudentDtoForOneEntity {
 
 	@NotNull
 	private String phone;
-	
+
 	private String address;
-	
+
 	private City city;
-	
 
 }

@@ -2,17 +2,15 @@ package com.example.demo.exception;
 
 import java.util.Date;
 
-
-
 public class ExceptionResponse {
 
 	private Date date;
 	private String message;
-	
+
 	public ExceptionResponse() {
 		super();
 	}
-	
+
 	public ExceptionResponse(Date date, String message) {
 		super();
 		this.date = date;
@@ -34,8 +32,5 @@ public class ExceptionResponse {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
-	
-	
+
 }

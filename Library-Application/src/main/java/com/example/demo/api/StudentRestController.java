@@ -48,16 +48,20 @@ public class StudentRestController {
 		List<StudentDto> customerDtos = studentServiceImp.getAll();
 		return ResponseEntity.ok(customerDtos);
 	}
-	//localhost:8182/api/student/pagination?page=1&size=3
-    @GetMapping("/pagination")
-    public ResponseEntity<TPage<StudentDto>> getAllByPagination(Pageable pageable) throws NotFoundException {
-        TPage<StudentDto> data = studentServiceImp.getAllPageable(pageable);
-        return ResponseEntity.ok(data);
-    }
-    @GetMapping("/{id}")
-	public ResponseEntity<StudentDto> selectStudent(@PathVariable(name = "id", required = true) Long id) throws NotFoundException {
+
+	// localhost:8182/api/student/pagination?page=1&size=3
+	@GetMapping("/pagination")
+	public ResponseEntity<TPage<StudentDto>> getAllByPagination(Pageable pageable) throws NotFoundException {
+		TPage<StudentDto> data = studentServiceImp.getAllPageable(pageable);
+		return ResponseEntity.ok(data);
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<StudentDto> selectStudent(@PathVariable(name = "id", required = true) Long id)
+			throws NotFoundException {
 		return ResponseEntity.ok(studentServiceImp.findById(id));
 	}
+
 	@PostMapping()
 	public ResponseEntity<StudentDto> createStudent(@Valid @RequestBody StudentDto studentDto) {
 		return ResponseEntity.ok(studentServiceImp.save(studentDto));
@@ -70,21 +74,27 @@ public class StudentRestController {
 	}
 
 	@PatchMapping("/get-book")
-	public ResponseEntity<StudentDto> getBookForStudent(@Valid @RequestBody StudenPatchtDto studenPatchtDto) throws NotFoundException {
-			//@Valid @RequestBody Long bookId ) throws NotFoundException {
+	public ResponseEntity<StudentDto> getBookForStudent(@Valid @RequestBody StudenPatchtDto studenPatchtDto)
+			throws NotFoundException {
+		// @Valid @RequestBody Long bookId ) throws NotFoundException {
 		return ResponseEntity.ok(studentServiceImp.getBookForStudent(studenPatchtDto));
 	}
+
 	@PatchMapping("/leave-book")
-	public ResponseEntity<StudentDto> leaveBookForStudent( @Valid @RequestBody StudenPatchtDto studenPatchtDto) throws NotFoundException {
-		
+	public ResponseEntity<StudentDto> leaveBookForStudent(@Valid @RequestBody StudenPatchtDto studenPatchtDto)
+			throws NotFoundException {
+
 		return ResponseEntity.ok(studentServiceImp.leaveBookForStudent(studenPatchtDto));
 	}
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> deleteBook(@PathVariable(name="id", required=true) Long id) throws NotFoundException {
+	public ResponseEntity<Boolean> deleteBook(@PathVariable(name = "id", required = true) Long id)
+			throws NotFoundException {
 		return ResponseEntity.ok(studentServiceImp.delete(id));
 	}
-    @GetMapping("/cities")
-    public ResponseEntity<List<City>> getAllBookStatus() {
-        return ResponseEntity.ok(Arrays.asList(City.values()));
-    }
+
+	@GetMapping("/cities")
+	public ResponseEntity<List<City>> getAllBookStatus() {
+		return ResponseEntity.ok(Arrays.asList(City.values()));
+	}
 }

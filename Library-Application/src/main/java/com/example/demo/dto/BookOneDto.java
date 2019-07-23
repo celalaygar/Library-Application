@@ -25,28 +25,27 @@ import lombok.Setter;
 public class BookOneDto {
 
 	private Long id;
-	
+
 	@NotNull
 	private String name;
-	
+
 	@NotNull
 	private String barcode;
-	
+
 	private String content;
-	
+
 	@NotNull
 	private String publisher;
-	
+
 	private Long studentId;
-	
-	
+
 	private BookStatus bookStatus;
 
 	@NotNull
 	private Long authorId;
-	
-    private AuthorDtoForOneEntity author;
-    
+
+	private AuthorDtoForOneEntity author;
+
 	private StudentDtoForOneEntity student;
 
 }

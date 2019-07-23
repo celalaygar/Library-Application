@@ -20,42 +20,43 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name="student")
+@Table(name = "student")
 public class Student {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name="tcNo",length=11,unique=true)
+	@Column(name = "tcNo", length = 11, unique = true)
 	private String tcNo;
-	
+
 	@NotNull
-	@Column(name="fullname",length=100,unique=true)
+	@Column(name = "fullname", length = 100, unique = true)
 	private String fullname;
-	
-	@Column(name="university",length=3000)
+
+	@Column(name = "university", length = 3000)
 	private String university;
 
-	@Column(name="department",length=3000)
+	@Column(name = "department", length = 3000)
 	private String department;
-	
+
 	@NotNull
-	@Column(name="email",length=100,unique = true)
+	@Column(name = "email", length = 100, unique = true)
 	private String email;
 
 	@NotNull
-	@Column(name="phone",length=100)
+	@Column(name = "phone", length = 100)
 	private String phone;
-	
-	@Column(name="address",length=100)
+
+	@Column(name = "address", length = 100)
 	private String address;
-	
-	@Column(name="city",length=100)	
+
+	@Column(name = "city", length = 100)
 	@Enumerated(EnumType.STRING)
 	private City city;
 

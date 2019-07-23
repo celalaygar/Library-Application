@@ -30,23 +30,21 @@ import javassist.NotFoundException;
 @RequestMapping(ApiPaths.MainCtrl.CTRL)
 @CrossOrigin
 public class MainController {
-    
-    private final AuthenticationManager authenticationManager;
-	
+
+	private final AuthenticationManager authenticationManager;
+
 	private final UserRepository userRepository;
 	private final UserServiceImp userServiceImp;
-	
+
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+
 	private final ModelMapper modelMapper;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-	public MainController(UserRepository userRepository, 
-						  BCryptPasswordEncoder bCryptPasswordEncoder,
-						  AuthenticationManager authenticationManager,
-						  ModelMapper modelMapper,
-						  UserServiceImp userServiceImp) {
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
+
+	public MainController(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
+			AuthenticationManager authenticationManager, ModelMapper modelMapper, UserServiceImp userServiceImp) {
 		this.userRepository = userRepository;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 		this.modelMapper = modelMapper;
@@ -54,18 +52,19 @@ public class MainController {
 		this.userServiceImp = userServiceImp;
 	}
 
-    @RequestMapping(value = "/sign-in", method = RequestMethod.POST)
-    public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) throws AuthenticationException {
-    	authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));    	
-    	final User user = userRepository.findByUsername(request.getUsername());
-        final String token = jwtTokenUtil.generateToken(user);
-        return ResponseEntity.ok(new TokenResponse(user.getUsername(), token));
-    }
+	@RequestMapping(value = "/sign-in", method = RequestMethod.POST)
+	public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) throws AuthenticationException {
+		authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+		final User user = userRepository.findByUsername(request.getUsername());
+		final String token = jwtTokenUtil.generateToken(user);
+		return ResponseEntity.ok(new TokenResponse(user.getUsername(), token));
+	}
 
-    @RequestMapping(value = "/sign-up", method = RequestMethod .POST)
-    public ResponseEntity<Boolean>  signUp(@RequestBody RegistirationRequest registirationRequest) throws Exception   {
-    
-    	Boolean result = userServiceImp.register(registirationRequest);
-    	return ResponseEntity.ok(result);
-    }
+	@RequestMapping(value = "/sign-up", method = RequestMethod.POST)
+	public ResponseEntity<Boolean> signUp(@RequestBody RegistirationRequest registirationRequest) throws Exception {
+
+		Boolean result = userServiceImp.register(registirationRequest);
+		return ResponseEntity.ok(result);
+	}
 }

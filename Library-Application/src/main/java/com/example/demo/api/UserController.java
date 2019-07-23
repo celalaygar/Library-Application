@@ -24,19 +24,20 @@ import javassist.NotFoundException;
 @RequestMapping(ApiPaths.UserCtrl.CTRL)
 @CrossOrigin
 public class UserController {
-	
+
 	@Autowired
 	private UserServiceImp userServiceImp;
-	
-    @GetMapping("/{username}")
-	public ResponseEntity<UserDto> findByUserName(@PathVariable(name = "username", required = true) String username) throws NotFoundException {
+
+	@GetMapping("/{username}")
+	public ResponseEntity<UserDto> findByUserName(@PathVariable(name = "username", required = true) String username)
+			throws NotFoundException {
 		return ResponseEntity.ok(userServiceImp.findByUserName(username));
 	}
-    
-    @PutMapping("/{username}")
+
+	@PutMapping("/{username}")
 	public ResponseEntity<Boolean> updateUser(@PathVariable(name = "username", required = true) String username,
 			@Valid @RequestBody UserDto userDto) throws NotFoundException {
-		return ResponseEntity.ok(userServiceImp.update(username,userDto));
+		return ResponseEntity.ok(userServiceImp.update(username, userDto));
 	}
 
 }

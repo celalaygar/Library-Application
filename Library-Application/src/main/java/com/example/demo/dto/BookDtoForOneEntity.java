@@ -14,17 +14,24 @@ import lombok.Setter;
 @NoArgsConstructor
 @Data
 public class BookDtoForOneEntity {
+
 	private Long id;
+
 	@NotNull
 	private String name;
+
 	@NotNull
 	private String barcode;
+
 	private String content;
+
 	@NotNull
 	private String publisher;
-	
+
 	private BookStatus bookStatus;
+
 	@NotNull
 	private Long authorId;
+
 	private Long studentId;
 }

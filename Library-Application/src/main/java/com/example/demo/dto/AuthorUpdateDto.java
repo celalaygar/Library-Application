@@ -11,24 +11,24 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
 @Setter
 @Data
 public class AuthorUpdateDto {
 
 	private Long id;
-	
+
 	@NotNull
 	private String name;
-	
+
 	@NotNull
 	private String surname;
-	
-	private String about;
-	
-	private String email;
-	
-	private String phone;
 
+	private String about;
+
+	private String email;
+
+	private String phone;
 
 }

@@ -27,19 +27,19 @@ public class BookUpdateDto {
 	private Long id;
 	@NotNull
 	private String name;
-	
+
 	private String content;
-	
+
 	@NotNull
 	private Long authorId;
-	
+
 	@NotNull
 	private String barcode;
 
 	@NotNull
 	private BookStatus bookStatus;
-	
-    private AuthorDtoForOneEntity author;
+
+	private AuthorDtoForOneEntity author;
 
 	@NotNull
 	private String publisher;

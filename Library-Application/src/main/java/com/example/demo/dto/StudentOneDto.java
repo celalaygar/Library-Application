@@ -24,6 +24,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,12 +34,12 @@ public class StudentOneDto {
 	private Long id;
 
 	private String tcNo;
-	
+
 	@NotNull
 	private String fullname;
 
 	private String university;
-	
+
 	private String department;
 
 	@NotNull
@@ -46,11 +47,11 @@ public class StudentOneDto {
 
 	@NotNull
 	private String phone;
-	
+
 	private String address;
-	
+
 	private City city;
-	
+
 	private Long bookId;
 
 	private List<BookDtoForOneEntity> books;

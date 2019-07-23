@@ -12,10 +12,10 @@ import com.example.demo.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 	List<User> findByEmail(String email);
-	
+
 	@Query("select u from User u where u.username like %:username%")
 	List<User> getByUsername(@Param("username") String username);
-	
+
 	User findByUsername(String username);
 
 }

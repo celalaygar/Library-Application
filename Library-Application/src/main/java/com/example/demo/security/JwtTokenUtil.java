@@ -20,8 +20,8 @@ public class JwtTokenUtil {
 	// 1Gün ==> saat * dakika * saniye * mili saniye
 	// 1Gün
 	public static final long ACCESS_TOKEN_VALIDITY_SECONDS = 24 * 60 * 60 * 1000;
-	
-	//token şifreleme ve çözme için kullanılan key (Yani JWT nin 3. partini )
+
+	// token şifreleme ve çözme için kullanılan key (Yani JWT nin 3. partini )
 	public static final String SIGNING_KEY = "hcelal";
 
 	// token dan username ı aldığımız method
@@ -63,12 +63,12 @@ public class JwtTokenUtil {
 		return Jwts.builder().setClaims(claims)
 				// imzalama yeri sunucu, domain gibi ..
 				.setIssuer("http://hcelal.com")
-				//imzalanma zamanı (saati)
+				// imzalanma zamanı (saati)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				//tokenın biteceği tarih 
-				//(şuanki zaman + belirlenen süre 24 saat mili saniye olarak)
+				// tokenın biteceği tarih
+				// (şuanki zaman + belirlenen süre 24 saat mili saniye olarak)
 				.setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY_SECONDS))
-				//şifreleme algoritmaso ve imzası ile (hcelal :D )
+				// şifreleme algoritmaso ve imzası ile (hcelal :D )
 				.signWith(SignatureAlgorithm.HS256, SIGNING_KEY).compact();
 	}
 
@@ -76,6 +76,5 @@ public class JwtTokenUtil {
 		final String username = getUsernameFromToken(token);
 		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 	}
-
 
 }

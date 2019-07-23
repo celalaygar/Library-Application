@@ -10,9 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TokenResponse {
-    private String username;
-    private String token;
-
-
+	
+	private String username;
+	
+	private String token;
 
 }

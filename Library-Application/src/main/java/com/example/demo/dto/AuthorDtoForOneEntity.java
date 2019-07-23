@@ -15,17 +15,17 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AuthorDtoForOneEntity {
 	private Long id;
-	
+
 	@NotNull
 	private String name;
-	
+
 	@NotNull
 	private String surname;
-	
+
 	private String email;
-	
+
 	private String phone;
 
 	private String about;
-	
+
 }

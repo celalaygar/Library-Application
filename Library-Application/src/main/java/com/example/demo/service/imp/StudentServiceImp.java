@@ -146,13 +146,13 @@ public class StudentServiceImp {
 		if (!bookChecked.isPresent()) {
 			throw new NotFoundException("Book dosen't exist");
 		}
-		
+
 		bookChecked.get().setStudent(null);
 		bookRepository.save(bookChecked.get());
-		
+
 		studentOpt.get().getBooks().remove(bookChecked.get());
 		studentRepository.save(studentOpt.get());
-		
+
 		Student student = studentRepository.getOne(studenPatchtDto.getStudentId());
 		return modelMapper.map(student, StudentDto.class);
 	}

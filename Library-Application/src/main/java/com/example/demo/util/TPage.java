@@ -7,21 +7,21 @@ import org.springframework.data.domain.Sort;
 
 public class TPage<T> {
 
-    private int number;
-    private int size;
-    private Sort sort;
-    private int totalPages;
-    private Long totalElements;
-    private List<T> content;
+	private int number;
+	private int size;
+	private Sort sort;
+	private int totalPages;
+	private Long totalElements;
+	private List<T> content;
 
-    public void setStat(Page page, List<T> list) {
-        this.number = page.getNumber();
-        this.size = page.getSize();
-        this.sort = page.getSort();
-        this.totalPages = page.getTotalPages();
-        this.totalElements = page.getTotalElements();
-        this.content = list;
-    }
+	public void setStat(Page page, List<T> list) {
+		this.number = page.getNumber();
+		this.size = page.getSize();
+		this.sort = page.getSort();
+		this.totalPages = page.getTotalPages();
+		this.totalElements = page.getTotalElements();
+		this.content = list;
+	}
 
 	public TPage() {
 		super();
@@ -74,6 +74,5 @@ public class TPage<T> {
 	public void setContent(List<T> content) {
 		this.content = content;
 	}
-	
-	
+
 }

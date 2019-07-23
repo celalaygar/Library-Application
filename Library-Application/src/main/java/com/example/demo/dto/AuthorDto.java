@@ -13,26 +13,26 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
 @Setter
 @Data
 public class AuthorDto {
 
 	private Long id;
-	
+
 	@NotNull
 	private String name;
-	
+
 	@NotNull
 	private String surname;
 
 	private String about;
-	
-	private String email;
-	
-	private String phone;
-	
-	private List<BookDtoForOneEntity> books;
 
+	private String email;
+
+	private String phone;
+
+	private List<BookDtoForOneEntity> books;
 
 }

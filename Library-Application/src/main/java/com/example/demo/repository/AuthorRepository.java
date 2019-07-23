@@ -12,6 +12,6 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
 	Author findByEmail(String email);
 
 	@Query("select a from Author a where a.name like %:name% or a.surname like %:surname%")
-	List<Author> findByNameOrSurname(String name,String surname);
+	List<Author> findByNameOrSurname(String name, String surname);
 
 }
