@@ -1,6 +1,6 @@
-## Library-Application (This project is beeing built by me)
-- This project is about Library Application. 
-- I have run this project's backside on localhost:8182/ and frontside on localhost:5422/ while building this project both of sides
+## Library-Application
+This project is about Library Application for automotion. 
+
 ## Using Tools & Technologies
 ``` 
 - Spring Boot 2.1.5
@@ -21,10 +21,7 @@
 - When click Library Application project then click Maven->Update project.
 
 ## Create front side regarding Angular 8
-- Download this repository
-- Write ng update while being  in this path called `.../Library-Application/library-webui`
-- Or if you wanna create this project again You need to write commands of bottom ones.
-- Follow by doing this steps. Open git bash and write bottom ones to create new project about angular 8
+- if you wanna create this project again You need to write commands of bottom ones.
 - npm i @angular/cli
 - ng new project-name
 - cd project-name
@@ -33,181 +30,7 @@
 - npm install @swimlane/ngx-datatable
 - npm i ngx-datatable
 - npm install ngx-bootstrap.
-- Then you can do CRUD user, author, student and book data from back side regarding spring boot
-## User Rest api
-User Get mapping
-```
-localhost:8182/api/user/{username}
-```
 
-User Post mapping
-```
-localhost:8182/api/main/sign-in
-{
-	"username":"ahmet",
-	"password": "ahmet12345"
-}
-
-localhost:8182/api/main/sign-up
-{
-	"username":"ahmet",
-	"firstname":"ahmet",
-	"lastname":"karaoğlan",
-	"email":"ahmet.kara@gmail.com"
-	"password": "ahmet12345"
-	
-}
-
-```
-
-User put mapping for updating
-```
-localhost:8182/api/user/{username}
-
-{
-	"username":"ahmet",
-	"firstname":"ahmet",
-	"lastname":"karaoğlan",
-	"email":"ahmet.kara@gmail.com"
-	
-}
-
-```
-
-
-## Author Rest api
-These links are just example how to use rest api with these links.
-
-Author get mapping : 
-```
-localhost:8182/api/author 
-localhost:8182/api/author/{id} 
-```
-Author get mapping as pagination: 
-```
-localhost:8182/api/author/pagination?page=0&size=3
-localhost:8182/api/author/pagination?page=1&size=5
-```
-Author post mapping :
-``` 
-localhost:8182/api/author
-{
-	"name":"lara",
-	"surname":"gül",
-	"email":"lara.g@gmail.com",
-	"phone":"+905434445511",
-	"about":"hakan ali is using an email called hasan.a@gmail.com"
-	
-}
-``` 
-Author put mapping :
-``` 
-localhost:8182/api/author/{id} 
-
-{
-	"name":"hakan ali",
-	"surname":"kara",
-	"email": "hasan.a@gmail.com",
-	"phone": "+905434445511",
-	"about":"hakan ali is using an email called hasan.a@gmail.com"
-}
-``` 
-Author delete mapping : 
-``` 
-localhost:8182/api/author/{id} 
-```
-## Book Rest api
-These links are just example how to use rest api with these links.
-
-Book get mapping : 
-```
-localhost:8182/api/book 
-localhost:8182/api/book/{id}
-```
-Book get mapping as pagination: 
-```
-localhost:8182/api/book/pagination?page=0&size=3
-localhost:8182/api/book/pagination?page=1&size=5
-```
-Book post mapping : 
-```
-localhost:8182/api/book
-
-{
-	"name":"Ağa sızma teknikleri",
-	"barcode":"NTW-00352",
-	"content":"Network üzerinden ağa sızma teknikleri anlatılmaktadır.",
-	"publisher":"Kodlab Yayıncılık",
-	"bookStatus":"FREE",
-	"authorId":1
-}
-```
-Book put mapping :  
-```
-localhost:8182/api/book/{id} 
-
-{
-	"name": "Spring boot 2",
-	"barcode": "SPRING-01-2",
-	"content": "Spring boot 2 ile web uygulama adımları anlatılmıştır",
-	"publisher": "Level 2",
-	"bookStatus":"USED",
-	"authorId": 4
-}
-```
-Book delete mapping : 
-```
-localhost:8182/api/book/{id} 
-``` 
-
-## Student Rest api
-Student get mapping : 
-```
-localhost:8182/api/student 
-localhost:8182/api/student/{id}
-```
-Student get mapping as pagination: 
-```
-localhost:8182/api/student/pagination?page=0&size=3
-localhost:8182/api/student/pagination?page=1&size=5
-```
-Student post mapping :
-```
-localhost:8182/api/student
-
-{
-	"fullname":"pınar kara1",
-	"tcNo":"11111111121",
-	"email":"pınar.kara1@gmail.com",
-	"phone":"+9054344455122",
-	"university":"gazi üniversitesi",
-	"department":"beden öğretmenliği",
-	"address":"karşı1yaka 513.sokak no : 1/1",
-	"city":"ADANA"
-	
-}
-
-```
-Student patch mapping : 
-```
-localhost:8182/api/student/get-book
-
-{
-	"studentId":7,
-	"bookId":4
-}
-
-localhost:8182/api/student/leave-book
-
-{
-	"studentId":7,
-	"bookId":4
-}
-```
-Student delete mapping : 
-```
-localhost:8182/api/student/{id}
-```
 ## Create front side regarding Angular 8
 Follow step: open git bash and write bottom ones to create new project about angular 8
 - npm i @angular/cli
@@ -219,10 +42,9 @@ Follow step: open git bash and write bottom ones to create new project about ang
 - npm i ngx-datatable
 - npm install ngx-bootstrap
 Then you can get author and book data from back side regarding spring boot
+
 ### Sql Query
 ``` 
-
-
 CREATE TABLE public.users
 (
     id bigint NOT NULL,
