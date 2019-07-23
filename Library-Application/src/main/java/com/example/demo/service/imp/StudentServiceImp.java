@@ -38,130 +38,123 @@ public class StudentServiceImp {
 	private final AuthorRepository authorRepository;
 	private final StudentRepository studentRepository;
 	private final BookRepository bookRepository;
-	
-	
-	
-	public StudentServiceImp(ModelMapper modelMapper,
-			UserRepository userRepository,
-			AuthorRepository authorRepository,
-			StudentRepository studentRepository,
-			BookRepository bookRepository) {
+
+	public StudentServiceImp(ModelMapper modelMapper, UserRepository userRepository, AuthorRepository authorRepository,
+			StudentRepository studentRepository, BookRepository bookRepository) {
 		super();
 		this.modelMapper = modelMapper;
-		this.userRepository=userRepository;
-		this.authorRepository=authorRepository;
-		this.studentRepository=studentRepository;
-		this.bookRepository=bookRepository;
+		this.userRepository = userRepository;
+		this.authorRepository = authorRepository;
+		this.studentRepository = studentRepository;
+		this.bookRepository = bookRepository;
 	}
-	
+
 	public StudentDto save(StudentDto studentDto) {
-		Student customerChecked=studentRepository.findByEmail(studentDto.getEmail());
-		
-		if(customerChecked !=null) {
+		Student customerChecked = studentRepository.findByEmail(studentDto.getEmail());
+
+		if (customerChecked != null) {
 			throw new IllegalArgumentException("Student email already exist");
 		}
-		Student student=modelMapper.map(studentDto, Student.class); 
+		Student student = modelMapper.map(studentDto, Student.class);
 		studentRepository.save(student);
 		studentDto.setId(student.getId());
 		return studentDto;
 	}
+
 	public TPage<StudentDto> getAllPageable(Pageable pageable) throws NotFoundException {
 		try {
-			Page<Student> page=studentRepository.findAll(PageRequest.of(pageable.getPageNumber(), 
-					  pageable.getPageSize(), 
-					  Sort.by(Sort.Direction.ASC, "id")));
-			//Page<Author> page=authorRepository.findAll(pageable);
-			TPage<StudentDto> tPage=new TPage<StudentDto>();
-			StudentDto[] studentDtos=modelMapper.map(page.getContent(), StudentDto[].class);
+			Page<Student> page = studentRepository.findAll(PageRequest.of(pageable.getPageNumber(),
+					pageable.getPageSize(), Sort.by(Sort.Direction.ASC, "id")));
+			// Page<Author> page=authorRepository.findAll(pageable);
+			TPage<StudentDto> tPage = new TPage<StudentDto>();
+			StudentDto[] studentDtos = modelMapper.map(page.getContent(), StudentDto[].class);
 
 			tPage.setStat(page, Arrays.asList(studentDtos));
 			return tPage;
 		} catch (Exception e) {
-			throw new NotFoundException("User email dosen't exist : "+e);
+			throw new NotFoundException("User email dosen't exist : " + e);
 		}
 	}
 
 	public List<StudentDto> getAll() throws NotFoundException {
-		List<Student> students=studentRepository.findAll();
-		if(students.size()<1) {
+		List<Student> students = studentRepository.findAll();
+		if (students.size() < 1) {
 			throw new NotFoundException("Customer don't already exist");
 		}
-		StudentDto[] studentDtos=modelMapper.map(students, StudentDto[].class);
+		StudentDto[] studentDtos = modelMapper.map(students, StudentDto[].class);
 		return Arrays.asList(studentDtos);
 	}
 
-	public StudentDto findById(Long id) {
-		Optional<Student> studentOpt=studentRepository.findById(id);
-		if(!studentOpt.isPresent()) {
-			throw new IllegalArgumentException("Student dosen't exist");
+	public StudentDto findById(Long id) throws NotFoundException {
+		Optional<Student> studentOpt = studentRepository.findById(id);
+		if (!studentOpt.isPresent()) {
+			throw new NotFoundException("Student dosen't exist");
 		}
 		return modelMapper.map(studentOpt.get(), StudentDto.class);
 	}
-	
+
 	public StudentDto update(Long id, @Valid StudentDto studentDto) throws NotFoundException {
-		Student student=studentRepository.getOne(id);
-		if(student == null) {
-			throw new IllegalArgumentException("Student dosen't exist");
+		Optional<Student> studentOpt = studentRepository.findById(id);
+		if (!studentOpt.isPresent()) {
+			throw new NotFoundException("Student dosen't exist");
 		}
 
-		student=modelMapper.map(studentDto, Student.class);
+		Student student = modelMapper.map(studentDto, Student.class);
 		student.setId(id);
 		studentRepository.save(student);
 		studentDto.setId(student.getId());
-        return studentDto;
+		return studentDto;
 	}
 
-	public StudentDto getBookForStudent( @Valid StudenPatchtDto studenPatchtDto) throws NotFoundException {
-		Student student=studentRepository.getOne(studenPatchtDto.getStudentId());
-		if(student == null) {
-			throw new IllegalArgumentException("Student dosen't exist");
+	public StudentDto getBookForStudent(@Valid StudenPatchtDto studenPatchtDto) throws NotFoundException {
+		Optional<Student> studentOpt = studentRepository.findById(studenPatchtDto.getStudentId());
+		if (!studentOpt.isPresent()) {
+			throw new NotFoundException("Student dosen't exist");
 		}
-		Optional<Book> bookChecked=bookRepository.findById(studenPatchtDto.getBookId());
-		if(!bookChecked.isPresent()) {
+		Optional<Book> bookChecked = bookRepository.findById(studenPatchtDto.getBookId());
+		if (!bookChecked.isPresent()) {
 			throw new NotFoundException("Book dosen't exist");
 		}
-		bookChecked.get().setStudent(student);
+		bookChecked.get().setStudent(studentOpt.get());
 		bookRepository.save(bookChecked.get());
-		student=studentRepository.getOne(studenPatchtDto.getStudentId());
-		return modelMapper.map(student, StudentDto.class);
+		return modelMapper.map(studentRepository.getOne(studenPatchtDto.getStudentId()), StudentDto.class);
 	}
 
-
 	public Boolean delete(Long id) throws NotFoundException {
-
-		try {
-			Student student=studentRepository.getOne(id);
-			if(student.getBooks().size()>0) {
-				student.getBooks().forEach(book ->{
-					book.setStudent(null);
-					bookRepository.save(book);
-				});
-			}
-			student.setBooks(null);
-			studentRepository.delete(student);
-			return true;
-		}catch (Exception e) {
-			return false;
+		Optional<Student> studentOpt = studentRepository.findById(id);
+		if (!studentOpt.isPresent()) {
+			throw new NotFoundException("Student dosen't exist");
 		}
+		if (studentOpt.get().getBooks().size() > 0) {
+			studentOpt.get().getBooks().forEach(book -> {
+				book.setStudent(null);
+				bookRepository.save(book);
+			});
+		}
+		studentOpt.get().setBooks(null);
+		studentRepository.delete(studentOpt.get());
+		return true;
+
 	}
 
 	public StudentDto leaveBookForStudent(@Valid StudenPatchtDto studenPatchtDto) throws NotFoundException {
-		Optional<Student> studentOpt=studentRepository.findById(studenPatchtDto.getStudentId());
-		if(!studentOpt.isPresent()) {
+		Optional<Student> studentOpt = studentRepository.findById(studenPatchtDto.getStudentId());
+		if (!studentOpt.isPresent()) {
 			throw new IllegalArgumentException("Student dosen't exist");
 		}
-		Optional<Book> bookChecked=bookRepository.findById(studenPatchtDto.getBookId());
-		if(!bookChecked.isPresent()) {
+		Optional<Book> bookChecked = bookRepository.findById(studenPatchtDto.getBookId());
+		if (!bookChecked.isPresent()) {
 			throw new NotFoundException("Book dosen't exist");
 		}
+		
 		bookChecked.get().setStudent(null);
 		bookRepository.save(bookChecked.get());
+		
 		studentOpt.get().getBooks().remove(bookChecked.get());
 		studentRepository.save(studentOpt.get());
-		Student student=studentRepository.getOne(studenPatchtDto.getStudentId());
+		
+		Student student = studentRepository.getOne(studenPatchtDto.getStudentId());
 		return modelMapper.map(student, StudentDto.class);
 	}
 
-	
-	
 }

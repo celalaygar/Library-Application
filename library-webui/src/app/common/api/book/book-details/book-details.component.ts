@@ -28,15 +28,7 @@ export class BookDetailsComponent implements OnInit {
   ngOnInit() {
     this.loadBookDetails();
     this.LoadBookUpdateForm(this.book);
-    // this.showModal = true;
-    // this.BookForm = this.formBuilder.group({
-    //   'name':       [this.book.name, [Validators.required]],
-    //   'publisher':  [this.book.publisher, [Validators.required]],
-    //   'barcode':    [this.book.barcode, [Validators.required]],
-    //   'content':    [this.book.content, [Validators.required]],
-    //   'bookStatus': [this.book.bookStatus, [Validators.required]],
-    //   'authorId':   [this.book.author.id]
-    // });
+
   }
 
   loadBookDetails() {
@@ -51,6 +43,7 @@ export class BookDetailsComponent implements OnInit {
   LoadBookUpdateForm(res) {
     this.showModal = true;
     this.BookForm = this.formBuilder.group({
+      'id':         [this.id, [Validators.required]],
       'name':       [res.name, [Validators.required]],
       'publisher':  [res.publisher, [Validators.required]],
       'barcode':    [res.barcode, [Validators.required]],

@@ -68,7 +68,7 @@ public class BookRestController {
         return ResponseEntity.ok(bookServiceImp.SearchBooksByName(name));
     }
 	@PostMapping()
-	public ResponseEntity<BookOneDto> createProject(@Valid @RequestBody BookOneDto bookOneDto){
+	public ResponseEntity<BookOneDto> createProject(@Valid @RequestBody BookOneDto bookOneDto) throws Exception{
 		return ResponseEntity.ok(bookServiceImp.save(bookOneDto));
 	}
 	

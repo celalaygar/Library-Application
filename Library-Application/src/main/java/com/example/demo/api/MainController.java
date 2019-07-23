@@ -56,19 +56,12 @@ public class MainController {
 
     @RequestMapping(value = "/sign-in", method = RequestMethod.POST)
     public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) throws AuthenticationException {
-    	System.out.println(request.getUsername());
-    	System.out.println(request.getPassword());
-    	authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-    	
+    	authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));    	
     	final User user = userRepository.findByUsername(request.getUsername());
         final String token = jwtTokenUtil.generateToken(user);
         return ResponseEntity.ok(new TokenResponse(user.getUsername(), token));
     }
-	
-	@GetMapping("/hello")
-	public String helloPage() {
-		return "hello";
-	}
+
     @RequestMapping(value = "/sign-up", method = RequestMethod .POST)
     public ResponseEntity<Boolean>  signUp(@RequestBody RegistirationRequest registirationRequest) throws Exception   {
     

@@ -55,7 +55,7 @@ public class StudentRestController {
         return ResponseEntity.ok(data);
     }
     @GetMapping("/{id}")
-	public ResponseEntity<StudentDto> selectStudent(@PathVariable(name = "id", required = true) Long id) {
+	public ResponseEntity<StudentDto> selectStudent(@PathVariable(name = "id", required = true) Long id) throws NotFoundException {
 		return ResponseEntity.ok(studentServiceImp.findById(id));
 	}
 	@PostMapping()

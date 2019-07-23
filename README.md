@@ -24,7 +24,7 @@
 - Download this repository
 - Write ng update while being  in this path called `.../Library-Application/library-webui`
 - Or if you wanna create this project again You need to write commands of bottom ones.
-Follow step: open git bash and write bottom ones to create new project about angular 8
+- Follow by doing this steps. Open git bash and write bottom ones to create new project about angular 8
 - npm i @angular/cli
 - ng new project-name
 - cd project-name
@@ -32,8 +32,48 @@ Follow step: open git bash and write bottom ones to create new project about ang
 - npm install jquery
 - npm install @swimlane/ngx-datatable
 - npm i ngx-datatable
-- npm install ngx-bootstrap
-Then you can get author and book data from back side regarding spring boot
+- npm install ngx-bootstrap.
+- Then you can do CRUD user, author, student and book data from back side regarding spring boot
+## User Rest api
+User Get mapping
+```
+localhost:8182/api/user/{username}
+```
+
+User Post mapping
+```
+localhost:8182/api/main/sign-in
+{
+	"username":"ahmet",
+	"password": "ahmet12345"
+}
+
+localhost:8182/api/main/sign-up
+{
+	"username":"ahmet",
+	"firstname":"ahmet",
+	"lastname":"karaoğlan",
+	"email":"ahmet.kara@gmail.com"
+	"password": "ahmet12345"
+	
+}
+
+```
+
+User put mapping for updating
+```
+localhost:8182/api/user/{username}
+
+{
+	"username":"ahmet",
+	"firstname":"ahmet",
+	"lastname":"karaoğlan",
+	"email":"ahmet.kara@gmail.com"
+	
+}
+
+```
+
 
 ## Author Rest api
 These links are just example how to use rest api with these links.
