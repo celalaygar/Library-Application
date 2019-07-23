@@ -18,7 +18,7 @@ This project is about Library Application for automotion.
 
 ## Create backend side Spring boot 2.1.5
 - Download this repository
-- When click Library Application project then click Maven->Update project.
+- after opening this project on STS When you click Library Application project then click Maven->Update project.
 
 ## Create front side regarding Angular 8
 - if you wanna create this project again You need to write commands of bottom ones.
@@ -30,18 +30,6 @@ This project is about Library Application for automotion.
 - npm install @swimlane/ngx-datatable
 - npm i ngx-datatable
 - npm install ngx-bootstrap.
-
-## Create front side regarding Angular 8
-Follow step: open git bash and write bottom ones to create new project about angular 8
-- npm i @angular/cli
-- ng new project-name
-- cd project-name
-- npm install bootstrap
-- npm install jquery
-- npm install @swimlane/ngx-datatable
-- npm i ngx-datatable
-- npm install ngx-bootstrap
-Then you can get author and book data from back side regarding spring boot
 
 ### Sql Query
 ``` 
