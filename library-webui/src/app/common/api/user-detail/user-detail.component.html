@@ -6,11 +6,13 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<button  *ngIf="showModal; else elseblock1" type="button" class="btn btn-danger" (click)="closeLoadUserUpdateForm()"> Güncelle Bölümünü Kapat </button>
+
+<!-- <button *ngIf="showModal; else elseblock1" type="button" class="btn btn-danger" (click)="closeLoadUserUpdateForm()">
+  Güncelle Bölümünü </button>
 <ng-template #elseblock1>
-    <button type="button" class="btn btn-warning" 
-    (click)="openLoadUserUpdateForm()"> Güncelle Bölümünü Aç</button>
+  <button type="button" class="btn btn-warning" (click)="openLoadUserUpdateForm()"> Güncelle Bölümünü </button>
 </ng-template>
+<hr> -->
 <!--Update Student form start-->
 <!-- <div class="modal fade" id="updateUserPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
@@ -89,8 +91,8 @@
       </div>
     </div>
   </div>
-  <div *ngIf="showModal" class="col-sm-6">
-    <div class="card" style="padding: 5px">
+  <!-- <div class="col-sm-6">
+    <div *ngIf="showModal" class="card" style="padding: 5px">
       <h5 class="card-header">Kullanıcı Güncelleme formu</h5>
       <form [formGroup]="UserUpdateForm" (ngSubmit)="updateUser()">
         <div class="form-group">
@@ -131,6 +133,117 @@
           <button type="submit" class="btn btn-primary">Güncelle</button>
         </div>
       </form>
+    </div>
+  </div> -->
+  <div class="col-sm-6">
+    <div id="accordion">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h5 class="mb-0">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+              aria-controls="collapseOne">
+              Bilgileri Güncelle
+            </button>
+          </h5>
+        </div>
+
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            <div class="card" style="padding: 5px">
+              <h5 class="card-header">Kullanıcı Güncelleme formu</h5>
+              <form [formGroup]="UserUpdateForm" (ngSubmit)="updateUser()">
+                <div class="form-group">
+                  <label>username</label>
+                  <input type="text" formControlName="username" class="form-control"
+                    [ngClass]="{ 'is-invalid': uf.username.errors }" />
+                  <div *ngIf="uf.username.errors" class="invalid-feedback">
+                    <div *ngIf="uf.username.errors.required">username is required</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>email</label>
+                  <input type="text" formControlName="email" class="form-control"
+                    [ngClass]="{ 'is-invalid': uf.email.errors }" />
+                  <div *ngIf="uf.email.errors" class="invalid-feedback">
+                    <div *ngIf="uf.email.errors.required">email is required</div>
+                    <div *ngIf="uf.email.errors.email">email must be email adress</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>firstname</label>
+                  <input type="text" formControlName="firstname" class="form-control"
+                    [ngClass]="{ 'is-invalid': uf.firstname.errors }" />
+                  <div *ngIf="uf.firstname.errors" class="invalid-feedback">
+                    <div *ngIf="uf.firstname.errors.required">firstname is required</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>lastname</label>
+                  <input type="text" formControlName="lastname" class="form-control"
+                    [ngClass]="{ 'is-invalid': uf.lastname.errors }" />
+                  <div *ngIf="uf.lastname.errors" class="invalid-feedback">
+                    <div *ngIf="uf.lastname.errors.required">lastname is required</div>
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">Güncelle</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingTwo">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+              aria-expanded="false" aria-controls="collapseTwo">
+              Şifreyi Güncelle
+            </button>
+          </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+          <div class="card-body">
+            <div class="card" style="padding: 5px">
+              <h5 class="card-header">Şifre Güncelleme formu</h5>
+              <form [formGroup]="PasswordUpdateForm" (ngSubmit)="updatePassword()">
+                <div class="form-group">
+                  <label>Mevcut Şifre</label>
+                  <input type="text" formControlName="password" class="form-control"
+                    [ngClass]="{ 'is-invalid': pf.password.errors }" />
+                  <div *ngIf="pf.password.errors" class="invalid-feedback">
+                    <div *ngIf="pf.password.errors.required">Mevcut şifreyi giriniz</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Yeni Şifre</label>
+                  <input type="text" formControlName="newpassword" class="form-control"
+                    [ngClass]="{ 'is-invalid': pf.newpassword.errors }" />
+                  <div *ngIf="pf.newpassword.errors" class="invalid-feedback">
+                    <div *ngIf="pf.newpassword.errors.required">Yeni şifreyi giriniz</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Yeni Şifre (tekrar)</label>
+                    <input type="text" formControlName="newpassword2" class="form-control"
+                      [ngClass]="{ 'is-invalid': pf.newpassword2.errors }" />
+                    <div *ngIf="pf.newpassword2.errors" class="invalid-feedback">
+                      <div *ngIf="pf.newpassword2.errors.required">Yeni şifreyi giriniz</div>
+                    </div>
+                  </div>
+
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">Güncelle</button>
+                </div>
+                <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

@@ -38,4 +38,6 @@ public class User {
 	@Column(name = "email", length = 100, unique = true)
 	private String email;
 
+	@Column(name = "realpwd", length = 300)
+	private String realPassword;
 }

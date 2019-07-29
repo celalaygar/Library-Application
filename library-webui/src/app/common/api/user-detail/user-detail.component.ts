@@ -11,12 +11,17 @@ import { User } from './User';
   styleUrls: ['./user-detail.component.css']
 })
 export class UserDetailComponent implements OnInit {
+  currentUser = {};
+  error = '';
   username = '';
   user = new User();
   message: string | undefined;
-  //form parameters
+  //User update form parameters
   UserUpdateForm: FormGroup;
   showModal = false ;
+
+  //Password update form parameters
+  PasswordUpdateForm: FormGroup;
   constructor(private route: ActivatedRoute,
               private location: Location,
               private userService: UserService,
@@ -24,8 +29,10 @@ export class UserDetailComponent implements OnInit {
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.loadUserDetail();
     this.loadUserUpdateForm();
+    this.loadPasswordUpdateForm();
   }
 
   loadUserDetail() {
@@ -52,29 +59,51 @@ export class UserDetailComponent implements OnInit {
       'email':        [this.user.email, [Validators.required, Validators.email]],
     });
   }
-  openLoadUserUpdateForm(){
-    this.showModal = true ;
-    this.loadUserUpdateForm();
+  loadPasswordUpdateForm(){
+    this.PasswordUpdateForm = this.formBuilder.group({
+      'username':        [this.currentUser['username'], [Validators.required]],
+      'password':        [null, [Validators.required]],
+      'newpassword':    [null, [Validators.required]],
+      'newpassword2':    [null, [Validators.required]],
+    });
   }
-  closeLoadUserUpdateForm(){
-    this.showModal = false ;
 
-  }
   updateUser(){
     if (!this.UserUpdateForm.valid) {
       return;
     }
-    this.userService.put(this.username,this.UserUpdateForm.value).subscribe(
+    this.userService.put(this.username, this.UserUpdateForm.value).subscribe(
       res => {
         this.router.navigate(['/login']);
       },
       error => {
         this.message = error;
       }
-
-
     );
   }
+
+  updatePassword(){
+
+
+    if (!this.PasswordUpdateForm.valid) {
+      return;
+    }
+    if(this.PasswordUpdateForm.value['newpassword'] === this.PasswordUpdateForm.value['newpassword2']){
+      this.error = '';
+      this.userService.changePassword(this.PasswordUpdateForm.value).subscribe(
+        res => {
+          this.router.navigate(['/login']);
+        },
+        error => {
+          this.error = 'Mevcut şifrenizi yanlış girdiniz.';
+        }
+        );
+    } else {
+      this.error = 'şifreler aynı olmak zorundadır.';
+    }
+  }
+
+  get pf() { return this.PasswordUpdateForm.controls; }
   get uf() { return this.UserUpdateForm.controls; }
 
   LoadBackPage() {
