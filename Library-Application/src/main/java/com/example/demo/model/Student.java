@@ -17,6 +17,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,6 +34,7 @@ public class Student {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@NotNull
 	@Column(name = "tcNo", length = 11, unique = true)
 	private String tcNo;
 
@@ -39,15 +42,15 @@ public class Student {
 	@Column(name = "fullname", length = 100, unique = true)
 	private String fullname;
 
+	@NotNull
+	@Column(name = "email", length = 100, unique = true)
+	private String email;
+
 	@Column(name = "university", length = 3000)
 	private String university;
 
 	@Column(name = "department", length = 3000)
 	private String department;
-
-	@NotNull
-	@Column(name = "email", length = 100, unique = true)
-	private String email;
 
 	@NotNull
 	@Column(name = "phone", length = 100)

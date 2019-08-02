@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BsModalRef } from 'ngx-bootstrap';
 import { BookDetailsComponent } from './book-details/book-details.component';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @NgModule({
   declarations: [BookComponent, BookDetailsComponent],
@@ -22,6 +23,7 @@ import { BookDetailsComponent } from './book-details/book-details.component';
   providers: [
     AuthorService,
     BookService,
+    AlertifyService,
     BsModalRef,
     ApiService
   ]

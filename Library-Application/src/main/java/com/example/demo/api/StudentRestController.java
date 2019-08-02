@@ -63,13 +63,13 @@ public class StudentRestController {
 	}
 
 	@PostMapping()
-	public ResponseEntity<StudentDto> createStudent(@Valid @RequestBody StudentDto studentDto) {
+	public ResponseEntity<StudentDto> createStudent(@Valid @RequestBody StudentDto studentDto) throws Exception {
 		return ResponseEntity.ok(studentServiceImp.save(studentDto));
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<StudentDto> updateStudent(@PathVariable(name = "id", required = true) Long id,
-			@Valid @RequestBody StudentDto studentDto) throws NotFoundException {
+			@Valid @RequestBody StudentDto studentDto) throws Exception {
 		return ResponseEntity.ok(studentServiceImp.update(id, studentDto));
 	}
 

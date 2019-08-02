@@ -23,9 +23,11 @@ public class IMExceptionHandler extends ResponseEntityExceptionHandler {
 	public final ResponseEntity<?> handleExceptions(Exception ex, WebRequest request) {
 
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage());
-		logger.error("--Application Started--");
+		logger.error("--Application was Error : "+ex.getMessage());
 		// Log.info("ControllerAdvice -> ExceptionHandler : "+ex);
-		return new ResponseEntity<>(exceptionResponse, HttpStatus.EXPECTATION_FAILED);
+		
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.EXPECTATION_FAILED); 
+		//return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR); 
 	}
 
 }

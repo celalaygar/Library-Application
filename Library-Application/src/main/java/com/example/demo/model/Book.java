@@ -37,7 +37,7 @@ public class Book {
 	@Column(name = "content", length = 3000)
 	private String content;
 
-	@Column(name = "barcode", length = 300)
+	@Column(name = "barcode", length = 100, unique = true)
 	private String barcode;
 
 	@Column(name = "publisher", length = 300)

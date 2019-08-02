@@ -6,6 +6,7 @@ import { BookService } from 'src/app/services/book.service';
 import { StudentService } from 'src/app/services/student.service';
 import { Student } from '../Student';
 import { Book } from '../../book/Book';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-student-details',
@@ -26,7 +27,7 @@ export class StudentDetailsComponent implements OnInit {
   leaveBookForm: FormGroup;
   constructor(private route: ActivatedRoute,
               private location: Location,
-              private bookService: BookService,
+              private alert: AlertifyService,
               private studentService: StudentService,
               private formBuilder: FormBuilder) { }
 
@@ -80,11 +81,13 @@ export class StudentDetailsComponent implements OnInit {
       res =>{
         this.loadStudentDetails();
         if(this.id == res['id']){
+          this.alert.success(' kayıt başarıyla yapılmıştır.');
           this.message = ' kayıt başarıyla yapılmıştır.';
           this.updated = false;
         }
       },
       error =>{
+        this.alert.error(' kayıt yapılamamıştır');
         this.message = ' kayıt yapılamamıştır';
       });
   }
@@ -103,9 +106,11 @@ export class StudentDetailsComponent implements OnInit {
       res => {
         this.loadStudentDetails();
         this.LoadStudentUpdateForm(this.student);
+        this.alert.success( ' Silme işlemi başarılıdır. ');
         this.message = ' Silme işlemi başarılıdır. ';
       }
       , error => {
+        this.alert.error(' Silme işlemi başarısız. : ' + error);
         this.message = ' Silme işlemi başarısız. : ' + error;
       }
     );

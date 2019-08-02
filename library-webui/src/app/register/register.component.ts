@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../security/authentication.service';
 import { first } from 'rxjs/operators';
+import { AlertifyService } from '../services/alertify.service';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
+              private alert: AlertifyService,
               private authenticationService: AuthenticationService) {
   }
 
@@ -46,11 +48,16 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          this.alert.success('Kayıt işlemi başarılı...');
           this.router.navigate(['/login']);
         },
         error => {
+          this.alert.error('Hata : ' + error);
           this.error = error;
           this.loading = false;
         });
+  }
+  addToFavorites(post) {
+    this.alert.success('added to Favorite List : ' + post);
   }
 }

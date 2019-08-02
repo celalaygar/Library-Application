@@ -6,6 +6,7 @@ import { BookService } from 'src/app/services/book.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { StudentService } from 'src/app/services/student.service';
 import { Student } from '../Student';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-get-book',
@@ -16,6 +17,7 @@ export class GetBookComponent implements OnInit {
   message: string | undefined;
   id: number;
   student = new  Student();
+
   //ngx datatable parameters
   rows = [];
   cols = [];
@@ -23,11 +25,13 @@ export class GetBookComponent implements OnInit {
   control = true;
   books = [];
   bookId: any;
+
   //search book form
   searchBookForm: FormGroup;
   getbookForm: FormGroup;
   constructor(private route: ActivatedRoute,
               private location: Location,
+              private alert: AlertifyService,
               private bookService: BookService,
               private studentService: StudentService,
               private formBuilder: FormBuilder) { }
@@ -68,14 +72,19 @@ export class GetBookComponent implements OnInit {
     if (!this.searchBookForm.valid) {
       return;
     }
+    console.log(this.searchBookForm.value['name']);
     this.bookService.findAllByName(this.searchBookForm.value['name']).subscribe(
       res => {
         this.control = false;
         this.books = res;
         this.message = ' Kayıtlar bulunmuştur. ';
+        this.alert.success(' Kayıtlar bulunmuştur. ');
       },
       error => {
-        this.message = ' Hay Aksi <strong>' + this.searchBookForm.value['name'] + '</strong> bu isimde bir kitap kaydı bulunamamıştır. ';
+        this.control = true;
+        this.loadStaticPage();
+        this.alert.error(' Hay Aksi bu isimde bir kitap kaydı bulunamamıştır. ');
+        this.message = ' Hay Aksi bu isimde bir kitap kaydı bulunamamıştır. ';
       });
   }
 
@@ -93,17 +102,19 @@ export class GetBookComponent implements OnInit {
           res => {
             this.loadStaticPage();
             this.message = ' Kayıt işlemi başarılıdır. ';
+            this.alert.success( ' Kayıt işlemi başarılıdır. ');
           }
           , error => {
-            this.message = ' Kayıt işlemi başarısız. : ' + error;
+            this.alert.error(' Kayıt işlemi başarısız. : ');
+            this.message = ' Kayıt işlemi başarısız. : ';
           }
         );
       } else {
+        this.alert.error( ' Kitabın kayıtlı bir sahibi vardır. ');
         this.message = ' Kitabın kayıtlı bir sahibi vardır. ';
       }
     });
   }
-  
   setPage(pageInfo) {
     this.page.page = pageInfo.offset;
     this.bookService.getAllPageable(this.page).subscribe(pagedData => {
@@ -114,6 +125,7 @@ export class GetBookComponent implements OnInit {
     });
   }
   get sf() { return this.searchBookForm.controls; }
+
   backClicked() {
     this.location.back();
   }

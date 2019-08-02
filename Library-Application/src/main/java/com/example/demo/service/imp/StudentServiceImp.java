@@ -13,16 +13,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dto.AuthorDto;
-import com.example.demo.dto.AuthorUpdateDto;
-import com.example.demo.dto.BookUpdateDto;
 import com.example.demo.dto.StudenPatchtDto;
 import com.example.demo.dto.StudentDto;
-import com.example.demo.dto.UserDto;
-import com.example.demo.model.Author;
 import com.example.demo.model.Book;
 import com.example.demo.model.Student;
-import com.example.demo.model.User;
 import com.example.demo.repository.AuthorRepository;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.StudentRepository;
@@ -49,11 +43,15 @@ public class StudentServiceImp {
 		this.bookRepository = bookRepository;
 	}
 
-	public StudentDto save(StudentDto studentDto) {
-		Student customerChecked = studentRepository.findByEmail(studentDto.getEmail());
+	public StudentDto save(@Valid StudentDto studentDto) throws Exception {
+		List<Student> list = studentRepository.findByEmail(studentDto.getEmail().trim());
 
-		if (customerChecked != null) {
-			throw new IllegalArgumentException("Student email already exist");
+		if(list.size()>0){
+			throw new Exception("Student email already exist : " + studentDto.getEmail());
+		}
+		list = studentRepository.findByTcNo(studentDto.getTcNo().trim());
+		if(list.size()>0){
+			throw new Exception("Student Tc no already exist : " + studentDto.getTcNo());
 		}
 		Student student = modelMapper.map(studentDto, Student.class);
 		studentRepository.save(student);
@@ -93,12 +91,11 @@ public class StudentServiceImp {
 		return modelMapper.map(studentOpt.get(), StudentDto.class);
 	}
 
-	public StudentDto update(Long id, @Valid StudentDto studentDto) throws NotFoundException {
+	public StudentDto update(Long id, @Valid StudentDto studentDto) throws Exception {
 		Optional<Student> studentOpt = studentRepository.findById(id);
 		if (!studentOpt.isPresent()) {
 			throw new NotFoundException("Student dosen't exist");
 		}
-
 		Student student = modelMapper.map(studentDto, Student.class);
 		student.setId(id);
 		studentRepository.save(student);

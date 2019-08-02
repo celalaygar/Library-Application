@@ -4,6 +4,7 @@ import { UserDetailComponent } from './user-detail.component';
 import { UserRoutingModule } from './user.routing.module';
 import { UserService } from 'src/app/services/user.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @NgModule({
   declarations: [UserDetailComponent],
@@ -14,7 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   providers : [
-    UserService
+    UserService,
+    AlertifyService
   ]
 })
 export class UserModule { }

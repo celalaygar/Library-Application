@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthorDetailComponent } from './author-detail/author-detail.component';
 import { BookService } from 'src/app/services/book.service';
 import { ApiService } from 'src/app/services/general/api.service';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @NgModule({
   declarations: [AuthorComponent, AuthorDetailComponent],
@@ -22,6 +23,7 @@ import { ApiService } from 'src/app/services/general/api.service';
   providers: [
     AuthorService,
     BookService,
+    AlertifyService,
     ApiService,
     BsModalRef
   ]

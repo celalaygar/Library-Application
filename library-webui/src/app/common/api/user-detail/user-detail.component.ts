@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { UserService } from 'src/app/services/user.service';
 import { User } from './User';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -25,6 +26,7 @@ export class UserDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private location: Location,
               private userService: UserService,
+              private alert: AlertifyService,
               private router: Router,
               private formBuilder: FormBuilder) { }
 
@@ -45,6 +47,7 @@ export class UserDetailComponent implements OnInit {
         this.loadUserUpdateForm();
       },
       error => {
+        this.alert.error('hata : '+error + '<br/>Daha sonra tekrar deneyiniz.');
         this.LoadBackPage();
       }
     );
@@ -74,9 +77,11 @@ export class UserDetailComponent implements OnInit {
     }
     this.userService.put(this.username, this.UserUpdateForm.value).subscribe(
       res => {
+        this.alert.success('Güncelleme işlemi başarılı..');
         this.router.navigate(['/login']);
       },
       error => {
+        this.alert.error('Hata : ' + error);
         this.message = error;
       }
     );
@@ -92,14 +97,17 @@ export class UserDetailComponent implements OnInit {
       this.error = '';
       this.userService.changePassword(this.PasswordUpdateForm.value).subscribe(
         res => {
+          this.alert.success('Şifreniz güncellenmiştir.');
           this.router.navigate(['/login']);
         },
         error => {
+          this.alert.error('Mevcut şifrenizi yanlış girdiniz.');
           this.error = 'Mevcut şifrenizi yanlış girdiniz.';
         }
         );
     } else {
-      this.error = 'şifreler aynı olmak zorundadır.';
+      this.alert.error('Şifreler aynı olmak zorundadır.');
+      this.error = 'Şifreler aynı olmak zorundadır.';
     }
   }
 

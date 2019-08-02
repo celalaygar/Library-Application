@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { StudentService } from 'src/app/services/student.service';
 import { Page } from 'src/app/shared/Page';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-student',
@@ -23,6 +24,7 @@ export class StudentComponent implements OnInit {
   StudentInsertForm: FormGroup;
   showModal = true;
   constructor(private route: ActivatedRoute,
+              private alert: AlertifyService,
               private studentService: StudentService,
               private formBuilder: FormBuilder) { }
 
@@ -68,8 +70,11 @@ export class StudentComponent implements OnInit {
       console.log("insert student");
       this.message = ' Kayıt Yapılmıştır.. ';
       this.showModal = false;
+      this.alert.success(' Kayıt Yapılmıştır.. ');
+      this.message = ' Kayıt işlemi başarılı.';
     }, error => {
-      this.message = ' Hay Aksi Kayıt Yapılamadı. ' ;
+      this.alert.error(' Kayıt Yapılamadı. Email adresi veya tc no hatalıdır. ' );
+      this.message = ' Kayıt Yapılamadı.  Email adresi veya tc no hatalıdır.' ;
     });
   }
 
@@ -83,7 +88,9 @@ export class StudentComponent implements OnInit {
     this.studentService.delete(id).subscribe(res => {
       this.loadStaticPage();
       this.message = ' Kayıt Silinmiştir. ';
+      this.alert.warning(' Kayıt Silinmiştir. ');
     }, error => {
+      this.alert.error(' Hay Aksi Kayıt Silinemedi. ' );
       this.message = ' Hay Aksi Kayıt Silinemedi. ' ;
 
     });

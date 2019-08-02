@@ -21,6 +21,7 @@ import { JwtInterceptor } from './security/jwt.interceptor';
 import { AuthGuard } from './security/auth.guard';
 import { AuthenticationService } from './security/authentication.service';
 import { ErrorInterceptor } from './security/authentication.interceptor';
+import { AlertifyService } from './services/alertify.service';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ErrorInterceptor } from './security/authentication.interceptor';
     AuthorService, 
     BookService, 
     StudentService,
+    AlertifyService,
     ApiService,
     AuthGuard,
     AuthenticationService,

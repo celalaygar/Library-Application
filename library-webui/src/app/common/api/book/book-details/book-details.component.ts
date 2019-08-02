@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { BookService } from 'src/app/services/book.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Book } from '../Book';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-book-details',
@@ -22,6 +23,7 @@ export class BookDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private location: Location,
+              private alert: AlertifyService,
               private bookService: BookService,
               private formBuilder: FormBuilder) { }
 
@@ -58,12 +60,17 @@ export class BookDetailsComponent implements OnInit {
     if (!this.BookForm.valid) {
       return;
     }
-    this.bookService.put(this.id, this.BookForm.value).subscribe(res=>{
-      this.loadBookDetails();
-      this.LoadBookUpdateForm(this.book);
-      this.showModal = false;
-
-    });
+    this.bookService.put(this.id, this.BookForm.value).subscribe(
+      res=>{
+        this.loadBookDetails();
+        this.LoadBookUpdateForm(this.book);
+        this.showModal = false;
+        this.alert.success('Kitap bilgileri güncellenmiştr.');
+     },
+     error=>{
+       this.alert.error('Kitap bilgileri güncellenememiştir. Bir hata oluştu.')
+     }
+    );
   }
 
 

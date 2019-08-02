@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Page } from 'src/app/shared/Page';
 import { BookService } from 'src/app/services/book.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-book',
@@ -21,6 +22,7 @@ export class BookComponent implements OnInit {
   message: string | undefined;
 
   constructor(private bookService: BookService,
+              private alert: AlertifyService,
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -52,9 +54,13 @@ export class BookComponent implements OnInit {
         this.control = false;
         this.books = res;
         this.message = ' Kayıtlar bulunmuştur. ';
+        this.alert.success(' Kayıtlar bulunmuştur. ')
       },
       error => {
-        this.message = ' Hay Aksi <strong>' + this.searchBookForm.value['name'] + '</strong> bu isimde bir kitap kaydı bulunamamıştır. ';
+        this.control = true;
+        this.loadStaticPage();
+        this.alert.error(' Hay Aksi '+ this.searchBookForm.value['name'] + 'bu isimde bir kitap kaydı bulunamamıştır. ');
+        this.message = ' Hay Aksi ' + this.searchBookForm.value['name'] + ' bu isimde bir kitap kaydı bulunamamıştır. ';
       });
   }
   deleteBook(id) {
@@ -63,8 +69,10 @@ export class BookComponent implements OnInit {
       this.control = true;
       this.loadStaticPage();
       this.message = ' Kayıt silinmiştir. ';
+      this.alert.success(' Kayıt silinmiştir. ');
     },
       error => {
+        this.alert.error(' Kayıt Bulunamamıştır.. ');
         this.message = ' Kayıt Bulunamamıştır.. ';
       });
 

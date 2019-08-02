@@ -47,7 +47,7 @@ public class BookServiceImp {
 
 	public BookOneDto save(BookOneDto bookOneDto) throws Exception {
 
-		List<Book> bookChecked = bookRepository.findByName(bookOneDto.getName());
+		List<Book> bookChecked = bookRepository.findByName(bookOneDto.getName().trim());
 		if (bookChecked.size() > 0) {
 			throw new Exception("book already exist");
 		}
@@ -146,7 +146,7 @@ public class BookServiceImp {
 	}
 
 	public List<BookDto> SearchBooksByName(String name) throws NotFoundException {
-		List<Book> books = bookRepository.SearchBooksByName(name);
+		List<Book> books = bookRepository.SearchBooksByName(name.trim());
 		if (books.size() < 1) {
 			throw new NotFoundException("Book don't already exist");
 		}

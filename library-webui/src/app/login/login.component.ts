@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../security/authentication.service';
 import { first } from 'rxjs/operators';
+import { AlertifyService } from '../services/alertify.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   error = '';
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
+              private alert: AlertifyService,
               private router: Router,
               private authenticationService: AuthenticationService) { }
 
@@ -45,9 +47,11 @@ export class LoginComponent implements OnInit {
     .subscribe(
       data => {
         this.router.navigate([this.returnUrl]);
+        this.alert.success('Hoşgeldiniz ' + this.f.username.value);
       },
       error => {
         this.error = error;
+        this.alert.success('Hata : ' + error);
         this.loading = false;
       }
     );

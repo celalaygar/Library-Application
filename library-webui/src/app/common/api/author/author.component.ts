@@ -3,6 +3,7 @@ import { AuthorService } from 'src/app/services/author.service';
 import { Page } from 'src/app/shared/Page';
 import { ModalDirective } from 'ngx-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-author',
@@ -22,6 +23,7 @@ export class AuthorComponent implements OnInit {
   searchForm: FormGroup;
   message: string | undefined;
   constructor(private authorService: AuthorService,
+              private alert: AlertifyService,
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -78,19 +80,27 @@ export class AuthorComponent implements OnInit {
       this.setPage({ offset: 0 });
       this.controlAuthorForm = false;
       this.message = 'Kayıt işlemi başarılı.';
-      }, 
+      this.alert.success( 'Kayıt işlemi başarılı.');
+      },
       error =>{
-
+        this.alert.error('Kayıt işlemi başarısız <br/> Hata : ' + error);
         this.message = 'Kayıt işlemi başarısız';
       });
   }
   deleteAuthor(id){
     console.log(id);
-    this.authorService.delete(id).subscribe(res=>{
-      this.setPage({ offset: 0 });
-      this.control = true;
-      this.loadStaticPage();
-    });
+    this.authorService.delete(id).subscribe(
+      res=>{
+        this.alert.success('Kaydınız silinmiştir.');
+        this.setPage({ offset: 0 });
+        this.control = true;
+        this.loadStaticPage();
+      },
+      error =>{
+        this.alert.error('Kaydınız silinememiştir..<br/>Hata : ' + error);
+        this.loadStaticPage();
+      }
+    );
   }
 
   searchAuthor(){
@@ -101,9 +111,13 @@ export class AuthorComponent implements OnInit {
       this.authors = res;
       this.control = false;
       this.message = 'Kayıtlar bulunmuştur.';
+      this.alert.success('Kayıtlar bulunmuştur.');
     }, 
     error =>{
-      this.message = 'Herhangi bir kayıt bulunamamıştır ';
+      this.message = 'Herhangi bir kayıt bulunamamıştır' ;
+      this.alert.error('Herhangi bir kayıt bulunamamıştır ');      
+      this.control = true;
+      this.loadStaticPage();
     });
   }
 
