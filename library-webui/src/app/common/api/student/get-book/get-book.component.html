@@ -1,5 +1,6 @@
 <h1>Kitap Seçme Paneli  </h1>
 <button class="btn btn-secondary" (click)="backClicked()">Back</button>
+<button (click)='ngOnInit()' class="btn btn-primary">Yenile</button>
 
 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
   Öğrenci Bilgileri
@@ -95,23 +96,30 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">#</th>
           <th scope="col">id</th>
+          <th scope="col">Name</th>
           <th scope="col">barcode</th>
           <th scope="col">Author Name</th>
+          <th scope="col">Author Surname</th>
           <th scope="col">publisher</th>
           <th scope="col">bookStatus</th>
+          <th scope="col">Student</th>
           <th scope="col">İşlemler</th>
         </tr>
       </thead>
       <tbody>
         <tr  *ngFor="let book of books">
-          <th scope="row">#</th>
           <td>{{book.id}}</td>
           <td>{{book.name}}</td>
+          <td>{{book.barcode}}</td>
           <td>{{book.author.name}}</td>
+          <td>{{book.author.surname}}</td>
           <td>{{book.publisher}}</td>
           <td>{{book.bookStatus}}</td>
+          <td *ngIf="book.student; else elseStudent">{{book.student.fullname}}</td>          
+          <ng-template #elseStudent>
+            <td></td>
+          </ng-template>
           <td>
             <a  (click)="getBook(book.id)"  class="btn btn-sm btn-warning"><strong>Kitabı Al</strong></a>
             <a [routerLink]="['../../../book/book-detail/',book.id]" class="btn btn-sm btn-success"><strong>Detaylı Gör</strong></a>

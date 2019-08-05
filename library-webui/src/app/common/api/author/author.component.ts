@@ -27,6 +27,7 @@ export class AuthorComponent implements OnInit {
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.control = true;
     this.loadStaticPage();
   }
 

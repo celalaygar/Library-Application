@@ -1,5 +1,6 @@
 <h2>Yazarlar</h2>
-<a href="/author"  class="btn btn-primary mb-2">Yenile</a>
+<!-- <a href="/author"  class="btn btn-primary mb-2">Yenile</a> -->
+<button (click)='ngOnInit()' class="btn btn-primary mb-2">Yenile</button>
 <hr>
 <div *ngIf="message" class="alert alert-warning alert-dismissible fade show" role="alert">
   <strong>Dikkat !!! </strong> {{message}} 
@@ -7,7 +8,7 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertAuthorPanel"
+<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#insertAuthorPanel"
 (click)="loadAuthorFormPanel()" data-whatever="@mdo">Yazar Oluştur</button>
 <div class="modal fade" id="insertAuthorPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
@@ -106,7 +107,7 @@
   [offset]="page.page"
   [limit]="page.size"
   (page)='setPage($event)'>
-    <ngx-datatable-column prop="id" name="No" sortable="false"></ngx-datatable-column>
+    <ngx-datatable-column prop="id" name="No" maxWidth="40"  sortable="false"></ngx-datatable-column>
     <ngx-datatable-column prop="name" name="name" sortable="false"></ngx-datatable-column>
     <ngx-datatable-column prop="surname" name="surname" sortable="false"></ngx-datatable-column>
     <ngx-datatable-column prop="email" name="email" sortable="false"></ngx-datatable-column>
@@ -124,7 +125,6 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th scope="col">#</th>
         <th scope="col">id</th>
         <th scope="col">name</th>
         <th scope="col">Surname</th>
@@ -135,7 +135,6 @@
     </thead>
     <tbody>
       <tr  *ngFor="let auth of authors">
-        <th scope="row">#</th>
         <td>{{auth.id}}</td>
         <td>{{auth.name}}</td>
         <td>{{auth.surname}}</td>

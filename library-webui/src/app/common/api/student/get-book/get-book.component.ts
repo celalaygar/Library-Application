@@ -37,7 +37,7 @@ export class GetBookComponent implements OnInit {
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-
+    this.control = true;
     this.loadStaticPage();
   }
 

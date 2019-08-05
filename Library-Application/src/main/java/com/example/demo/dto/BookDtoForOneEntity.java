@@ -1,5 +1,7 @@
 package com.example.demo.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 import com.example.demo.model.BookStatus;
@@ -30,6 +32,8 @@ public class BookDtoForOneEntity {
 
 	private BookStatus bookStatus;
 
+	private StudentDtoForOneEntity student;
+	
 	@NotNull
 	private Long authorId;
 

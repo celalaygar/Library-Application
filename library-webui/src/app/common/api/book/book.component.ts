@@ -26,6 +26,7 @@ export class BookComponent implements OnInit {
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.control = true;
     this.loadStaticPage();
   }
   loadStaticPage() {
@@ -59,8 +60,8 @@ export class BookComponent implements OnInit {
       error => {
         this.control = true;
         this.loadStaticPage();
-        this.alert.error(' Hay Aksi '+ this.searchBookForm.value['name'] + 'bu isimde bir kitap kaydı bulunamamıştır. ');
-        this.message = ' Hay Aksi ' + this.searchBookForm.value['name'] + ' bu isimde bir kitap kaydı bulunamamıştır. ';
+        this.alert.error(' Hay Aksi. Herhangi bir kitap kaydı bulunamamıştır.');
+        this.message = ' Hay Aksi. Herhangi bir kitap kaydı bulunamamıştır.';
       });
   }
   deleteBook(id) {

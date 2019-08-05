@@ -24,12 +24,13 @@ import com.example.demo.model.Book;
 import com.example.demo.model.User;
 import com.example.demo.repository.AuthorRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.service.AuthorService;
 import com.example.demo.util.TPage;
 
 import javassist.NotFoundException;
 
 @Service
-public class AuthorServiceImp {
+public class AuthorServiceImp implements AuthorService{
 	private final ModelMapper modelMapper;
 	private final UserRepository userRepository;
 	private final AuthorRepository authorRepository;
