@@ -19,7 +19,7 @@ This project is about Library Application for automotion.
 
 ## Create backend side Spring boot 2.1.5
 - Download this repository
-- After opening this project on STS When you click Library Application project then click Maven->Update project.
+- After opening this project on STS When you click Library Application project then right click `Maven->Update project`.
 
 ## Create front side regarding Angular 8
 #####  Create client
