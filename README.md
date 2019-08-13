@@ -23,7 +23,7 @@ This project is about Library Application for automotion.
 
 ## Create front side regarding Angular 8
 #####  Create client
-if you wanna create this project again You need to write commands of bottom ones.
+if you wanna create this project again You need to write under commands.
 - npm i @angular/cli
 - ng new project-name
 - cd project-name
