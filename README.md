@@ -11,6 +11,7 @@ This project is about Library Application for automotion.
 - PostgreSql 9.6
 - Angular 8
 - Typescript
+- Alertify Js
 - Bootstrap 4
 - Lombok
 - ModelMapper
@@ -18,18 +19,23 @@ This project is about Library Application for automotion.
 
 ## Create backend side Spring boot 2.1.5
 - Download this repository
-- after opening this project on STS When you click Library Application project then click Maven->Update project.
+- After opening this project on STS When you click Library Application project then click Maven->Update project.
 
 ## Create front side regarding Angular 8
-- if you wanna create this project again You need to write commands of bottom ones.
+#####  Create client
+if you wanna create this project again You need to write commands of bottom ones.
 - npm i @angular/cli
 - ng new project-name
 - cd project-name
 - npm install bootstrap
 - npm install jquery
+- npm install alertifyjs --save
 - npm install @swimlane/ngx-datatable
 - npm i ngx-datatable
-- npm install ngx-bootstrap.
+##### Build client
+if you wanna build this project You need to write `ng build` then You can run client `ng serve --port 5422`
+- ng build
+- ng serve --port 5422
 
 ### Sql Query
 ``` 
