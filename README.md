@@ -4,26 +4,24 @@ This project is about Library Application for automotion.
 ## Using Tools & Technologies
 ``` 
 - Spring Boot 2.1.5
-- Spring Security
-- JWT
-- REST API, DTO
-- Jpa, Hibernate
+- Spring Security, JWT
+- REST API (get, post, put, delete, patch)
+- Lombok
+- ModelMapper, DTO
+- JPA, Hibernate
 - PostgreSql 9.6
 - Angular 8
 - Typescript
 - Alertify Js
 - Bootstrap 4
-- Lombok
-- ModelMapper
 ```
-
 ## Create backend side Spring boot 2.1.5
 - Download this repository
 - After opening this project on STS When you click Library Application project then right click `Maven->Update project`.
 
 ## Create front side regarding Angular 8
 #####  Create client
-if you wanna create this project again You need to write under commands.
+if you wanna create this project again You need to write commands below.
 - npm i @angular/cli
 - ng new project-name
 - cd project-name
