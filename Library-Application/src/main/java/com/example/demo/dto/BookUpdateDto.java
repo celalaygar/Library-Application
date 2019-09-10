@@ -25,6 +25,7 @@ import lombok.Setter;
 public class BookUpdateDto {
 
 	private Long id;
+	
 	@NotNull
 	private String name;
 

@@ -11,6 +11,7 @@ import com.example.demo.model.Student;
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
 	List<Student> findByEmail(String email);
+	
 	List<Student> findByTcNo(String tcNo);
 
 }

@@ -72,7 +72,6 @@ export class StudentDetailsComponent implements OnInit {
     });
   }
 
-
   updateStudent(){
     if (!this.StudentUpdateForm.valid) {
       return;

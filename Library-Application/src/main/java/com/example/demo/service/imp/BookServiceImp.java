@@ -71,13 +71,16 @@ public class BookServiceImp implements BookService {
 	public List<BookDto> getAll() throws NotFoundException {
 
 		List<Book> books = bookRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+		
 		if (books.size() < 1) {
 			throw new NotFoundException("Book don't already exist");
 		}
+		
 		BookDto[] bookDtos = modelMapper.map(books, BookDto[].class);
 		Arrays.asList(bookDtos).forEach(data -> {
 			data.setAuthorId(data.getAuthor().getId());
 		});
+		
 		return Arrays.asList(bookDtos);
 
 	}
@@ -85,6 +88,7 @@ public class BookServiceImp implements BookService {
 	public TPage<BookDto> getAllPageable(Pageable pageable) throws NotFoundException {
 
 		try {
+			
 			Page<Book> page = bookRepository.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
 					Sort.by(Sort.Direction.ASC, "id")));
 			TPage<BookDto> tPage = new TPage<BookDto>();
@@ -94,6 +98,7 @@ public class BookServiceImp implements BookService {
 			});
 			tPage.setStat(page, Arrays.asList(bookDtos));
 			return tPage;
+			
 		} catch (Exception e) {
 			throw new NotFoundException("Book does not exist : ");
 		}
@@ -103,13 +108,17 @@ public class BookServiceImp implements BookService {
 	public BookUpdateDto update(Long id, BookUpdateDto bookUpdateDto) throws NotFoundException {
 
 		Optional<Book> bookOpt = bookRepository.findById(id);
+		
 		if (!bookOpt.isPresent()) {
 			throw new NotFoundException("Book does not exist id : " + id);
 		}
+		
 		Optional<Author> author = authorRepository.findById(bookUpdateDto.getAuthorId());
+		
 		if (!author.isPresent()) {
 			throw new NotFoundException("Author does not exist id : " + bookUpdateDto.getAuthorId());
 		}
+		
 		Book realbook = modelMapper.map(bookUpdateDto, Book.class);
 		realbook.setAuthor(author.get());
 		realbook.setStudent(bookOpt.get().getStudent());
@@ -124,9 +133,11 @@ public class BookServiceImp implements BookService {
 	public BookOneDto getOne(Long id) throws NotFoundException {
 
 		Optional<Book> book = bookRepository.findById(id);
+		
 		if (!book.isPresent()) {
 			throw new NotFoundException("Book does not exist id : " + id);
 		}
+		
 		BookOneDto bookOneDto = modelMapper.map(book.get(), BookOneDto.class);
 		bookOneDto.setId(id);
 		bookOneDto.setAuthorId(bookOneDto.getAuthor().getId());
@@ -138,19 +149,24 @@ public class BookServiceImp implements BookService {
 	public Boolean delete(Long id) throws NotFoundException {
 
 		Optional<Book> book = bookRepository.findById(id);
+		
 		if (!book.isPresent()) {
 			throw new NotFoundException("Book does not exist id : " + id);
 		}
+		
 		bookRepository.deleteById(id);
 		return true;
 
 	}
 
 	public List<BookDto> SearchBooksByName(String name) throws NotFoundException {
+		
 		List<Book> books = bookRepository.SearchBooksByName(name.trim());
+		
 		if (books.size() < 1) {
 			throw new NotFoundException("Book don't already exist");
 		}
+		
 		BookDto[] bookDtos = modelMapper.map(books, BookDto[].class);
 		return Arrays.asList(bookDtos);
 	}

@@ -42,7 +42,6 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-
     this.loading = true;
     this.authenticationService.register(this.registerForm.value)
       .pipe(first())

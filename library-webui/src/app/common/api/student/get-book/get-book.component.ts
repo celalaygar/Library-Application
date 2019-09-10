@@ -46,7 +46,6 @@ export class GetBookComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
-
     this.studentService.getById(this.id).subscribe(
       res => {
       this.student = res;
@@ -65,7 +64,6 @@ export class GetBookComponent implements OnInit {
     this.searchBookForm = this.formBuilder.group({
       'name': [null, [Validators.minLength(3), Validators.required]]
     });
-
   }
 
   searchBook() {
@@ -125,7 +123,6 @@ export class GetBookComponent implements OnInit {
     });
   }
   get sf() { return this.searchBookForm.controls; }
-
   backClicked() {
     this.location.back();
   }

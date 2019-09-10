@@ -92,7 +92,6 @@ export class StudentComponent implements OnInit {
     }, error => {
       this.alert.error(' Hay Aksi Kayıt Silinemedi. ' );
       this.message = ' Hay Aksi Kayıt Silinemedi. ' ;
-
     });
   }
   get sif() { return this.StudentInsertForm.controls; }

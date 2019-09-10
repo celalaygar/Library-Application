@@ -18,14 +18,11 @@ export class AuthorDetailComponent implements OnInit {
   books = [];
   id: number;
   authors = [];
-
   bookStatuses: Array<any> = [];
-
   //form parameters about book
   BookForm: FormGroup;
   modalRef: BsModalRef;
   updated = true;
-
   //form parameters about Author
   AuthorUpdateForm: FormGroup;
   showModal = true;
@@ -91,7 +88,6 @@ export class AuthorDetailComponent implements OnInit {
       },
       error=>{
         this.alert.success('Yazar güncelleme işlemi başarısız. <br/>Daha sonra tekrar deneyiniz..');
-
       }
     );
   }
@@ -113,7 +109,6 @@ export class AuthorDetailComponent implements OnInit {
         this.staticLoadPage();
         this.LoadAuthorUpdateForm(this.author);
         this.alert.error('Kayıt işlemi başarısız.');
-
       }
     );
   }
@@ -127,7 +122,6 @@ export class AuthorDetailComponent implements OnInit {
         } else {
           this.loadAuthorDetail();
           this.alert.error('Silme işlemi başarısız. <br/> Daha sonra tekrar deneyiniz.');
-
         }
       },
       error=>{
@@ -146,9 +140,6 @@ export class AuthorDetailComponent implements OnInit {
   LoadInsertBookForm() {
     this.showModal = true;
   }
-
-
   get f1() { return this.BookForm.controls; }
   get f2() { return this.AuthorUpdateForm.controls; }
-
 }

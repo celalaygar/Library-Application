@@ -17,7 +17,6 @@ export class BookDetailsComponent implements OnInit {
   book = new Book();
   showModal = true;
   bookStatuses = [];
-
   //book update form parameters
   BookForm: FormGroup;
 
@@ -30,7 +29,6 @@ export class BookDetailsComponent implements OnInit {
   ngOnInit() {
     this.loadBookDetails();
     this.LoadBookUpdateForm(this.book);
-
   }
 
   loadBookDetails() {
@@ -54,8 +52,6 @@ export class BookDetailsComponent implements OnInit {
       'authorId':   [res.author.id]
     });
   }
-
-
   updateBook() {
     if (!this.BookForm.valid) {
       return;
@@ -72,8 +68,6 @@ export class BookDetailsComponent implements OnInit {
      }
     );
   }
-
-
   getAllBookStatus(){
     this.bookService.getAllBookStatus().subscribe( res => {
       this.bookStatuses = res;

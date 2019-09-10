@@ -9,7 +9,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   constructor(private authenticationService: AuthenticationService) {}
 
-
   // gelen response nesnelerını kontrol eder. 401 olup olmadıgını kontrol eder
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {

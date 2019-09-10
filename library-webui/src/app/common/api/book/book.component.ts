@@ -34,7 +34,6 @@ export class BookComponent implements OnInit {
     this.searchBookForm = this.formBuilder.group({
       'name': [null, [Validators.minLength(3), Validators.required]]
     });
-
   }
   setPage(pageInfo) {
     this.page.page = pageInfo.offset;
@@ -66,7 +65,6 @@ export class BookComponent implements OnInit {
   }
   deleteBook(id) {
     this.bookService.delete(id).subscribe(res => {
-
       this.control = true;
       this.loadStaticPage();
       this.message = ' Kayıt silinmiştir. ';
@@ -76,9 +74,6 @@ export class BookComponent implements OnInit {
         this.alert.error(' Kayıt Bulunamamıştır.. ');
         this.message = ' Kayıt Bulunamamıştır.. ';
       });
-
   }
-
-
   get sf() { return this.searchBookForm.controls; }
 }

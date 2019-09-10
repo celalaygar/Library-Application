@@ -28,7 +28,6 @@ export class StudentService {
       }
     ));
   }
-
   getById(id: number): Observable<any> {
     return this.apiService.getById(this.STUDENT_PATH + '/' + id).pipe(map(
       res => {
@@ -84,7 +83,6 @@ export class StudentService {
       }
     ));
   }
-  
   leaveBook(params): Observable<any> {
     return this.apiService.patch(this.STUDENT_PATH + this.LEAVE_BOOK_PATH, params).pipe(map(
       res => {
