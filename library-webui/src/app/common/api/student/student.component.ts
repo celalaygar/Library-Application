@@ -18,7 +18,6 @@ export class StudentComponent implements OnInit {
   rows = [];
   page = new Page();
   control = true;
-
   //student insert form parameters
   cities: Array<any> = [];
   StudentInsertForm: FormGroup;

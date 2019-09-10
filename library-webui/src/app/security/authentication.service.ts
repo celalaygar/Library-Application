@@ -17,14 +17,12 @@ export class AuthenticationService {
         return user;
       }));
   }
-
   register(registerData) {
     return this.http.post<any>( environment.API_BASE_PATH + '/main/sign-up', registerData)
       .pipe(map(resp => {
         return resp;
       }));
   }
-
   logout() {
     localStorage.removeItem('currentUser');
   }

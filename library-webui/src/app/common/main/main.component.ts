@@ -10,7 +10,5 @@ export class MainComponent implements OnInit {
   currentUser = {};
   constructor() { }
 
-  ngOnInit() {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  }
+  ngOnInit() { this.currentUser = JSON.parse(localStorage.getItem('currentUser')); }
 }

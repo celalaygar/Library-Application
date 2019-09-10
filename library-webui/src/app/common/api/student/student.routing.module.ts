@@ -20,5 +20,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-// tslint:disable-next-line:eofline
 export class StudentRoutingModule {}

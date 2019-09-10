@@ -32,11 +32,7 @@ export class RegisterComponent implements OnInit {
     });
     this.authenticationService.logout();
   }
-
-  get f() {
-    return this.registerForm.controls;
-  }
-
+  get f() { return this.registerForm.controls; }
   register() {
     this.submitted = true;
     if (this.registerForm.invalid) {
@@ -55,8 +51,5 @@ export class RegisterComponent implements OnInit {
           this.error = error;
           this.loading = false;
         });
-  }
-  addToFavorites(post) {
-    this.alert.success('added to Favorite List : ' + post);
   }
 }
