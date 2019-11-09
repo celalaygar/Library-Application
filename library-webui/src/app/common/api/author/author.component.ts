@@ -41,7 +41,7 @@ export class AuthorComponent implements OnInit {
       'surname': [null, [Validators.required]],
       'about': [null, [Validators.required]],
       'email': [null, [Validators.email]],
-      'phone': [null, [Validators.required]],
+      'phone': [null, [Validators.required]]
     });
   }
 

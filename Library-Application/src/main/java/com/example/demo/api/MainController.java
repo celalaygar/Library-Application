@@ -34,7 +34,6 @@ public class MainController {
 	private final AuthenticationManager authenticationManager;
 
 	private final UserRepository userRepository;
-	
 	private final UserServiceImp userServiceImp;
 
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -57,7 +56,6 @@ public class MainController {
 	public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) throws AuthenticationException {
 		authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-		
 		final User user = userRepository.findByUsername(request.getUsername());
 		final String token = jwtTokenUtil.generateToken(user);
 		return ResponseEntity.ok(new TokenResponse(user.getUsername(), token));

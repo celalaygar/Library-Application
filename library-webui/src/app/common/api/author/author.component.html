@@ -55,10 +55,17 @@
               <div *ngIf="f.phone.errors.required">phone is required</div>
             </div>
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label>about</label>
             <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3"  type="text" formControlName="about" class="form-control"
               [ngClass]="{ 'is-invalid': f.about.errors }" ></textarea>
+            <div *ngIf="f.about.errors" class="invalid-feedback">
+              <div *ngIf="f.about.errors.required">about is required</div>
+            </div>
+          </div> -->
+          <div class="form-group">
+            <label>about</label>
+            <editor formControlName="about" [init]="{height: 500,plugins: 'link'}"></editor>
             <div *ngIf="f.about.errors" class="invalid-feedback">
               <div *ngIf="f.about.errors.required">about is required</div>
             </div>

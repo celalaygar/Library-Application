@@ -22,7 +22,7 @@ import { AuthGuard } from './security/auth.guard';
 import { AuthenticationService } from './security/authentication.service';
 import { ErrorInterceptor } from './security/authentication.interceptor';
 import { AlertifyService } from './services/alertify.service';
-
+import { EditorModule } from '@tinymce/tinymce-angular';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +38,7 @@ import { AlertifyService } from './services/alertify.service';
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
+    EditorModule ,
     NgxDatatableModule
   ],
   providers: [

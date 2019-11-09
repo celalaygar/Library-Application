@@ -9,10 +9,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Type;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,10 +33,12 @@ public class Author {
 	private Long id;
 
 	@NotNull
-	@Column(name = "name", length = 100, unique = true)
+	@Column(name = "name", length = 100)
 	private String name;
 
-	@Column(name = "about", length = 3000)
+    @Type(type = "text")
+    @Lob
+	@Column(name = "about", length = 8000)
 	private String about;
 
 	@NotNull

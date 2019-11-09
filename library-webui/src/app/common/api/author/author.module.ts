@@ -11,6 +11,7 @@ import { BookService } from 'src/app/services/book.service';
 import { ApiService } from 'src/app/services/general/api.service';
 import { AlertifyService } from 'src/app/services/alertify.service';
 
+import { EditorModule } from '@tinymce/tinymce-angular';
 @NgModule({
   declarations: [AuthorComponent, AuthorDetailComponent],
   imports: [
@@ -18,7 +19,8 @@ import { AlertifyService } from 'src/app/services/alertify.service';
     AuthorRoutingModule,
     FormsModule,
     NgxDatatableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    EditorModule
   ],
   providers: [
     AuthorService,

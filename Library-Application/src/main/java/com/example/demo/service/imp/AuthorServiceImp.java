@@ -31,11 +31,8 @@ import javassist.NotFoundException;
 
 @Service
 public class AuthorServiceImp implements AuthorService{
-	
 	private final ModelMapper modelMapper;
-	
 	private final UserRepository userRepository;
-	
 	private final AuthorRepository authorRepository;
 
 	public AuthorServiceImp(ModelMapper modelMapper, UserRepository userRepository, AuthorRepository authorRepository) {
@@ -46,13 +43,10 @@ public class AuthorServiceImp implements AuthorService{
 	}
 
 	public AuthorDto save(AuthorDto authorDto) {
-		
 		Author authorChecked = authorRepository.findByEmail(authorDto.getEmail());
-		
 		if (authorChecked != null) {
 			throw new IllegalArgumentException("User email already exist");
 		}
-		
 		Author author = modelMapper.map(authorDto, Author.class);
 		authorRepository.save(author);
 		authorDto.setId(author.getId());
@@ -60,13 +54,10 @@ public class AuthorServiceImp implements AuthorService{
 	}
 
 	public List<AuthorDto> getAll() throws NotFoundException {
-		
 		List<Author> authors = authorRepository.findAll();
-		
 		if (authors.size() < 1) {
 			throw new NotFoundException("Author don't already exist");
 		}
-		
 		AuthorDto[] authorDtos = modelMapper.map(authors, AuthorDto[].class);
 
 		return Arrays.asList(authorDtos);
@@ -74,7 +65,6 @@ public class AuthorServiceImp implements AuthorService{
 
 	public TPage<AuthorDto> getAllPageable(Pageable pageable) throws NotFoundException {
 		try {
-		
 			Page<Author> page = authorRepository.findAll(PageRequest.of(pageable.getPageNumber(),
 					pageable.getPageSize(), Sort.by(Sort.Direction.ASC, "id")));
 			// Page<Author> page=authorRepository.findAll(pageable);
@@ -83,33 +73,26 @@ public class AuthorServiceImp implements AuthorService{
 
 			tPage.setStat(page, Arrays.asList(authorDtos));
 			return tPage;
-		
 		} catch (Exception e) {
 			throw new NotFoundException("User email dosen't exist : " + e);
 		}
 	}
 
 	public List<AuthorDto> findAllByName(String name) throws NotFoundException {
-		
 		List<Author> authors = authorRepository.findByNameOrSurname(name, name);
-		
 		if (authors.size() < 1) {
 			throw new NotFoundException("Author don't already exist");
 		}
-		
 		AuthorDto[] authorDtos = modelMapper.map(authors, AuthorDto[].class);
 
 		return Arrays.asList(authorDtos);
 	}
 
 	public AuthorUpdateDto update(Long id, @Valid AuthorUpdateDto authorUpdateDto) throws NotFoundException {
-		
 		Optional<Author> authorOpt = authorRepository.findById(id);
-		
 		if (!authorOpt.isPresent()) {
 			throw new NotFoundException("User dosen't exist : " + id);
 		}
-		
 		Author author = modelMapper.map(authorUpdateDto, Author.class);
 		author.setId(id);
 		authorRepository.save(author);
@@ -121,7 +104,6 @@ public class AuthorServiceImp implements AuthorService{
 	public AuthorOneDto getOne(Long id) throws NotFoundException {
 
 		Optional<Author> author = authorRepository.findById(id);
-		
 		if (!author.isPresent()) {
 			throw new NotFoundException("User dosen't exist : " + id);
 		}
@@ -138,11 +120,9 @@ public class AuthorServiceImp implements AuthorService{
 	public Boolean delete(Long id) throws NotFoundException {
 
 		Optional<Author> author = authorRepository.findById(id);
-		
 		if (!author.isPresent()) {
 			throw new NotFoundException("User dosen't exist : " + id);
 		}
-		
 		authorRepository.deleteById(id);
 		return true;
 

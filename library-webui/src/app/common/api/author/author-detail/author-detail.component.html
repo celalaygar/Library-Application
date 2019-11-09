@@ -16,7 +16,7 @@
   <!--Update Author form start-->
   <div  class="modal fade" id="updateAuthorPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog" role="document" width="500px " style="width: 500px;">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Yazar Bilgilerini Güncelle</h5>
@@ -58,10 +58,17 @@
               <div *ngIf="f2.phone.errors.required">phone is required</div>
             </div>
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label>About</label>
             <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3"  formControlName="about" class="form-control"
               [ngClass]="{ 'is-invalid': f2.about.errors }" ></textarea>
+          </div> -->
+          <div class="form-group" >
+            <label>About</label>
+            <editor class="editor" formControlName="about" [init]="{height: 500, plugins: 'link'}" ></editor>
+            <div *ngIf="f2.about.errors" class="invalid-feedback">
+              <div *ngIf="f2.about.errors.required">about is required</div>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary" >UPDATE</button>
@@ -176,7 +183,9 @@
       <li class="list-group-item"><b>Telefon: </b>{{author.phone}} </li>
       <li class="list-group-item">
         <h5 class="card-title">{{author.name}}  {{author.surname}}  Kimdir ? </h5>
-        <p class="card-text"><b>Kimdir ? </b>{{author.about}} </p>
+        <p class="card-text"><b>Kimdir ? </b></p>
+        <br>
+        <p [innerHTML]="author.about"></p>
       </li>
     </ul>
   </div>
