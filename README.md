@@ -13,7 +13,8 @@ This project is about Library Application for automotion.
 - Angular 8
 - Typescript
 - Alertify Js
-- Bootstrap 4
+- Bootstrap 4,
+- TinyMCE
 ```
 ## Create backend side Spring boot 2.1.5
 - Download this repository
@@ -30,6 +31,7 @@ if you wanna create this project again You need to write the following command d
 - npm install alertifyjs --save
 - npm install @swimlane/ngx-datatable
 - npm i ngx-datatable
+- npm install --save @tinymce/tinymce-angular
 ##### Run project
 - first download this project
 - second open front side on VS Code and write `ng update` on terminal
