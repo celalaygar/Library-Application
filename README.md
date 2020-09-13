@@ -1,7 +1,7 @@
 ## Library-Application
-This project is about Library Application for automotion. 
+This project is about Library Application for automation. 
 
-## Using Tools & Technologies
+## Used Tools & Technologies
 ``` 
 - Spring Boot 2.1.5
 - Spring Security, JWT
@@ -16,9 +16,10 @@ This project is about Library Application for automotion.
 - Bootstrap 4,
 - TinyMCE
 ```
+
 ## Create backend side Spring boot 2.1.5
 - Download this repository
-- After opening this project on STS When you click Library Application project then right click `Maven->Update project`.
+- After opening this project on STS When you click Library Application project then right click `Maven->Update project`
 
 ## Create front side regarding Angular 8
 #####  Create client
@@ -41,3 +42,14 @@ if you wanna build this project You need to write `ng build` then You can run cl
 - ng build
 - ng serve --port 5422
 
+## How to run with Docker
+
+- Start all services :
+```bash
+docker-compose up
+```
+
+- stop & remove all service containers :
+```bash
+docker-compose down
+```
