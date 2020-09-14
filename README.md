@@ -23,7 +23,7 @@ This project is about Library Application for automation.
 
 ## Create front side regarding Angular 8
 #####  Create client
-if you wanna create this project again You need to write the following command directly. on terminal or gitbash.
+if you wanna create this project again you need to write the following command directly on terminal or gitbash.
 - npm i @angular/cli
 - ng new project-name
 - cd project-name
@@ -49,7 +49,7 @@ if you wanna build this project You need to write `ng build` then You can run cl
 docker-compose up
 ```
 
-- stop & remove all service containers :
+- Stop and remove all service containers :
 ```bash
 docker-compose down
 ```
