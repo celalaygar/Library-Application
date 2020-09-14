@@ -1,0 +1,38 @@
+version: '3'
+services:
+  library-postgres:
+    image: "postgres:9.6-alpine"
+    container_name: library-postgres
+    volumes:
+      - library-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=library
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=celal371
+
+  library-app:
+    build: ./Library-Application
+    container_name: library-app
+    environment:
+      - DB_SERVER=library-postgres
+      - POSTGRES_DB=library
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=celal371
+      - spring.profiles.active=docker
+    ports:
+      - "8182:8182"
+    links:
+      - library-postgres
+
+  library-ui:
+    build: ./library-webui
+    container_name: library-ui
+    ports:
+      - "3030:80"
+    links:
+      - library-app
+
+volumes:
+  library-data:
